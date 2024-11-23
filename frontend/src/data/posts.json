@@ -1,0 +1,43 @@
+{
+    "posts": [
+        {
+            "id": 1,
+            "title": "Tecnologia: Novos Avanços em IA",
+            "excerpt": "Descubra as últimas inovações no campo da inteligência artificial e como elas estão moldando nosso futuro.",
+            "content": "Conteúdo completo do post sobre IA...",
+            "image": "/api/placeholder/600/400",
+            "date": "2024-11-22",
+            "author": "Admin",
+            "tags": [
+                "tecnologia",
+                "ia"
+            ]
+        },
+        {
+            "id": 2,
+            "title": "Sustentabilidade Global: Desafios e Soluções",
+            "excerpt": "Explorando estratégias inovadoras para combater as mudanças climáticas e criar um futuro mais sustentável.",
+            "content": "Conteúdo completo sobre sustentabilidade...",
+            "image": "/api/placeholder/600/400",
+            "date": "2024-11-20",
+            "author": "Admin",
+            "tags": [
+                "sustentabilidade",
+                "meio-ambiente"
+            ]
+        },
+        {
+            "id": 3,
+            "title": "Economia: Tendências para 2025",
+            "excerpt": "Análise especializada sobre os setores econômicos mais promissores e as transformações do mercado.",
+            "content": "Conteúdo completo sobre economia...",
+            "image": "/api/placeholder/600/400",
+            "date": "2024-11-18",
+            "author": "Admin",
+            "tags": [
+                "economia",
+                "tendências"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,19 @@
+/* Importando a fonte Inter */
+@import url('https://rsms.me/inter/inter.css');
+
+/* src/styles/globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Estilos base personalizados */
+@layer base {
+  body {
+    @apply antialiased;
+  }
+
+  /* Ajustes para links */
+  a {
+    @apply text-gray-800 hover:text-blue-600 transition-colors;
+  }
+}
