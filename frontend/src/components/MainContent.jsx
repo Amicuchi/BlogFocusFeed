@@ -15,10 +15,17 @@ const MainContent = () => {
     try {
       setLoading(true);
       const data = await postService.getPosts();
-      setArticles(data.posts);
+
+      // Garante que o retorno é um array
+      if (Array.isArray(data)) {
+        setArticles(data);
+      } else {
+        console.error('Resposta inesperada da API:', data);
+        setArticles([]); // Define como vazio caso a API não retorne um array
+      }
     } catch (err) {
-      setError('Falha ao carregar os artigos');
-      console.error(err);
+      console.error('Erro ao carregar os artigos:', err);
+      setError('Falha ao carregar os artigos.');
     } finally {
       setLoading(false);
     }
@@ -42,10 +49,20 @@ const MainContent = () => {
     );
   }
 
+  if (articles.length === 0) {
+    return (
+      <main className="container mx-auto px-4 py-8">
+        <p className="text-center text-gray-700">
+          Nenhum post encontrado. Por favor, adicione novos artigos!
+        </p>
+      </main>
+    );
+  }
+
   return (
     <main className="container mx-auto px-4 py-8">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {articles.map(article => (
+        {articles.map((article) => (
           <ArticleCard key={article.id} article={article} />
         ))}
       </div>

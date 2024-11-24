@@ -19,7 +19,7 @@ function ArticleCard({ article }) {
                 </h2>
                 <p className="text-gray-600 mb-4">
                     {article.excerpt}
-                    </p>
+                </p>
                 <button className="btn-primary">
                     Leia mais
                 </button>
