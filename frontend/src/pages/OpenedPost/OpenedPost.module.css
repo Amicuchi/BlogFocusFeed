@@ -1,0 +1,45 @@
+.postContainer {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.headerContainer {
+    margin-bottom: 20px;
+}
+
+.postTitle {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.postDate {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.imageContainer {
+    margin-bottom: 20px;
+}
+
+.postImage {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 1rem;
+    background-color: #b6b6b6;
+}
+
+.contentContainer {
+    line-height: 1.6;
+}
+
+.postDescription {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+
+.fullContent {
+    margin-bottom: 20px;
+}
