@@ -1,0 +1,7 @@
+/* Contêiner geral do artigo */
+.PostListContainer {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
