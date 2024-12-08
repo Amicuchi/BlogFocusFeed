@@ -1,0 +1,59 @@
+.profileContainer {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.profileDetails {
+    margin-bottom: 20px;
+}
+
+.profileForm label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.profileForm input,
+.profileForm textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.profileForm textarea {
+    resize: none;
+}
+
+.actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button[type='submit'] {
+    background-color: #4caf50;
+    color: white;
+}
+
+button[type='button'] {
+    background-color: #f44336;
+    color: white;
+}
+
+button:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+}
