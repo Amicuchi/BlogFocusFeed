@@ -1,0 +1,54 @@
+.featuredPostContainer {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    margin-top: 60px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    width: 100%;
+}
+
+.imageContainer {
+    flex: 1;
+}
+
+/* Estilo da imagem */
+.featuredImage {
+    width: 500px;
+    height: 360px;
+    border-radius: 8px;
+    object-fit: cover; /* Para garantir que a imagem se ajuste bem ao espaço */
+}
+
+.postContent {
+    flex: 2;
+}
+
+.postDate {
+    font-size: 0.8rem;
+    color: #888;
+    margin-bottom: 0.5rem;
+}
+
+.postTitle {
+    font-size: 2rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+    color: #222830;
+    text-decoration: none;
+}
+
+.postDescription {
+    font-size: 1rem;
+    color: #222830;
+    line-height: 1.6;
+}
+
+.postTags{
+    background-color: var(--bg-terciario);
+    color: #fff;
+    width: fit-content;
+    padding: 0.3rem;
+    border-radius: 5px;
+}
