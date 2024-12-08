@@ -1,0 +1,34 @@
+.termsSection {
+  padding: 40px 20px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+  text-align: justify;
+}
+
+.termsH2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--font-2nd);
+  max-width: 800px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+.termsH3{
+  font-size: 1.3rem;
+  font-weight: 300;
+  color: var(--font-2nd);
+  max-width: 800px;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.termsP {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #555;
+  max-width: 800px;
+  margin: 0 auto;
+}
