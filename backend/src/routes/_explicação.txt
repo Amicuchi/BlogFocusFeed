@@ -1,0 +1,128 @@
+------------------------------------------
+Rota de registro (POST /api/auth/register)
+------------------------------------------
+
+    URL: http://localhost:5000/api/auth/register
+    Body:
+
+{
+  "username": "adminMain",
+  "fullname": "Test User Admin",
+  "role": "admin",
+  "email": "admin@FocusFeed.com",
+  "password": "123456"
+}
+
+
+------------------------------------
+Rota de login (POST /api/auth/login)
+------------------------------------
+    
+    Método: POST
+    URL: http://localhost:5000/api/auth/login
+    Body:
+
+    {
+      "username": "adminMain",
+      "password": "123456"
+    }
+
+
+----------------------------------
+Criação de posts (POST /api/posts)
+----------------------------------
+
+    Método: POST
+    URL: http://localhost:5000/api/posts
+    Headers:
+        Authorization: Bearer <SEU_TOKEN_JWT>
+    Body (JSON)::
+
+    {
+      "title": "Meu primeiro post",
+      "excerpt": "Este é um exemplo de post",
+      "content": "Conteúdo completo do post...",
+      "image": "/images/example.jpg",
+      "category": "Brasil",
+      "tags": ["exemplo", "primeiro-post"]
+    }
+
+
+--------------------------------------
+Listar posts públicos (GET /api/posts)
+--------------------------------------
+
+    Método: GET
+    URL: http://localhost:5000/api/posts
+
+
+--------------------------------------------
+Posts Recentes (GET /api/posts/recent-posts)
+--------------------------------------------
+
+    Método: GET
+    URL: http://localhost:5000/api/posts/recent-posts
+
+
+---------------------------------------------------------
+Posts Tendências da Semana (GET /api/posts/trending/week)
+---------------------------------------------------------
+
+    Método: GET
+    URL: http://localhost:5000/api/posts/trending/week
+
+
+-------------------------------------------
+Obter Post por ID (Rota GET /api/posts/:id)
+-------------------------------------------
+
+    Método: GET
+    URL: http://localhost:5000/api/posts/:id
+
+
+-------------------------------------------------
+Listar posts do usuário (GET /api/posts/my-posts)
+-------------------------------------------------
+    
+    Método: GET
+    URL: http://localhost:5000/api/posts/my-posts
+    Headers:
+        Authorization: Bearer <SEU_TOKEN_JWT>
+
+
+------------------------------------
+Alterar um post (PUT /api/posts/:id)
+------------------------------------
+
+    Método: PUT
+    URL: http://localhost:5000/api/posts/:id
+    Headers:
+        Authorization: Bearer <seu_token_jwt>
+        Content-Type: application/json
+    Body (JSON):
+
+    {
+    "title": "Post Atualizado",
+    "excerpt": "Resumo do post atualizado",
+    "content": "Conteúdo do post atualizado...",
+    "image": "/path/to/new-image.jpg",
+    "tags": ["exemplo", "post-atualizado"]
+    }
+
+
+---------------------------------------
+Deletar um post (DELETE /api/posts/:id)
+---------------------------------------
+
+    Método: DELETE
+    URL: http://localhost:5000/api/posts/:id
+    Headers:
+        Authorization: Bearer <SEU_TOKEN_JWT>
+
+
+------------------------------------
+Rota de Teste (GET /api/posts/teste)
+------------------------------------
+
+    Método: GET
+    URL: http://localhost:5000/api/teste
