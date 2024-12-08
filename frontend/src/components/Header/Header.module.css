@@ -1,0 +1,98 @@
+/* Estilo geral do header */
+header {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Primeira linha do header */
+.topBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    line-height: 3.5rem;
+    /* Novo */
+    padding: 0 2rem;
+    /* Novo */
+}
+
+/* Logo */
+.logoLink {
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: var(--font-2nd);
+}
+
+/* Container de busca e login */
+.searchLoginContainer {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Input de busca */
+.searchBar {
+    display: flex;
+}
+
+.searchInput {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-right: 0;
+    border-radius: 30px 0 0 30px;
+    font-size: 1rem;
+}
+
+.searchInputBtn {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-left: 0;
+    border-radius: 0 30px 30px 0;
+    margin-left: 0;
+}
+
+
+/* Botões de login/logout */
+.loginButton,
+.logoutButton {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.loginButton {
+    background-color: var(--bg-principal);
+    color: var(--bg-terciario);
+    border: 1px solid var(--bg-terciario);
+}
+
+.logoutButton {
+    background-color: #dc3545;
+    color: white;
+}
+
+.loginButton:hover {
+    background-color: var(--bg-terciario);
+    color: white;
+}
+
+.logoutButton:hover {
+    background-color: #a71d2a;
+}
+
+.gradientBorder {
+    position: relative; /* Necessário para posicionar o pseudo-elemento */
+}
+
+.gradientBorder::after {
+    content: "";        /* Cria o pseudo-elemento */
+    position: absolute; /* Para posicionar a borda abaixo */
+    bottom: 0;          /* Fixa na parte inferior do header */
+    left: 0;
+    width: 100%;        /* Largura total da borda */
+    height: 0.5rem;     /* Altura da borda inferior */
+    background: linear-gradient(to bottom, #eee, var(--bg-principal)); /* Gradiente */
+    z-index: 10;
+}
