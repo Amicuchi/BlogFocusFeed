@@ -1,0 +1,4 @@
+.env
+.vscode
+extensions.json
+node_modules
