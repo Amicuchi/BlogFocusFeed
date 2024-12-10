@@ -1,36 +1,38 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useFormatarData } from '../../hooks/useFormatarData.js';
-import apiServices from '../../services/apiServices.js';
+// import apiServices from '../../services/apiServices.js';
 import AuthorBadge from '../../components/AuthorBadge/AuthorBadge';
 import styles from './OpenedPost.module.css';
+import axios from 'axios';
 
 function OpenedPost() {
     const { id } = useParams();
     const [post, setPost] = useState(null);
-
-    const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     const dataFormatada = useFormatarData(post?.createdAt);
 
     useEffect(() => {
-        const getPost = async () => {
+        const fetchPost = async () => {
             try {
                 setLoading(true);
-                const response = await apiServices.getPostById(id);
+                // const response = await apiServices.getPostById(id);
+                const response = await axios.get(`http://localhost:5000/api/posts/${id}`);
                 console.log('Resposta completa:', response); // Log da resposta completa
                 console.log('Dados do post:', response.data); // Log dos dados
-                setPost(response.data);
+                setPost(response.data.data);
                 setError(null);
             } catch (error) {
-                setError(error);
-                console.error('Erro ao buscar o post:', error);
+                console.error("Erro ao carregar o post:", error);
+                setError("Erro ao carregar o post. Tente novamente.", error);
             } finally {
                 setLoading(false);
             }
         }
-        getPost();
+
+        fetchPost();
     }, [id]);
 
     if (loading) return <div>Carregando...</div>;
@@ -39,28 +41,40 @@ function OpenedPost() {
 
     return (
         <article className={styles.postContainer}>
-            <div className={styles.headerContainer}>
+            <header className={styles.headerContainer}>
                 <h1 className={styles.postTitle}>{post.title || 'Título não encontrado'}</h1>
-                <p className={styles.postDate}>{dataFormatada || 'Data não encontrada'}</p>
+                <p className={styles.postDate}>Publicado em: {dataFormatada || 'Data não encontrada'}</p>
                 <AuthorBadge post={post} />
-            </div>
+            </header>
 
-            <div className={styles.imageContainer}>
+            <figure className={styles.imageContainer}>
                 <img
                     src={post.image || '/default-image.jpg'}
                     alt={post.title}
                     className={styles.postImage}
                 />
-            </div>
+            </figure>
 
-            <div className={styles.contentContainer}>
+            <section className={styles.contentContainer}>
                 {/* Corpo completo do post, se existir */}
                 {post.content && (
                     <div className={styles.fullContent}>
-                        {post.content || 'Lorem Ipsun'}
+                        {post.content}
                     </div>
                 )}
-            </div>
+            </section>
+
+            <footer className={styles.postFooter}>
+                <p><strong>Visualizações:</strong> {post.views}</p>
+                <p><strong>Likes:</strong> {post.likes} | <strong>Dislikes:</strong> {post.dislikes}</p>
+                <div className={styles.tags}>
+                    {post.tags.map((tag) => (
+                        <span key={tag} className={styles.tag}>
+                            #{tag}
+                        </span>
+                    ))}
+                </div>
+            </footer>
         </article>
     );
 }
