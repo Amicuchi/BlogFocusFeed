@@ -5,7 +5,8 @@ const apiServices = {
     // Usuário
     registerUser: (data) => api.post('/api/users/register', data),
     loginUser: (data) => api.post('/api/users/login', data),
-    getUserProfile: () => api.get('/api/users/profile'),
+    // getUserProfile: () => api.get('/api/users/profile'),
+    getUserProfile: () => api.get('/api/user'),
     updateUserProfile: (data) => api.put('/api/users/profile', data),
 
     // Posts
