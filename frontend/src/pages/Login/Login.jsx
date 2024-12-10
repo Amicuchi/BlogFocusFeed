@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../hooks/useAuth';
+import { useAuth } from '../../contexts/AuthProvider.jsx';
 import apiServices from '../../services/apiServices';
 import styles from './Login.module.css';
 
@@ -17,7 +17,8 @@ function Login() {
     e.preventDefault();
     setError('');
     setIsLoading(true);
-    console.log('Fazendo login...');
+    // console.log('Fazendo login...');
+
     // Validações básicas
     if (!email.trim() || !password.trim()) {
       setError('E-mail e senha são obrigatórios');
@@ -34,9 +35,14 @@ function Login() {
 
       // Armazena o token JWT retornado no localStorage para autenticação futura
       const { token, user } = response.data.data; // Backend retorna esses dados
-      login(token, user); // Passa o token e os dados do usuário para o hook de autenticação
-      console.log('Login realizado com sucesso!');
-      navigate('/'); // Redireciona após login bem-sucedido
+      login(token, user);                         // Passa o token e os dados do usuário para o hook de autenticação
+      localStorage.setItem('jwt_token', token); // Salva o token
+      localStorage.setItem('user_data', JSON.stringify(user)); // Salva os dados do usuário
+      // console.log('Login realizado com sucesso!');
+      console.log('token:', token);
+      console.log('user:', user);
+      navigate('/');                              // Redireciona após login bem-sucedido
+
     } catch (err) {
       // Tratamento de erros mais específico
       const errorMessage = err.response?.data?.message || 'Erro ao realizar login. Tente novamente.';

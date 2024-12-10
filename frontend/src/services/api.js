@@ -1,5 +1,4 @@
 import axios from 'axios';
-import * as jwtDecode from 'jwt-decode'; // Importa todas as funções do módulo jwt-decode
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
 
@@ -27,55 +26,66 @@ const processQueue = (error, token = null) => {
 // Interceptor para adicionar o token às requisições e renovar se necessário
 api.interceptors.request.use(
   async (config) => {
-  const token = localStorage.getItem('jwt_token');
 
-  if (token) {
-    try {
-      const decoded = jwtDecode.decode(token); // Usa a função 'decode' explicitamente
-    const isExpired = decoded.exp * 1000 < Date.now();
-
-    if (isExpired) {
-      if (!isRefreshing) {
-        isRefreshing = true;
-
-        try {
-          const response = await axios.post(`${API_BASE_URL}/api/auth/refresh`, {
-            token,
-          });
-
-          const newToken = response.data.token;
-
-          localStorage.setItem('jwt_token', newToken);
-
-          processQueue(null, newToken);
-          config.headers['Authorization'] = `Bearer ${newToken}`;
-        } catch (error) {
-          processQueue(error, null);
-          localStorage.removeItem('jwt_token');
-          window.location.href = '/login';
-        } finally {
-          isRefreshing = false;
-        }
+    function decodeJWT(token) {
+      try {
+        const payload = token.split('.')[1];
+        return JSON.parse(atob(payload));
+      } catch (error) {
+        console.error('Erro ao decodificar o token:', error);
+        return null;
       }
+    }
+    
+    const token = localStorage.getItem('jwt_token');
 
-      // Adiciona a requisição atual à fila enquanto o token é renovado
-      return new Promise((resolve, reject) => {
-        failedQueue.push({ resolve, reject });
-      });
+    if (token) {
+      try {
+        const decoded = decodeJWT(token);
+        const isExpired = decoded.exp * 1000 < Date.now();
+
+        if (isExpired) {
+          if (!isRefreshing) {
+            isRefreshing = true;
+
+            try {
+              const response = await axios.post(`${API_BASE_URL}/api/auth/refresh`, {
+                token,
+              });
+
+              const newToken = response.data.token;
+
+              localStorage.setItem('jwt_token', newToken);
+
+              processQueue(null, newToken);
+              config.headers['Authorization'] = `Bearer ${newToken}`;
+            } catch (error) {
+              processQueue(error, null);
+              localStorage.removeItem('jwt_token');
+              window.location.href = '/login';
+            } finally {
+              isRefreshing = false;
+            }
+          }
+
+          // Adiciona a requisição atual à fila enquanto o token é renovado
+          return new Promise((resolve, reject) => {
+            failedQueue.push({ resolve, reject });
+          });
+        }
+
+        // Adiciona o token às requisições
+        config.headers['Authorization'] = `Bearer ${token}`;
+      } catch (error) {
+        console.error('Erro ao decodificar o token JWT:', error);
+        localStorage.removeItem('jwt_token');
+        window.location.href = '/login';
+      }
     }
 
-    // Adiciona o token às requisições
-    config.headers['Authorization'] = `Bearer ${token}`;
-  } catch (error) {
-    console.error('Erro ao decodificar o token JWT:', error);
-    localStorage.removeItem('jwt_token');
-    window.location.href = '/login';
-  }
-}
-
-  return config;
-}, 
-(error) => Promise.reject(error)
+    return config;
+  },
+  (error) => Promise.reject(error)
 );
 
 // Interceptor para tratar erros de resposta globalmente
@@ -94,8 +104,8 @@ api.interceptors.response.use(
 
         const newToken = response.data.token;
         localStorage.setItem('jwt_token', newToken);
-
         originalRequest.headers['Authorization'] = `Bearer ${newToken}`;
+        
         return api(originalRequest);
       } catch (refreshError) {
         localStorage.removeItem('jwt_token');
