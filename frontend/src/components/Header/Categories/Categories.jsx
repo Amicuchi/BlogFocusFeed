@@ -13,7 +13,6 @@ function Categories() {
         try {
             setIsLoading(true); // Inicia o indicador de carregamento
             const response = await axios.get('http://localhost:5000/api/categories');
-            console.log(response);
             setCategories(response.data.data); // Atualiza o estado com as categorias
         } catch (err) {
             console.error('Erro ao buscar categorias:', err);
