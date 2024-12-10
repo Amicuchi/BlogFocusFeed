@@ -1,18 +1,11 @@
-import { Link, useNavigate } from 'react-router-dom';
-import styles from './Header.module.css';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthProvider.jsx';
 import Categories from './Categories/Categories.jsx';
-import UserMenu from './UserMenu/UserMenu.jsx'; // Importando o componente UserMenu
+import UserMenu from './UserMenu/UserMenu.jsx';
+import styles from './Header.module.css';
 
 function Header() {
-    // const [isLoggedIn, setIsLoggedIn] = useState(false); // Estado de login
-    // const { isAuthenticated, user } = useAuth(); // Hook hipotético de autenticação
-    const isLoggedIn = !!localStorage.getItem('token'); // Verifica se existe token
-    const navigate = useNavigate();
-
-    // Função que será chamada ao clicar no botão Login
-    const handleLoginClick = () => {
-        navigate('/login');
-    };
+    const { isAuthenticated, user, logout } = useAuth(); // Usa o contexto global de autenticação
 
     return (
         <header className={styles.gradientBorder}>
@@ -36,19 +29,19 @@ function Header() {
                             🔍
                         </button>
                     </div>
-                    {isLoggedIn ? (
-                        <UserMenu username="Nome do Usuário" />
+                    {isAuthenticated ? (
+                        <UserMenu
+                            username={user?.username || 'Usuário'}
+                            onLogout={logout}
+                        />
                     ) : (
-                        <button
-                            className={styles.loginButton}
-                            onClick={handleLoginClick}
-                        >
-                            Login
+                        <button className={styles.loginButton} >
+                            <Link to="/login">Login</Link>
                         </button>
                     )}
                 </div>
             </div>
-            
+
             {/* Segunda linha */}
             <Categories />
         </header>
