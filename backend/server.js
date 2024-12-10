@@ -9,7 +9,7 @@ import { errorHandler, notFoundHandler } from './src/middlewares/errorMiddleware
 import userRoutes from './src/routes/userRoutes.js';
 import postRoutes from './src/routes/postRoutes.js';
 import categoryRoutes from './src/routes/categoryRoutes.js';
-import contactRoutes from './routes/contactRoutes.js';
+import contactRoutes from './src/routes/contactRoutes.js';
 
 dotenv.config();
 
