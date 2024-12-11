@@ -44,7 +44,7 @@ function Categories() {
                         <li key={categoria._id} className={styles.navItem}>
                             <Link
                                 className={styles.navLink}
-                                to={`/categories/${categoria.name.toLowerCase()}`}
+                                to={`/category/${categoria._id}`}
                             >
                                 {categoria.name}
                             </Link>
