@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthProvider.jsx';
+import { useAuth } from '../../contexts/AuthContext.jsx';
 import Categories from './Categories/Categories.jsx';
 import UserMenu from './UserMenu/UserMenu.jsx';
 import styles from './Header.module.css';
