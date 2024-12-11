@@ -1,7 +1,7 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './UserMenu.module.css';
-import { useAuth } from '../../../contexts/AuthProvider.jsx';
+import { useAuth } from '../../../contexts/AuthContext.jsx';
 
 const UserMenu = () => {
   const [isOpen, setIsOpen] = useState(false);  // Estado para o menu suspenso
