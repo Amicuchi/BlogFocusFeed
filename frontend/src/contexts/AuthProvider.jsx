@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const AuthContext = createContext();
 
@@ -10,6 +11,7 @@ export const AuthProvider = ({ children }) => {
 
     // Carrega o estado inicial a partir do localStorage
     useEffect(() => {
+        // Verifica o token ao carregar o aplicativo
         const token = localStorage.getItem('jwt_token');
         const userData = JSON.parse(localStorage.getItem('user_data'));
 
@@ -18,6 +20,7 @@ export const AuthProvider = ({ children }) => {
             setUser(userData);
         }
     }, []);
+    
 
     // Função de login
     const login = (token, userData) => {
@@ -41,6 +44,10 @@ export const AuthProvider = ({ children }) => {
             {children}
         </AuthContext.Provider>
     );
+};
+
+AuthProvider.propTypes = {
+    children: PropTypes.node.isRequired,
 };
 
 // Hook personalizado para consumir o contexto de autenticação
