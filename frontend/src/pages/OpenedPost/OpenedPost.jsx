@@ -20,8 +20,6 @@ function OpenedPost() {
                 setLoading(true);
                 // const response = await apiServices.getPostById(id);
                 const response = await axios.get(`http://localhost:5000/api/posts/${id}`);
-                console.log('Resposta completa:', response); // Log da resposta completa
-                console.log('Dados do post:', response.data); // Log dos dados
                 setPost(response.data.data);
                 setError(null);
             } catch (error) {
