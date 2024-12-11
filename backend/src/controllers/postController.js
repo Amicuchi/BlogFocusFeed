@@ -13,7 +13,7 @@ export const createPost = async (req, res, next) => {
 };
 
 export const getAllPosts = async (req, res, next) => {
-  
+
   try {
     const { page = 1, limit = 10, category, tag, query } = req.query;
     const filters = {};
@@ -43,6 +43,21 @@ export const getPostById = async (req, res, next) => {
     });
   } catch (error) {
     next(error);
+  }
+};
+
+export const getPostByCategory = async (req, res) => {
+  try {
+    const { categoryId } = req.params;
+    const posts = await PostService.getPostsByCategory(categoryId);
+    
+    res.status(200).json({ 
+      message: 'Posts filtrados pela categoria', 
+      data: posts 
+    });
+  } catch (error) {
+    console.error('Erro ao buscar posts por categoria:', error.message);
+    res.status(500).json({ message: 'Erro ao buscar posts por categoria', error: error.message });
   }
 };
 

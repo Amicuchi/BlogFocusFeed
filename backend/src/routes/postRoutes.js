@@ -3,6 +3,7 @@ import {
   createPost,
   getAllPosts,
   getPostById,
+  getPostByCategory,
   updatePost,
   deletePost,
 } from '../controllers/postController.js';
@@ -16,6 +17,7 @@ const router = express.Router();
 router.get('/', getAllPosts);
 router.get('/search', getAllPosts);
 router.get('/:id', getPostById);
+router.get('/category/:categoryId', getPostByCategory);
 
 // Rotas protegidas
 router.post('/', authMiddleware, validate(postValidationSchema.create), createPost);

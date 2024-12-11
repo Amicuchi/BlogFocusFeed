@@ -54,7 +54,16 @@ class PostService {
         return post;
     }
 
+    async getPostsByCategory(categoryId) {
+        
+        const posts = await Post.find({ categories: categoryId })
+            .populate('author', 'username fullName') // Popula dados do autor
+            .sort({ createdAt: -1 }); // Ordena por mais recentes
 
+        if (!posts.length) throw new Error('Nenhum post encontrado para esta categoria');
+
+        return posts;
+    }
 
     async updatePost(postId, userId, updateData) {
         const post = await Post.findById(postId);
@@ -89,30 +98,6 @@ class PostService {
 
         return { message: 'Post excluído com sucesso' };
     }
-
-    // async searchPosts(query, page = 1, limit = 10) {
-    //     const searchQuery = {
-    //         $or: [
-    //             { title: { $regex: query, $options: 'i' } },
-    //             { content: { $regex: query, $options: 'i' } },
-    //             { tags: { $regex: query, $options: 'i' } }
-    //         ]
-    //     };
-
-    //     const posts = await Post.find(searchQuery)
-    //         .populate('author', 'username fullName')
-    //         .limit(limit)
-    //         .skip((page - 1) * limit)
-    //         .sort({ createdAt: -1 });
-
-    //     const total = await Post.countDocuments(searchQuery);
-
-    //     return {
-    //         posts,
-    //         totalPages: Math.ceil(total / limit),
-    //         currentPage: page
-    //     };
-    // }
 }
 
 export default new PostService();
