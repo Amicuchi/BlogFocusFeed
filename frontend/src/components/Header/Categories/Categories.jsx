@@ -12,7 +12,7 @@ function Categories() {
     const getCategories = async () => {
         try {
             setIsLoading(true); // Inicia o indicador de carregamento
-            const response = await axios.get('http://localhost:5000/api/categories');
+            const response = await axios.get('http://localhost:5000/api/categories');   // Busca as categorias
             setCategories(response.data.data); // Atualiza o estado com as categorias
         } catch (err) {
             console.error('Erro ao buscar categorias:', err);
@@ -27,7 +27,6 @@ function Categories() {
         getCategories();
     }, []);
 
-    // Renderização condicional para mensagens de erro, carregamento ou conteúdo
     return (
         <nav className={styles.navbar}>
             <ul className={styles.navList}>
@@ -45,6 +44,7 @@ function Categories() {
                             <Link
                                 className={styles.navLink}
                                 to={`/category/${categoria._id}`}
+                                state={{ categoryName: categoria.name }} // Passa o nome da categoria via state
                             >
                                 {categoria.name}
                             </Link>
