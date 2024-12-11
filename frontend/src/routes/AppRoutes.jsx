@@ -29,7 +29,7 @@ function AppRoutes() {
 
             {/* Dynamic Category and Post Routes */}
             <Route path="/post/:id" element={<OpenedPost />} />
-            <Route path="/:category" element={<FilteredPosts />} />
+            <Route path="/category/:categoryId" element={<FilteredPosts />} />
 
             {/* Protected Routes */}
             <Route element={<PrivateRoute />}>
