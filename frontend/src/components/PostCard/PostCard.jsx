@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import styles from './PostCard.module.css';
 
 function PostCard({ post }) {
-
     const dataFormatada = useFormatarData(post?.postDate);
 
     return (
@@ -12,7 +11,7 @@ function PostCard({ post }) {
             <div className={styles.imageContainer}>
                 <img
                     src={post.image || '/default-image.jpg'}
-                    alt="Imagem do post"
+                    alt={post.title}
                     className={styles.postImage}
                 />
             </div>
