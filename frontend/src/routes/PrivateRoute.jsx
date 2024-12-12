@@ -1,5 +1,5 @@
-import { Navigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Login from '../pages/Login/Login';
 
 function PrivateRoute({ children }) {
 
@@ -7,7 +7,7 @@ function PrivateRoute({ children }) {
 
   if (!token) {
     console.warn('Token não encontrado.');
-    return <Navigate to="/login" />;
+    return <Login />;
   }
 
   return children;
