@@ -10,9 +10,7 @@ header {
     justify-content: space-between;
     align-items: center;
     line-height: 3.5rem;
-    /* Novo */
     padding: 0 2rem;
-    /* Novo */
 }
 
 /* Logo */
@@ -94,5 +92,5 @@ header {
     width: 100%;        /* Largura total da borda */
     height: 0.5rem;     /* Altura da borda inferior */
     background: linear-gradient(to bottom, #eee, var(--bg-principal)); /* Gradiente */
-    z-index: 10;
+    z-index: 5;
 }

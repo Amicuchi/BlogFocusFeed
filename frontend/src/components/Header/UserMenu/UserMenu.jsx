@@ -44,7 +44,7 @@ const UserMenu = () => {
 
   // Renderizar menu suspenso para o usuário autenticado
   return (
-    <div ref={menuRef} className={styles.userMenu}>
+    <nav ref={menuRef} className={styles.userMenu}>
       <button onClick={toggleMenu} className={styles.menuToggle}>
         {user.username}
       </button>
@@ -69,7 +69,7 @@ const UserMenu = () => {
           </li>
         </ul>
       )}
-    </div>
+    </nav>
   );
 };
 
