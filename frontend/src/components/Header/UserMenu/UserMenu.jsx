@@ -45,28 +45,14 @@ const UserMenu = () => {
   // Renderizar menu suspenso para o usuário autenticado
   return (
     <nav ref={menuRef} className={styles.userMenu}>
-      <button onClick={toggleMenu} className={styles.menuToggle}>
-        {user.username}
-      </button>
+      <button onClick={toggleMenu} className={styles.menuToggle}> {user.username} </button>
       {isOpen && (
         <ul className={styles.menuDropdown}>
-          <li>
-            <Link to="/dashboard/perfil" className={styles.menuItem}>Exibir Perfil</Link>
-          </li>
-          <li>
-            <Link to="/dashboard/configuracoes" className={styles.menuItem}>Configurações</Link>
-          </li>
-          <li>
-            <Link to="/dashboard/meus-posts" className={styles.menuItem}>Meus Posts</Link>
-          </li>
-          <li>
-            <Link to="/dashboard/novo-post" className={styles.menuItem}>Novo Post</Link>
-          </li>
-          <li>
-            <button onClick={logout} className={styles.logoutButton}>
-              Sair
-            </button>
-          </li>
+          <li> <Link to="/dashboard/perfil" className={styles.menuItem}>Exibir Perfil</Link> </li>
+          <li> <Link to="/dashboard/configuracoes" className={styles.menuItem}>Configurações</Link> </li>
+          <li> <Link to="/dashboard/meus-posts" className={styles.menuItem}>Meus Posts</Link> </li>
+          <li> <Link to="/dashboard/novo-post" className={styles.menuItem}>Novo Post</Link> </li>
+          <li> <button onClick={logout} className={styles.logoutButton}> Sair </button> </li>
         </ul>
       )}
     </nav>
