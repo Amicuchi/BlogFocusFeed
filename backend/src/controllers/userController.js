@@ -51,20 +51,3 @@ export const updateUserProfile = async (req, res, next) => {
     next(error);
   }
 };
-
-export const getUserPosts = async (req, res) => {
-  try {
-    const userId = req.user.id; // Obtém o ID do usuário autenticado
-    const user = await User.findById(userId).populate('posts'); // Certifique-se de que a relação 'posts' está configurada no modelo User
-    // console.log(user.posts); // Console para verificar se os posts são populados corretamente
-
-    if (!user) {
-      return res.status(404).json({ message: 'Usuário não encontrado.' });
-    }
-
-    res.json(user.posts);
-  } catch (error) {
-    console.error('Erro ao buscar posts do usuário:', error);
-    res.status(500).json({ message: 'Erro ao buscar posts do usuário.' });
-  }
-};
