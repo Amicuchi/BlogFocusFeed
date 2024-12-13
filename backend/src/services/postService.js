@@ -1,4 +1,3 @@
-import mongoose from 'mongoose';
 import Post from '../models/Post.js';
 import User from '../models/User.js';
 
@@ -28,6 +27,7 @@ class PostService {
 
         if (filters.category) query.categories = filters.category;
         if (filters.tag) query.tags = filters.tag;
+        if (filters.userId) query.author = filters.userId;
 
         const posts = await Post.find(query)
             .populate('author', 'username fullName')
