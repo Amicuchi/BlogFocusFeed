@@ -68,7 +68,7 @@ class UserService {
 
         if (!user) throw new Error('Usuário não encontrado');
 
-        console.log('Dados do perfil populado:', user);
+        // console.log('Dados do perfil populado:', user);
         
         return user;
     }
