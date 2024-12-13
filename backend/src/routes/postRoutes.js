@@ -14,14 +14,14 @@ import { postValidationSchema } from '../config/validation.js';
 const router = express.Router();
 
 // Rotas públicas
-router.get('/', getAllPosts);
-router.get('/search', getAllPosts);
-router.get('/:id', getPostById);
-router.get('/category/:categoryId', getPostByCategory);
+router.get('/', getAllPosts);                           // Todos os posts
+router.get('/search', getAllPosts);                     // Pesquisa (ajustar para usar query params)
+router.get('/:id', getPostById);                        // Detalhes de um post
+router.get('/category/:categoryId', getPostByCategory); // Posts por categoria
 
 // Rotas protegidas
-router.post('/', authMiddleware, validate(postValidationSchema.create), createPost);
-router.put('/:id', authMiddleware, validate(postValidationSchema.create), updatePost);
-router.delete('/:id', authMiddleware, deletePost);
+router.post('/', authMiddleware, validate(postValidationSchema.create), createPost);    // Criar post
+router.put('/:id', authMiddleware, validate(postValidationSchema.create), updatePost);  // Atualizar post
+router.delete('/:id', authMiddleware, deletePost);                                      // Deletar post
 
 export default router;
