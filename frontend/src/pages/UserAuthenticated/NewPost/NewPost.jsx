@@ -1,166 +1,176 @@
-import { useState, useRef } from "react";
-import { useForm, Controller } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Controller, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { toast } from "react-toastify";
 import axios from "axios";
+import RichTextEditor from "./RichTextEditor";
 import Select from "react-select";
-import StarterKit from "@tiptap/starter-kit";
-import { useEditor, EditorContent } from "@tiptap/react";
-import { NewPostSchema } from "./NewPostSchema"; // Esquema de validação Yup
-import { CompressImage } from "./CompressImage"; // Função para compressão de imagem
+import { NewPostSchema } from "./NewPostSchema";
+import styles from "./NewPost.module.css";
+import apiServices from "../../../services/apiServices";
+
+axios.defaults.baseURL = "http://localhost:5000/api"; // Configura a base URL
 
 function NewPost() {
-  const navigate = useNavigate();
-  const [imagePreview, setImagePreview] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const fileInputRef = useRef(null);
-
-  // Inicializa o editor RichText com tiptap
-  const editor = useEditor({
-    extensions: [StarterKit],
-    content: "",
-  });
-
   // Configuração do react-hook-form
   const {
     control,
     register,
     handleSubmit,
-    formState: { errors },
     setValue,
+    formState: { errors },
   } = useForm({
-    resolver: yupResolver(NewPostSchema), // Validação usando Yup
+    resolver: yupResolver(NewPostSchema),
   });
 
-  // Manipula upload e compressão de imagem
-  const handleImageUpload = async (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const compressedFile = await CompressImage(file); // Comprime a imagem
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreview(reader.result); // Define o preview
-      };
-      reader.readAsDataURL(compressedFile);
-      setValue("image", compressedFile); // Atualiza o valor no formulário
-    }
-  };
+  const navigate = useNavigate();
+  const [categories, setCategories] = useState([]);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [loadingCategories, setLoadingCategories] = useState(true);
 
-  // Envia os dados para a API
+  // Função para buscar categorias do backend
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        setLoadingCategories(true);
+        const response = await apiServices.getAllCategories();
+        setCategories(
+          response.data.data.map((categories) => ({
+            value: categories._id,
+            label: categories.name,
+          }))
+        );
+        setError(null);
+      } catch (err) {
+        console.error("Erro ao carregar categorias:", err);
+        setError("Erro ao carregar categorias. Tente novamente.");
+        toast.error("Erro ao carregar categorias.");
+      } finally {
+        setLoadingCategories(false);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
   const onSubmit = async (data) => {
     setLoading(true);
     try {
-      const formData = new FormData();
-      formData.append("title", data.title);
-      formData.append("description", data.description);
-      formData.append("content", editor.getHTML());
-      formData.append("category", data.category.value);
-      formData.append(
-        "tags",
-        JSON.stringify(data.tags.map((tag) => tag.value))
-      );
-
-      if (data.image) {
-        formData.append("image", data.image);
-      }
-
-      const response = await axios.post("/api/posts", formData);
-      navigate(`/post/${response.data.id}`);
+      const postData = {
+        title: data.title,
+        description: data.description,
+        content: data.content,
+        categories: [data.categories?.value],
+        tags: data.tags ? data.tags.split(',').map(tag => tag.trim()) : [],
+        image: data.image,
+      };
+      await apiServices.createPost(postData);
+      toast.success('Post publicado com sucesso!');
+      navigate('/');
     } catch (error) {
-      console.error("Erro ao salvar post", error);
+      console.error('Erro completo:', error.response?.data);
+      const errorMessage = error.response?.data?.message ||
+        error.response?.data?.error ||
+        "Erro ao publicar post.";
+      setError(errorMessage);
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="container">
+    <div className={styles.container}>
       <h1>Criar Post</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <label>Título:</label>
+      {error && <p className={styles.errorBanner}>{error}</p>}
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className={styles.form}
+      >
+        <div className={styles.formGroup}>
+          <label>Título</label>
           <input
             {...register("title")}
+            className={styles.input}
             placeholder="Digite o título do post"
           />
-          {errors.title && <p>{errors.title.message}</p>}
+          {errors.title && <p className={styles.errorText}>{errors.title.message}</p>}
         </div>
 
-        <div>
-          <label>Descrição:</label>
+        <div className={styles.formGroup}>
+          <label>Descrição</label>
           <textarea
             {...register("description")}
+            className={styles.textarea}
             placeholder="Digite uma breve descrição"
           />
-          {errors.description && <p>{errors.description.message}</p>}
+          {errors.description && <p className={styles.errorText}>{errors.description.message}</p>}
         </div>
 
-        {/* Editor de conteúdo (Rich Text) */}
-        <div>
-          <label>Conteúdo:</label>
-          <EditorContent editor={editor} />
-          {errors.content && <p>{errors.content.message}</p>}
-        </div>
-
-        <div>
-          <label>Categoria:</label>
+        <div className={styles.formGroup}>
+          <label>Conteúdo</label>
           <Controller
-            name="category"
+            name="content"
             control={control}
             render={({ field }) => (
-              <Select
+              <RichTextEditor
                 {...field}
-                options={[
-                  { value: "tecnologia", label: "Tecnologia" },
-                  { value: "inovacao", label: "Inovação" },
-                ]}
-                placeholder="Selecione uma categoria"
+                onContentChange={(value) => setValue("content", value, { shouldValidate: true })}
               />
             )}
           />
-          {errors.category && <p>{errors.category.message}</p>}
+          {errors.content && <p className={styles.errorText}>{errors.content.message}</p>}
         </div>
 
-        {/* Campo para upload de imagem */}
-        <div>
-          <label>Imagem:</label>
-          <input
-            type="file"
-            ref={fileInputRef}
-            onChange={handleImageUpload}
-            accept=".png,.jpg,.jpeg,.webp"
-          />
-          {imagePreview && (
-            <img
-              src={imagePreview}
-              alt="Preview"
-              style={{ maxWidth: "200px" }}
+        <div className={styles.formGroup}>
+          <label>Categoria</label>
+          {loadingCategories ? (
+            <p>Carregando categorias...</p>
+          ) : (
+            <Controller
+              name="categories"
+              control={control}
+              render={({ field }) => (
+                <Select
+                  {...field}
+                  options={categories}
+                  placeholder="Selecione uma categoria"
+                />
+              )}
             />
           )}
-          {errors.image && <p>{errors.image.message}</p>}
+          {errors.categories && <p className={styles.errorText}>{errors.categories.message}</p>}
         </div>
 
-        <div>
-          <label>Tags:</label>
-          <Controller
-            name="tags"
-            control={control}
-            render={({ field }) => (
-              <Select
-                {...field}
-                isMulti
-                options={[
-                  { value: "tecnologia", label: "Tecnologia" },
-                  { value: "inovacao", label: "Inovação" },
-                ]}
-                placeholder="Selecione tags"
-              />
-            )}
+        <div className={styles.formGroup}>
+          <label>Imagem (URL)</label>
+          <input
+            {...register("image")}
+            className={styles.input}
+            placeholder="Cole o link da imagem"
           />
-          {errors.tags && <p>{errors.tags.message}</p>}
+          {errors.image && <p className={styles.errorText}>{errors.image.message}</p>}
         </div>
 
-        <button type="submit" disabled={loading}>
+        <div className={styles.formGroup}>
+          <label>Tags</label>
+          <input
+            type="text"
+            name="tags"
+            className={styles.input}
+            {...register("tags")}
+            placeholder="Tags (separadas por vírgula)"
+          />
+          {errors.tags && <p className={styles.errorText}>{errors.tags.message}</p>}
+        </div>
+
+        <button
+          type="submit"
+          className={styles.submitButton}
+          disabled={loading}
+        >
           {loading ? "Salvando..." : "Publicar"}
         </button>
       </form>
