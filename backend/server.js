@@ -6,6 +6,8 @@ import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
 import logger from './src/config/logger.js';
 import { errorHandler, notFoundHandler } from './src/middlewares/errorMiddleware.js';
+
+// Sobre as rotas
 import userRoutes from './src/routes/userRoutes.js';
 import postRoutes from './src/routes/postRoutes.js';
 import categoryRoutes from './src/routes/categoryRoutes.js';
