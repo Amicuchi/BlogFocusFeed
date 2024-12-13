@@ -5,8 +5,7 @@ const apiServices = {
     // Usuário
     registerUser: (data) => api.post('/api/users/register', data),
     loginUser: (data) => api.post('/api/users/login', data),
-    // getUserProfile: () => api.get('/api/users/profile'),
-    getUserProfile: () => api.get('/api/user'),
+    getUserProfile: () => api.get('/api/users/profile'),
     updateUserProfile: (data) => api.put('/api/users/profile', data),
 
     // Posts
@@ -24,8 +23,6 @@ const apiServices = {
     createCategory: (data) => api.post('/api/categories', data),
     updateCategory: (id, data) => api.put(`/api/categories/${id}`, data),
     deleteCategory: (id) => api.delete(`/api/categories/${id}`),
-
-    
 };
 
 export default apiServices;
