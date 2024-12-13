@@ -67,8 +67,6 @@ class UserService {
             .populate('posts');
 
         if (!user) throw new Error('Usuário não encontrado');
-
-        // console.log('Dados do perfil populado:', user);
         
         return user;
     }
@@ -84,14 +82,6 @@ class UserService {
         ).select('-password');
 
         return updatedUser;
-    }
-
-    async getUserPosts(userId) {
-        const user = await User.findById(userId).populate('posts');
-
-        if (!user) throw new Error('Usuário não encontrado');
-
-        return user.posts;
     }
 }
 
