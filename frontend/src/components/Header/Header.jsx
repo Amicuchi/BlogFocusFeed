@@ -5,7 +5,7 @@ import UserMenu from './UserMenu/UserMenu.jsx';
 import styles from './Header.module.css';
 
 function Header() {
-    const { isAuthenticated, user, logout } = useAuth(); // Usa o contexto global de autenticação
+    const { signed, user, logout } = useAuth(); // Usa o contexto global de autenticação
 
     return (
         <header className={styles.gradientBorder}>
@@ -29,7 +29,7 @@ function Header() {
                             🔍
                         </button>
                     </div>
-                    {isAuthenticated ? (
+                    {signed ? (
                         <UserMenu
                             username={user?.username || 'Usuário'}
                             onLogout={logout}
