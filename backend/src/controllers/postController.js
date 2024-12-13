@@ -15,12 +15,21 @@ export const createPost = async (req, res, next) => {
 export const getAllPosts = async (req, res, next) => {
 
   try {
-    const { page = 1, limit = 10, category, tag, query } = req.query;
+    const {
+      page = 1,
+      limit = 10,
+      category,
+      tag,
+      query,
+      userId
+    } = req.query;
+
     const filters = {};
 
-    if (category) filters.category = category;
-    if (tag) filters.tag = tag;
-    if (query) filters.title = { $regex: query, $options: 'i' }; // Busca por título
+    if (category) filters.category = category;                    // Filtra por categoria
+    if (tag) filters.tag = tag;                                   // Filtra por tag
+    if (query) filters.title = { $regex: query, $options: 'i' };  // Busca por título
+    if (userId) filters.author = userId;                          // Filtra por autor
 
     const posts = await PostService.getAllPosts(
       parseInt(page, 10),
@@ -50,10 +59,10 @@ export const getPostByCategory = async (req, res) => {
   try {
     const { categoryId } = req.params;
     const posts = await PostService.getPostsByCategory(categoryId);
-    
-    res.status(200).json({ 
-      message: 'Posts filtrados pela categoria', 
-      data: posts 
+
+    res.status(200).json({
+      message: 'Posts filtrados pela categoria',
+      data: posts
     });
   } catch (error) {
     console.error('Erro ao buscar posts por categoria:', error.message);
@@ -91,32 +100,3 @@ export const deletePost = async (req, res, next) => {
   }
 };
 
-
-
-// export const searchPosts = async (req, res, next) => {
-//   try {
-//     const { category, page = 1, limit = 10 } = req.query;
-//     const result = await PostService.searchPosts(
-//       category,
-//       parseInt(page, 10),
-//       parseInt(limit, 10)
-//     );
-//     res.status(200).json(result);
-//   } catch (error) {
-//     next(error);
-//   }
-// };
-
-export const getUserPosts = async (req, res, next) => {
-  try {
-    const { page = 1, limit = 10 } = req.query;
-    const posts = await PostService.getPostsByUser(
-      req.user.id,
-      parseInt(page, 10),
-      parseInt(limit, 10)
-    );
-    res.status(200).json(posts);
-  } catch (error) {
-    next(error);
-  }
-};
