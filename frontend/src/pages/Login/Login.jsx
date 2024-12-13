@@ -12,12 +12,10 @@ function Login() {
   const navigate = useNavigate();                 // Hook do React Router para redirecionamento de páginas
   const { login } = useAuth();
 
-  // Função chamada ao enviar o formulário de login
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setIsLoading(true);
-    // console.log('Fazendo login...');
 
     // Validações básicas
     if (!email.trim() || !password.trim()) {
@@ -35,16 +33,11 @@ function Login() {
 
       // Armazena o token JWT retornado no localStorage para autenticação futura
       const { token, user } = response.data.data; // Backend retorna esses dados
+      
       login(token, user);                         // Passa o token e os dados do usuário para o hook de autenticação
-      localStorage.setItem('jwt_token', token); // Salva o token
-      localStorage.setItem('user_data', JSON.stringify(user)); // Salva os dados do usuário
-      // console.log('Login realizado com sucesso!');
-      console.log('token:', token);
-      console.log('user:', user);
       navigate('/');                              // Redireciona após login bem-sucedido
 
     } catch (err) {
-      // Tratamento de erros mais específico
       const errorMessage = err.response?.data?.message || 'Erro ao realizar login. Tente novamente.';
       setError(errorMessage);
     } finally {
