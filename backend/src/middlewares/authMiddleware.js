@@ -20,6 +20,12 @@ const authMiddleware = (req, res, next) => {
 
     try {
         req.user = validateToken(token);
+
+        // Adicione estas linhas de log
+        console.log('User ID Type:', typeof decoded.userId);
+        console.log('User ID Value:', decoded.userId);
+        console.log('Is Valid ObjectId:', mongoose.Types.ObjectId.isValid(decoded.userId));
+
         next();
     } catch (error) {
         res.status(401).json({ message: error.message });
