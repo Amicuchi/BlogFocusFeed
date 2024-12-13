@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import Post from '../models/Post.js';
 import User from '../models/User.js';
 
@@ -45,8 +46,7 @@ class PostService {
     }
 
     async getPostById(postId) {
-        const post = await Post
-            .findById(postId)
+        const post = await Post.findById(postId)
             .populate('author', 'username fullName');
 
         if (!post) throw new Error('Post não encontrado');
@@ -55,8 +55,8 @@ class PostService {
     }
 
     async getPostsByCategory(categoryId) {
-        
-        const posts = await Post.find({ categories: categoryId })
+        const posts = await Post
+            .find({ categories: categoryId })
             .populate('author', 'username fullName') // Popula dados do autor
             .sort({ createdAt: -1 }); // Ordena por mais recentes
 
