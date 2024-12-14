@@ -3,14 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
-import axios from "axios";
 import RichTextEditor from "./RichTextEditor";
 import Select from "react-select";
 import { NewPostSchema } from "./NewPostSchema";
 import styles from "./NewPost.module.css";
 import apiServices from "../../../services/apiServices";
-
-axios.defaults.baseURL = "http://localhost:5000/api"; // Configura a base URL
 
 function NewPost() {
   // Configuração do react-hook-form
@@ -66,6 +63,7 @@ function NewPost() {
         tags: data.tags ? data.tags.split(',').map(tag => tag.trim()) : [],
         image: data.image,
       };
+      
       await apiServices.createPost(postData);
       toast.success('Post publicado com sucesso!');
       navigate('/');
