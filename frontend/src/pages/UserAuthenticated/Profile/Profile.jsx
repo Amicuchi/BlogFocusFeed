@@ -1,55 +1,65 @@
 import { useEffect, useState } from 'react';
-import { useAuth } from '../../../hooks/useAuth';
 import apiServices from '../../../services/apiServices';
 import styles from './Profile.module.css';
 
 function Profile() {
-  const { logout } = useAuth();                     // Dados do usuário da autenticação
-  const [profile, setProfile] = useState(null);     // Dados completos do perfil
-  const [editMode, setEditMode] = useState(false);  // Controle de edição
-  const [formData, setFormData] = useState({});     // Estado para os dados editáveis
-  const [loading, setLoading] = useState(true);     // Controle de carregamento
-  const [error, setError] = useState(null);         // Controle de erro
+  const [profile, setProfile] = useState(null);           // Estado para armazenar dados do perfil
+  const [loading, setLoading] = useState(true);           // Controle de carregamento (loading spinner)
+  const [error, setError] = useState(null);               // Controle de erro
+  const [editingField, setEditingField] = useState(null); // Controle de campo em edição
+
+  const [formData, setFormData] = useState({
+    fullName: '',
+    bio: '',
+    location: '',
+    socialLinks: {
+      github: '',
+      linkedin: '',
+      twitter: ''
+    }
+  });
 
   useEffect(() => {
-    // Busca os dados do perfil completo do usuário
-    async function fetchProfile() {
-      try {
-        const response = await apiServices.getUserProfile();
-        setProfile(response.data); // Define os dados no estado
-        setFormData({
-          fullName: response.data.fullName,
-          bio: response.data.bio || '',
-          location: response.data.location || '',
-          socialLinks: {
-            instagram: response.data.socialLinks?.instagram || '',
-            twitter: response.data.socialLinks?.twitter || '',
-            facebook: response.data.socialLinks?.facebook || '',
-            linkedin: response.data.socialLinks?.linkedin || '',
-            github: response.data.socialLinks?.github || '',
-          },
-        });
-      } catch (error) {
-        setError('Erro ao carregar perfil: ', error);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchProfile();
+    apiServices.getUserProfile()
+      .then(response => {
+        console.log('Resposta completa:', response);
+        console.log('response.data:', response.data);
+      })
+      .catch(error => {
+        console.error('Erro completo:', error);
+        console.log('Detalhes do erro:', error.response);
+      });
   }, []);
+  
+  // useEffect(() => {
+  //   async function fetchProfile() {
+  //     try {
+  //       const response = await apiServices.getUserProfile();
+  //       setProfile(response.data.data);   // Armazena o perfil completo
+  //       setFormData(response.data.data);  // Preenche o formulário com os dados existentes
+
+  //     } catch (error) {
+  //       console.log('perfil:', profile);
+  //       console.error('Erro ao carregar perfil:', error);
+  //       setError(error.response?.data?.message || 'Erro ao carregar perfil.');
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   }
+  //   fetchProfile();
+  // }, []);
 
   // Atualiza os campos editáveis
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name.startsWith('socialLinks.')) {
-      const key = name.split('.')[1];
+      const key = name.split('.')[1];   // Extração da chave (ex.: github, linkedin)
       setFormData((prev) => ({
         ...prev,
-        socialLinks: { ...prev.socialLinks, [key]: value },
+        socialLinks: { ...prev.socialLinks, [key]: value },    // Atualiza o campo específico
       }));
     } else {
-      setFormData((prev) => ({ ...prev, [name]: value }));
+      setFormData((prev) => ({ ...prev, [name]: value }));     // Atualiza os campos simples
     }
   };
 
@@ -59,23 +69,24 @@ function Profile() {
     try {
       const response = await apiServices.updateUserProfile(formData);
       setProfile(response.data);  // Atualiza os dados do perfil
-      setEditMode(false);         // Sai do modo de edição
     } catch (error) {
+      console.error('Erro ao atualizar o perfil:', error);
       setError('Erro ao atualizar o perfil:', error);
     }
   };
 
   if (loading) return <div>Carregando...</div>;
   if (error) return <div>{error}</div>;
+  if (!profile) return null;
 
   return (
     <div className={styles.profileContainer}>
-      <h2>Perfil do Usuário</h2>
+      <h2>Perfil de {profile?.fullName || 'N/A'}</h2>
       <div className={styles.profileDetails}>
         {/* Dados não editáveis */}
-        <p><strong>Nome de usuário:</strong> {profile.username}</p>
-        <p><strong>Papel:</strong> {profile.role || 'Usuário'}</p>
-        <p><strong>Cadastrado desde:</strong> {new Date(profile.createdAt).toLocaleDateString()}</p>
+        <p><strong>Nome de usuário:</strong> {profile?.username || 'N/A'}</p>
+        <p><strong>Papel:</strong> {profile?.role || 'Leitor'}</p>
+        <p><strong>Cadastrado desde:</strong> {profile?.createdAt ? new Date(profile.createdAt).toLocaleDateString() : 'N/A'}</p>
       </div>
 
       {/* Dados editáveis */}
@@ -87,8 +98,14 @@ function Profile() {
             name="fullName"
             value={formData.fullName}
             onChange={handleChange}
-            disabled={!editMode}
+            disabled={editingField !== 'fullName'}
           />
+          <button
+            type="button"
+            onClick={() => setEditingField(editingField === 'fullName' ? null : 'fullName')}
+          >
+            ✏️
+          </button>
         </label>
         <label>
           Biografia:
@@ -96,8 +113,14 @@ function Profile() {
             name="bio"
             value={formData.bio}
             onChange={handleChange}
-            disabled={!editMode}
+            disabled={editingField !== 'bio'}
           />
+          <button
+            type="button"
+            onClick={() => setEditingField(editingField === 'bio' ? null : 'bio')}
+          >
+            ✏️
+          </button>
         </label>
         <label>
           Localização:
@@ -106,42 +129,44 @@ function Profile() {
             name="location"
             value={formData.location}
             onChange={handleChange}
-            disabled={!editMode}
+            disabled={editingField !== 'location'}
           />
+          <button
+            type="button"
+            onClick={() => setEditingField(editingField === 'location' ? null : 'location')}
+          >
+            ✏️
+          </button>
         </label>
+
         {/* Links sociais */}
-        {Object.keys(formData.socialLinks).map((key) => (
+        {['github', 'linkedin', 'twitter'].map((key) => (
           <label key={key}>
             {key.charAt(0).toUpperCase() + key.slice(1)}:
             <input
               type="text"
               name={`socialLinks.${key}`}
-              value={formData.socialLinks[key]}
+              value={formData.socialLinks?.[key] || ''}
               onChange={handleChange}
-              disabled={!editMode}
+              disabled={editingField !== `socialLinks.${key}`}
             />
+            <button
+              type="button"
+              onClick={() => setEditingField(editingField === `socialLinks.${key}` ? null : `socialLinks.${key}`)}
+            >
+              ✏️
+            </button>
           </label>
         ))}
 
         {/* Botões de ação */}
         <div className={styles.actions}>
-          {editMode ? (
-            <>
-              <button type="submit">Salvar Alterações</button>
-              <button type="button" onClick={() => setEditMode(false)}>
-                Cancelar
-              </button>
-            </>
-          ) : (
-            <>
-              <button type="button" onClick={() => setEditMode(true)}>
-                Editar Perfil
-              </button>
-              <button type="button" onClick={logout}>
-                Sair
-              </button>
-            </>
-          )}
+          <button
+            type="submit"
+            disabled={!editingField} // Só ativa quando algum campo está em edição
+          >
+            Salvar
+          </button>
         </div>
       </form>
     </div>
