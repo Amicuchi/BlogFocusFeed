@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import apiServices from "../../../services/apiServices";
 import TablePosts from "./TablePosts";
 import { useAuth } from "../../../contexts/AuthContext";
+import styles from "./MyPosts.module.css";
 
 function MyPosts() {
   const [posts, setPosts] = useState([]);       // Armazena os posts
@@ -53,8 +54,8 @@ function MyPosts() {
   if (error) return <p>{error}</p>;
 
   return (
-    <section>
-      <h1>Meus Posts</h1>
+    <section className={styles.section}>
+      <h1 className={styles.title}>Meus Posts</h1>
       <TablePosts
         posts={posts}
         onEdit={editPost}
