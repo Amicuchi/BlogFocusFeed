@@ -1,5 +1,7 @@
+import styles from './MyPosts.module.css';
+
 const TablePosts = ({ posts, onEdit, onDelete }) => (
-    <table>
+    <table className={styles.table}>
         <thead>
             <tr>
                 <th>Título</th>
@@ -18,18 +20,29 @@ const TablePosts = ({ posts, onEdit, onDelete }) => (
                         <td>{post.likes || 0}</td>
                         <td>{post.dislikes || 0}</td>
                         <td>
-                            <button onClick={() => onEdit(post._id)}>Editar</button>
-                            <button onClick={() => onDelete(post._id)}>Excluir</button>
+                        <button
+                className={`${styles.button} ${styles.buttonEdit}`}
+                onClick={() => onEdit(post._id)}
+              >
+                Editar
+              </button>
+              <button
+                className={`${styles.button} ${styles.buttonDelete}`}
+                onClick={() => onDelete(post._id)}
+              >
+                Excluir
+              </button>
                         </td>
                     </tr>
                 ))
             ) : (
                 <tr>
-                    <td colSpan="5">Nenhum post encontrado.</td>
+                    <td colSpan="5" className={styles.noPosts}>
+            Nenhum post encontrado.
+          </td>
                 </tr>
             )}
         </tbody>
     </table>
 );
-
 export default TablePosts;  
