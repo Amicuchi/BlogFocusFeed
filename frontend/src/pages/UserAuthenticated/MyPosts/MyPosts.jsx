@@ -3,12 +3,14 @@ import { useNavigate } from "react-router-dom";
 import apiServices from "../../../services/apiServices";
 import TablePosts from "./TablePosts";
 import { useAuth } from "../../../contexts/AuthContext";
+import { toast } from "react-toastify";
 import styles from "./MyPosts.module.css";
+import "react-toastify/dist/ReactToastify.css";
 
 function MyPosts() {
-  const [posts, setPosts] = useState([]);       // Armazena os posts
+  const [posts, setPosts] = useState([]); // Armazena os posts
   const [loading, setLoading] = useState(true); // Controle de carregamento
-  const [error, setError] = useState(null);     // Controle de erros
+  const [error, setError] = useState(null); // Controle de erros
   const navigate = useNavigate();
   const { user } = useAuth();
   const authorId = user.id;
@@ -19,9 +21,10 @@ function MyPosts() {
       setLoading(true);
       const response = await apiServices.getPostsByAuthor(authorId);
       setPosts(response.data.posts);
+      setError(null);
     } catch (error) {
       console.error("Erro ao buscar posts", error);
-      setError(error.response?.data?.message || 'Erro ao carregar os posts.');
+      setError(error.response?.data?.message || "Erro ao carregar os posts.");
     } finally {
       setLoading(false);
     }
@@ -29,15 +32,30 @@ function MyPosts() {
 
   // Função para excluir um post
   const deletePost = async (postId) => {
-    if (!window.confirm("Tem certeza que deseja excluir este post?")) return;
-
     try {
-      await apiServices.deletePost(postId);
+      console.log(`Tentando deletar post: ${postId}`);
+      const confirmDelete = window.confirm(
+        "Tem certeza que deseja excluir este post?"
+      );
+
+      if (!confirmDelete) return;
+
+      const response = await apiServices.deletePost(postId);
+      console.log("Resposta da API:", response);
+
       setPosts((prevPosts) => prevPosts.filter((post) => post._id !== postId));
-      alert("Post excluído com sucesso!");
+      toast.success("Post excluído com sucesso!");
     } catch (error) {
-      console.error("Erro ao excluir o post", error);
-      alert("Erro ao excluir o post.");
+      console.error("Erro completo ao excluir o post:", error);
+      console.error("Erro de resposta:", error.response);
+      console.error("Erro de solicitação:", error.request);
+      console.error("Mensagem de erro:", error.message);
+
+      toast.error(
+        error.response?.data?.message ||
+          error.message ||
+          "Erro ao excluir o post."
+      );
     }
   };
 
@@ -47,8 +65,8 @@ function MyPosts() {
   };
 
   useEffect(() => {
-    fetchUserPosts(); // Busca os posts ao carregar o componente
-  }, []);
+    fetchUserPosts();
+  }, [authorId]);
 
   if (loading) return <p>Carregando...</p>;
   if (error) return <p>{error}</p>;
@@ -56,11 +74,8 @@ function MyPosts() {
   return (
     <section className={styles.section}>
       <h1 className={styles.title}>Meus Posts</h1>
-      <TablePosts
-        posts={posts}
-        onEdit={editPost}
-        onDelete={deletePost}
-      />
+      {error && <p className={styles.errorMessage}>{error}</p>}
+      <TablePosts posts={posts} onEdit={editPost} onDelete={deletePost} />
     </section>
   );
 }
