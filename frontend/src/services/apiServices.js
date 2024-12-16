@@ -7,7 +7,10 @@ const apiServices = {
     loginUser: (data) => api.post('/api/users/login', data),       // Login de usuário
     getUserProfile: () => api.get('/api/users/user'),              // Obter perfil do usuário
     updateUserProfile: (data) => api.put('/api/users/user', data), // Atualizar perfil do usuário
-    
+        
+    // Busca Posts
+    searchPosts: (query) => api.get(`/api/posts/search?query=${query}`),    // Buscar posts por termo de busca
+
     // Posts
     getAllPosts: () => api.get('/api/posts'),                     // Obter todos os posts
     getPostById: (id) => api.get(`/api/posts/${id}`),             // Obter detalhes de um post
@@ -15,9 +18,6 @@ const apiServices = {
     createPost: (data) => api.post('/api/posts', data),           // Criar novo post
     updatePost: (id, data) => api.put(`/api/posts/${id}`, data),  // Atualizar um post
     deletePost: (id) => api.delete(`/api/posts/${id}`),           // Deletar um post
-
-    // Busca Posts
-    searchPosts: (query) => api.get(`/api/posts/search?query=${query}`),    // Buscar posts por termo de busca
 
     // Categorias
     getAllCategories: () => api.get('/api/categories'),                     // Obter todas as categorias
