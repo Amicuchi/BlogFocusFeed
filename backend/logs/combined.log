@@ -1,9 +1,0 @@
-{"level":"info","message":"Servidor rodando na porta 5000 em modo development","timestamp":"2024-12-14 23:37:27"}
-{"level":"info","message":"Conexão com MongoDB estabelecida","timestamp":"2024-12-14 23:37:27"}
-{"level":"info","message":"Servidor rodando na porta 5000 em modo development","timestamp":"2024-12-14 23:42:05"}
-{"level":"info","message":"Conexão com MongoDB estabelecida","timestamp":"2024-12-14 23:42:05"}
-{"level":"info","message":"Servidor rodando na porta 5000 em modo development","timestamp":"2024-12-14 23:44:39"}
-{"level":"info","message":"Conexão com MongoDB estabelecida","timestamp":"2024-12-14 23:44:39"}
-{"body":{"email":"admin@email.com","password":"123@teste"},"level":"error","message":"Credenciais inválidas","method":"POST","path":"/api/users/login","stack":"Error: Credenciais inválidas\n    at UserService.loginUser (file:///C:/Users/Anderson/Desktop/Anderson/Code/BlogFocusFeed/backend/src/services/userService.js:43:19)\n    at async loginUser (file:///C:/Users/Anderson/Desktop/Anderson/Code/BlogFocusFeed/backend/src/controllers/userController.js:18:20)","timestamp":"2024-12-14 23:51:58"}
-{"level":"info","message":"Servidor rodando na porta 5000 em modo development","timestamp":"2024-12-14 23:58:16"}
-{"level":"info","message":"Conexão com MongoDB estabelecida","timestamp":"2024-12-14 23:58:16"}
