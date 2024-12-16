@@ -54,9 +54,7 @@ api.interceptors.request.use(
               });
 
               const newToken = response.data.token;
-
               localStorage.setItem('jwt_token', newToken);
-
               processQueue(null, newToken);
               config.headers['Authorization'] = `Bearer ${newToken}`;
             } catch (error) {
@@ -105,7 +103,7 @@ api.interceptors.response.use(
         const newToken = response.data.token;
         localStorage.setItem('jwt_token', newToken);
         originalRequest.headers['Authorization'] = `Bearer ${newToken}`;
-        
+
         return api(originalRequest);
       } catch (refreshError) {
         localStorage.removeItem('jwt_token');

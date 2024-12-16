@@ -46,16 +46,13 @@ function MyPosts() {
       setPosts((prevPosts) => prevPosts.filter((post) => post._id !== postId));
       toast.success("Post excluído com sucesso!");
     } catch (error) {
-      console.error("Erro completo ao excluir o post:", error);
-      console.error("Erro de resposta:", error.response);
-      console.error("Erro de solicitação:", error.request);
-      console.error("Mensagem de erro:", error.message);
-
-      toast.error(
-        error.response?.data?.message ||
-          error.message ||
-          "Erro ao excluir o post."
-      );
+      console.error("Erro detalhado ao excluir o post", {
+        errorObject: error,
+        message: error.message,
+        responseData: error.response?.data,
+        status: error.response?.status
+      });
+      alert("Erro ao excluir o post.");
     }
   };
 

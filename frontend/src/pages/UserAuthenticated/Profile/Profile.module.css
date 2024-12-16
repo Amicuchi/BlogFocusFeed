@@ -1,59 +1,78 @@
 .profileContainer {
-    max-width: 600px;
+    max-width: 700px;
     margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
+    padding: 30px;
+    background-color: #ffffff;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profileTitle {
+    font-size: 2rem;
+    color: #333;
+    text-align: center;
 }
 
 .profileDetails {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+    color: #555;
 }
 
-.profileForm label {
-    display: block;
-    margin-bottom: 10px;
-    font-weight: bold;
-}
-
-.profileForm input,
-.profileForm textarea {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.profileForm textarea {
-    resize: none;
-}
-
-.actions {
-    margin-top: 20px;
+.profileForm {
     display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.editableField {
+    display: flex;
+    align-items: center;
     gap: 10px;
 }
 
-button {
-    padding: 10px 15px;
-    border: none;
+.inputField {
+    width: 100%;
+    padding: 8px;
+    border: 2px solid #ccc;
     border-radius: 4px;
-    cursor: pointer;
+    transition: border-color 0.3s ease;
 }
 
-button[type='submit'] {
+.inputField:focus {
+    border-color: #007bff;
+}
+
+.editButton,
+.saveButton {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.editButton {
+    background-color: #ff9800;
+    color: white;
+}
+
+.saveButton {
     background-color: #4caf50;
     color: white;
 }
 
-button[type='button'] {
-    background-color: #f44336;
-    color: white;
+.editButton:hover {
+    background-color: #e68900;
 }
 
-button:disabled {
-    background-color: #ddd;
-    cursor: not-allowed;
+.saveButton:hover {
+    background-color: #45a049;
+}
+
+.error {
+    color: red;
+    text-align: center;
+    margin-top: 20px;
 }
