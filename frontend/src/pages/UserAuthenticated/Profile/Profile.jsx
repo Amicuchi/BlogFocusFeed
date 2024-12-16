@@ -56,8 +56,6 @@ function Profile() {
   const handleSaveField = async () => {
     try {
       const updatedData = { ...formData };
-
-      // Atualiza no backend
       const response = await apiServices.updateUserProfile(updatedData);
       setProfile(response.data.data);
       setEditingField(null); // Sai do modo de edição
@@ -77,12 +75,12 @@ function Profile() {
     : 'N/A';
 
   if (loading) return <div>Carregando...</div>;
-  if (error) return <div>{error}</div>;
+  if (error) return <div className={styles.error}>{error}</div>;
   if (!profile) return null;
 
   return (
-    <div className={styles.profileContainer}>
-      <h2>Perfil de {profile?.fullName || 'N/A'}</h2>
+    <main className={styles.profileContainer}>
+      <h2 className={styles.profileTitle}>Perfil de {profile?.fullName || 'N/A'}</h2>
       <div className={styles.profileDetails}>
         {/* Dados não editáveis */}
         <p><strong>Nome de usuário: </strong> {username}</p>
@@ -135,7 +133,7 @@ function Profile() {
         ))
         }
       </form>
-    </div>
+    </main>
   );
 }
 
@@ -143,7 +141,7 @@ function EditableField({ label, name, value, onChange, onSave, editingField, set
   const isEditing = editingField === name;
 
   return (
-    <div>
+    <div className={styles.editableField}>
       <label>
         <strong>{label}:</strong>
         <input
@@ -152,12 +150,7 @@ function EditableField({ label, name, value, onChange, onSave, editingField, set
           value={value}
           onChange={onChange}
           disabled={!isEditing} // Desabilita se não estiver no modo de edição
-          style={{
-            marginLeft: '10px',
-            padding: '5px',
-            border: isEditing ? '2px solid blue' : '1px solid gray',
-            borderRadius: '5px',
-          }}
+          className={styles.inputField}
         />
       </label>
 
@@ -165,15 +158,7 @@ function EditableField({ label, name, value, onChange, onSave, editingField, set
         <button
           type="button"
           onClick={() => onSave(name)}
-          style={{
-            marginLeft: '10px',
-            backgroundColor: 'green',
-            color: 'white',
-            border: 'none',
-            borderRadius: '5px',
-            padding: '5px 10px',
-            cursor: 'pointer',
-          }}
+          className={styles.saveButton}
         >
           Salvar
         </button>
@@ -181,15 +166,7 @@ function EditableField({ label, name, value, onChange, onSave, editingField, set
       <button
         type="button"
         onClick={() => setEditingField(name)}
-        style={{
-          marginLeft: '10px',
-          backgroundColor: 'orange',
-          color: 'white',
-          border: 'none',
-          borderRadius: '5px',
-          padding: '5px 10px',
-          cursor: 'pointer',
-        }}
+        className={styles.editButton}
       >
         Editar
         </button>
