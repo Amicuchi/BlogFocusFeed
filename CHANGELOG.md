@@ -4,7 +4,6 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## 1.1.0 (2024-12-16)
 
-
 ### Features
 
 * **About:** Criação da página sobre nós e sua folha de estilos ([78cd8bd](https://github.com/Amicuchi/blogfocusfeed/commit/78cd8bd61ee671c2ea4cfdc06dd63718e72beabb))
@@ -44,7 +43,6 @@ All notable changes to this project will be documented in this file. See [standa
 * **userController.js:** Criação do controller de getUserPosts. ([478b1ed](https://github.com/Amicuchi/blogfocusfeed/commit/478b1eddeead0409a8982a89ff39cfafcc355c36))
 * **userRoutes.js:**  Inclusão de rota especializada em retornar os posts do usuário logado. ([9d1a000](https://github.com/Amicuchi/blogfocusfeed/commit/9d1a0007c9530157fbac4ae0ad0fc174422f89f3))
 * **validation:** backend: essa funcionalidade garante que os dados sejam validados e atendam os requisitos dos models antes de serem aceitos. ([4ba9d08](https://github.com/Amicuchi/blogfocusfeed/commit/4ba9d08807bb05aafa3da8869a073096f6947d6d))
-
 
 ### Bug Fixes
 
