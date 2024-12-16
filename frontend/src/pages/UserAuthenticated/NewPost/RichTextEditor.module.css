@@ -5,12 +5,12 @@
 }
 
 button {
-    background-color: #f0f0f0 !important;
-    color: #333 !important;
-    border: 1px solid #ccc !important;
-    padding: 0.5rem !important;
-    border-radius: 5px !important;
-    cursor: pointer !important;
+    background-color: #f0f0f0;
+    color: #333;
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 button:hover {
@@ -27,12 +27,12 @@ button:hover {
 }
 
 .editor {
-    border: 1px solid #ccc !important;
-    padding: 0.7rem !important;
-    border-radius: 4px !important;
-    min-height: 150px !important;
-    font-size: 16px !important;
-    line-height: 1.5 !important;
+    border: 1px solid #ccc;
+    padding: 0.7rem;
+    border-radius: 4px;
+    min-height: 150px;
+    font-size: 16px;
+    line-height: 1.5;
     cursor: text;
 }
 
