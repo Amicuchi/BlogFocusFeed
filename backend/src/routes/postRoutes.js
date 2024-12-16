@@ -22,6 +22,6 @@ router.get('/category/:categoryId', getPostByCategory); // Posts por categoria
 // Rotas protegidas
 router.post('/', authMiddleware, validate(postValidationSchema.create), createPost);    // Criar post
 router.put('/:id', authMiddleware, validate(postValidationSchema.create), updatePost);  // Atualizar post
-router.delete('/posts/:id', authMiddleware, deletePost);                                      // Deletar post
+router.delete('/posts/:id', authMiddleware, deletePost);                                // Deletar post
 
 export default router;

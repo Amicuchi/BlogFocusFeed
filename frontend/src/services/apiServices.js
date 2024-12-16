@@ -17,7 +17,7 @@ const apiServices = {
     getPostsByAuthor: (userId) => api.get(`/api/posts?userId=${userId}`),   // Obter posts de um autor
     createPost: (data) => api.post('/api/posts', data),           // Criar novo post
     updatePost: (id, data) => api.put(`/api/posts/${id}`, data),  // Atualizar um post
-    deletePost: (id) => api.delete(`/api/posts/${id}`),           // Deletar um post
+    deletePost: (id) => api.delete(`/api/posts/posts/${id}`),     // Deletar um post
 
     // Categorias
     getAllCategories: () => api.get('/api/categories'),                     // Obter todas as categorias
