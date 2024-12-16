@@ -99,7 +99,7 @@ function Profile() {
           editingField={editingField}
           setEditingField={setEditingField}
         />
-        <EditableField
+        <EditableTextField
           label="Biografia"
           name="bio"
           value={formData.bio}
@@ -127,8 +127,8 @@ function Profile() {
             value={formData.socialLinks[key] || ''}
             onChange={handleChange}
             onSave={handleSaveField}
-          editingField={editingField}
-          setEditingField={setEditingField}
+            editingField={editingField}
+            setEditingField={setEditingField}
           />
         ))
         }
@@ -142,8 +142,8 @@ function EditableField({ label, name, value, onChange, onSave, editingField, set
 
   return (
     <div className={styles.editableField}>
-      <label>
-        <strong>{label}:</strong>
+      <strong>{label}:</strong>
+      <label className={styles.label}>
         <input
           type="text"
           name={name}
@@ -152,31 +152,80 @@ function EditableField({ label, name, value, onChange, onSave, editingField, set
           disabled={!isEditing} // Desabilita se não estiver no modo de edição
           className={styles.inputField}
         />
-      </label>
 
-      {isEditing ? (
-        <button
-          type="button"
-          onClick={() => onSave(name)}
-          className={styles.saveButton}
-        >
-          Salvar
-        </button>
-      ) : (
-      <button
-        type="button"
-        onClick={() => setEditingField(name)}
-        className={styles.editButton}
-      >
-        Editar
-        </button>
-      )}
+        {isEditing ? (
+          <button
+            type="button"
+            onClick={() => onSave(name)}
+            className={styles.saveButton}
+          >
+            Salvar
+          </button>
+        ) : (
+          <button
+            type="button"
+            onClick={() => setEditingField(name)}
+            className={styles.editButton}
+          >
+            Editar
+          </button>
+        )}
+      </label>
+    </div>
+  );
+}
+
+function EditableTextField({ label, name, value, onChange, onSave, editingField, setEditingField }) {
+  const isEditing = editingField === name;
+
+  return (
+    <div className={styles.editableField}>
+      <strong>{label}:</strong>
+      <label className={styles.label}>
+        <textarea
+          type="text"
+          rows={5}
+          name={name}
+          value={value}
+          onChange={onChange}
+          disabled={!isEditing} // Desabilita se não estiver no modo de edição
+          className={styles.inputField}
+        />
+
+        {isEditing ? (
+          <button
+            type="button"
+            onClick={() => onSave(name)}
+            className={styles.saveButton}
+          >
+            Salvar
+          </button>
+        ) : (
+          <button
+            type="button"
+            onClick={() => setEditingField(name)}
+            className={styles.editButton}
+          >
+            Editar
+          </button>
+        )}
+      </label>
     </div>
   );
 }
 
 // Validação de props
 EditableField.propTypes = {
+  label: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
+  editingField: PropTypes.string,
+  setEditingField: PropTypes.func.isRequired,
+};
+
+EditableTextField.propTypes = {
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
