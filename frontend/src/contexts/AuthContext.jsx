@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import apiServices from '../services/api';
 
 export const AuthContext = createContext(null);
 
@@ -7,24 +8,37 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
 
     useEffect(() => {
-        const userToken = localStorage.getItem('user_token');
+        const token = localStorage.getItem('jwt_token');
         const userData = localStorage.getItem('user_data');
 
-        if (userToken && userData) {
-            setUser(JSON.parse(userData));
-        }
+        const verifyToken = async () => {
+            if (token && userData) {
+                try {
+                    // Verifica se o token ainda é válido
+                    await apiServices.getUserProfile();
+                    setUser(JSON.parse(userData));
+                } catch (error) {
+                    // Token inválido, faz logout
+                    console.error('Token inválido', error);
+                    logout();
+                }
+            }
+        };
+
+        verifyToken();
     }, []);
 
     const login = (token, user) => {
-        localStorage.setItem('user_token', token);
+        localStorage.setItem('jwt_token', token);
         localStorage.setItem('user_data', JSON.stringify(user));
         setUser(user);
     };
 
     const logout = () => {
-        localStorage.removeItem('user_token');
+        localStorage.removeItem('jwt_token');
         localStorage.removeItem('user_data');
         setUser(null);
+        window.location.href = '/';
     };
 
     return (
