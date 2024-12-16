@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import apiServices from '../../../services/apiServices';
 import styles from './Profile.module.css';
 
 function Profile() {
-  const [profile, setProfile] = useState(null);           // Estado para armazenar dados do perfil
+  const [profile, setProfile] = useState(null);           // Dados do perfil
   const [loading, setLoading] = useState(true);           // Controle de carregamento (loading spinner)
   const [error, setError] = useState(null);               // Controle de erro
-  const [editingField, setEditingField] = useState(null); // Controle de campo em edição
+  const [editingField, setEditingField] = useState(null); // Campo em edição
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState({              // Dados do formulário
     fullName: '',
     bio: '',
     location: '',
@@ -19,61 +20,61 @@ function Profile() {
     }
   });
 
+  // Busca o perfil do usuário
   useEffect(() => {
-    apiServices.getUserProfile()
-      .then(response => {
-        console.log('Resposta completa:', response);
-        console.log('response.data:', response.data);
-      })
-      .catch(error => {
-        console.error('Erro completo:', error);
-        console.log('Detalhes do erro:', error.response);
-      });
+    async function fetchProfile() {
+      try {
+        const response = await apiServices.getUserProfile();
+        const profileData = response.data.data;
+        setProfile(profileData); // Atualiza o perfil no estado
+        setFormData(profileData); // Atualiza os campos editáveis
+      } catch (error) {
+        console.error('Erro ao carregar perfil:', error);
+        setError(error.response?.data?.message || 'Erro ao carregar perfil.');
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchProfile();
   }, []);
-  
-  // useEffect(() => {
-  //   async function fetchProfile() {
-  //     try {
-  //       const response = await apiServices.getUserProfile();
-  //       setProfile(response.data.data);   // Armazena o perfil completo
-  //       setFormData(response.data.data);  // Preenche o formulário com os dados existentes
 
-  //     } catch (error) {
-  //       console.log('perfil:', profile);
-  //       console.error('Erro ao carregar perfil:', error);
-  //       setError(error.response?.data?.message || 'Erro ao carregar perfil.');
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   }
-  //   fetchProfile();
-  // }, []);
-
-  // Atualiza os campos editáveis
+  // Atualiza os campos editáveis do formulário
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name.startsWith('socialLinks.')) {
       const key = name.split('.')[1];   // Extração da chave (ex.: github, linkedin)
       setFormData((prev) => ({
         ...prev,
-        socialLinks: { ...prev.socialLinks, [key]: value },    // Atualiza o campo específico
+        socialLinks: { ...prev.socialLinks, [key]: value }    // Atualiza o campo específico
       }));
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));     // Atualiza os campos simples
     }
   };
 
-  // Submete as alterações
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  // Salva alterações de um campo individualmente
+  const handleSaveField = async () => {
     try {
-      const response = await apiServices.updateUserProfile(formData);
-      setProfile(response.data);  // Atualiza os dados do perfil
+      const updatedData = { ...formData };
+
+      // Atualiza no backend
+      const response = await apiServices.updateUserProfile(updatedData);
+      setProfile(response.data.data);
+      setEditingField(null); // Sai do modo de edição
+      alert('Campo salvo com sucesso!');
     } catch (error) {
       console.error('Erro ao atualizar o perfil:', error);
-      setError('Erro ao atualizar o perfil:', error);
+      setError('Erro ao atualizar o perfil:', error.response?.data?.message || 'Erro desconhecido.');
+      alert('Erro ao salvar o campo. Por favor, tente novamente.');
     }
   };
+
+  // Dados formatados para exibição
+  const username = profile?.username || 'N/A';
+  const email = profile?.email || 'N/A';
+  const createdAt = profile?.createdAt
+    ? new Date(profile.createdAt).toLocaleDateString()
+    : 'N/A';
 
   if (loading) return <div>Carregando...</div>;
   if (error) return <div>{error}</div>;
@@ -84,93 +85,128 @@ function Profile() {
       <h2>Perfil de {profile?.fullName || 'N/A'}</h2>
       <div className={styles.profileDetails}>
         {/* Dados não editáveis */}
-        <p><strong>Nome de usuário:</strong> {profile?.username || 'N/A'}</p>
-        <p><strong>Papel:</strong> {profile?.role || 'Leitor'}</p>
-        <p><strong>Cadastrado desde:</strong> {profile?.createdAt ? new Date(profile.createdAt).toLocaleDateString() : 'N/A'}</p>
+        <p><strong>Nome de usuário: </strong> {username}</p>
+        <p><strong>E-mail: </strong> {email}</p>
+        <p><strong>Cadastrado desde: </strong> {createdAt}</p>
       </div>
 
       {/* Dados editáveis */}
-      <form onSubmit={handleSubmit} className={styles.profileForm}>
-        <label>
-          Nome completo:
-          <input
-            type="text"
-            name="fullName"
-            value={formData.fullName}
-            onChange={handleChange}
-            disabled={editingField !== 'fullName'}
-          />
-          <button
-            type="button"
-            onClick={() => setEditingField(editingField === 'fullName' ? null : 'fullName')}
-          >
-            ✏️
-          </button>
-        </label>
-        <label>
-          Biografia:
-          <textarea
-            name="bio"
-            value={formData.bio}
-            onChange={handleChange}
-            disabled={editingField !== 'bio'}
-          />
-          <button
-            type="button"
-            onClick={() => setEditingField(editingField === 'bio' ? null : 'bio')}
-          >
-            ✏️
-          </button>
-        </label>
-        <label>
-          Localização:
-          <input
-            type="text"
-            name="location"
-            value={formData.location}
-            onChange={handleChange}
-            disabled={editingField !== 'location'}
-          />
-          <button
-            type="button"
-            onClick={() => setEditingField(editingField === 'location' ? null : 'location')}
-          >
-            ✏️
-          </button>
-        </label>
+      <form className={styles.profileForm}>
+        <EditableField
+          label="Nome completo"
+          name="fullName"
+          value={formData.fullName}
+          onChange={handleChange}
+          onSave={handleSaveField}
+          editingField={editingField}
+          setEditingField={setEditingField}
+        />
+        <EditableField
+          label="Biografia"
+          name="bio"
+          value={formData.bio}
+          onChange={handleChange}
+          onSave={handleSaveField}
+          editingField={editingField}
+          setEditingField={setEditingField}
+        />
+        <EditableField
+          label="Localização"
+          name="location"
+          value={formData.location}
+          onChange={handleChange}
+          onSave={handleSaveField}
+          editingField={editingField}
+          setEditingField={setEditingField}
+        />
 
         {/* Links sociais */}
         {['github', 'linkedin', 'twitter'].map((key) => (
-          <label key={key}>
-            {key.charAt(0).toUpperCase() + key.slice(1)}:
-            <input
-              type="text"
-              name={`socialLinks.${key}`}
-              value={formData.socialLinks?.[key] || ''}
-              onChange={handleChange}
-              disabled={editingField !== `socialLinks.${key}`}
-            />
-            <button
-              type="button"
-              onClick={() => setEditingField(editingField === `socialLinks.${key}` ? null : `socialLinks.${key}`)}
-            >
-              ✏️
-            </button>
-          </label>
-        ))}
-
-        {/* Botões de ação */}
-        <div className={styles.actions}>
-          <button
-            type="submit"
-            disabled={!editingField} // Só ativa quando algum campo está em edição
-          >
-            Salvar
-          </button>
-        </div>
+          <EditableField
+            key={key}
+            label={key.charAt(0).toUpperCase() + key.slice(1)}
+            name={`socialLinks.${key}`}
+            value={formData.socialLinks[key] || ''}
+            onChange={handleChange}
+            onSave={handleSaveField}
+          editingField={editingField}
+          setEditingField={setEditingField}
+          />
+        ))
+        }
       </form>
     </div>
   );
 }
+
+function EditableField({ label, name, value, onChange, onSave, editingField, setEditingField }) {
+  const isEditing = editingField === name;
+
+  return (
+    <div>
+      <label>
+        <strong>{label}:</strong>
+        <input
+          type="text"
+          name={name}
+          value={value}
+          onChange={onChange}
+          disabled={!isEditing} // Desabilita se não estiver no modo de edição
+          style={{
+            marginLeft: '10px',
+            padding: '5px',
+            border: isEditing ? '2px solid blue' : '1px solid gray',
+            borderRadius: '5px',
+          }}
+        />
+      </label>
+
+      {isEditing ? (
+        <button
+          type="button"
+          onClick={() => onSave(name)}
+          style={{
+            marginLeft: '10px',
+            backgroundColor: 'green',
+            color: 'white',
+            border: 'none',
+            borderRadius: '5px',
+            padding: '5px 10px',
+            cursor: 'pointer',
+          }}
+        >
+          Salvar
+        </button>
+      ) : (
+      <button
+        type="button"
+        onClick={() => setEditingField(name)}
+        style={{
+          marginLeft: '10px',
+          backgroundColor: 'orange',
+          color: 'white',
+          border: 'none',
+          borderRadius: '5px',
+          padding: '5px 10px',
+          cursor: 'pointer',
+        }}
+      >
+        Editar
+        </button>
+      )}
+    </div>
+  );
+}
+
+// Validação de props
+EditableField.propTypes = {
+  label: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
+  editingField: PropTypes.string,
+  setEditingField: PropTypes.func.isRequired,
+};
 
 export default Profile;
