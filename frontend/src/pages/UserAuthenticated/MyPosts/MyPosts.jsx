@@ -36,7 +36,12 @@ function MyPosts() {
       setPosts((prevPosts) => prevPosts.filter((post) => post._id !== postId));
       alert("Post excluído com sucesso!");
     } catch (error) {
-      console.error("Erro ao excluir o post", error);
+      console.error("Erro detalhado ao excluir o post", {
+        errorObject: error,
+        message: error.message,
+        responseData: error.response?.data,
+        status: error.response?.status
+      });
       alert("Erro ao excluir o post.");
     }
   };
