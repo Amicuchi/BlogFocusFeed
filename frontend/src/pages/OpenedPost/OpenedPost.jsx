@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useFormatarData } from '../../hooks/useFormatarData.js';
-// import apiServices from '../../services/apiServices.js';
+import apiServices from '../../services/apiServices.js';
 import AuthorBadge from '../../components/AuthorBadge/AuthorBadge';
 import styles from './OpenedPost.module.css';
-import axios from 'axios';
 
 function OpenedPost() {
     const { id } = useParams();
@@ -18,8 +17,7 @@ function OpenedPost() {
         const fetchPost = async () => {
             try {
                 setLoading(true);
-                // const response = await apiServices.getPostById(id);
-                const response = await axios.get(`http://localhost:5000/api/posts/${id}`);
+                const response = await apiServices.getPostById(id);
                 setPost(response.data.data);
                 setError(null);
             } catch (error) {
