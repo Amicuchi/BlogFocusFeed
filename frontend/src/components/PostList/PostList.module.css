@@ -1,7 +1,15 @@
 /* Contêiner geral do artigo */
 .PostListContainer {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     flex-wrap: wrap;
     margin-bottom: 2rem;
+    width: 100%;
+}
+
+.loadMoreButton{
+    margin-top: 2rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
