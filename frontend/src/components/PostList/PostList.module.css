@@ -1,7 +1,7 @@
 /* Contêiner geral do artigo */
 .PostListContainer {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     flex-wrap: wrap;
     margin-bottom: 2rem;
     width: 100%;
@@ -12,4 +12,12 @@
     width: 100%;
     display: flex;
     justify-content: center;
+    background-color: var(--bg-form);
+    color: var(--bg-secundario);
+    border: 1px solid var(--bg-secundario);
+}
+
+.loadMoreButton:hover{
+    background-color: #fff;
+    color: var(--bg-secundario);
 }
