@@ -52,3 +52,40 @@
     padding: 0.3rem;
     border-radius: 5px;
 }
+
+.tags {
+    margin-top: 1rem;
+}
+
+.tag {
+    display: inline-block;
+    width: fit-content;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    padding: 0.4rem 0.6rem;
+    background-color: var(--bg-terciario);
+    color: #fff;
+    border-radius: 1rem;
+    font-size: 0.7rem;
+}
+
+@media(max-width: 1023px){
+    .featuredPostContainer {
+        flex-direction: column;
+    }
+
+    .imageContainer {
+        width: 100%;
+    }
+
+    .featuredImage {
+        width: 100%;
+        height: 300px;
+        border-radius: 10px;
+        object-fit: cover; /* Para garantir que a imagem se ajuste bem ao espaço */
+    }
+
+    .postContent {
+        width: 100%;
+    }
+}
