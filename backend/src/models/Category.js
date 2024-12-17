@@ -23,7 +23,7 @@ const CategorySchema = new mongoose.Schema({
 });
 
 // Índice para facilitar busca por nome
-CategorySchema.index({ name: 1 });
+// CategorySchema.index({ name: 1 });
 
 const Category = mongoose.model('Category', CategorySchema);
 
