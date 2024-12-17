@@ -2,13 +2,16 @@
     display: flex;
     align-items: center;
     margin-top: 1rem;
-    border: 1px solid #e1e4e8;
     width: fit-content;
+    padding: 0.4rem;
+    border: 1px solid var(--bg-form);
+    border-radius: 0.5rem;
+    background-color: #f1f1f1;
 }
 
 .authorBadgeContainerImg{
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     margin-right: 0.5rem;
     object-fit: cover;
@@ -18,5 +21,5 @@
 .authorBadgeContainerH3,
 .authorBadgeContainerP {
     font-size: 0.8rem;
-    color: #222830;
+    color: var(--font-1st);
 }
