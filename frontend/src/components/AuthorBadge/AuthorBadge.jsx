@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import avatar from '../../assets/img/avatar.png';
 import styles from './AuthorBadge.module.css';
 
 function AuthorBadge({ post }) {
@@ -7,7 +8,7 @@ function AuthorBadge({ post }) {
     return (
         <div className={styles.authorBadgeContainer}>
             <img 
-            src={post.author.profilePicture} 
+            src={post.author.profilePicture || avatar} 
             alt={post.author.fullName} 
             className={styles.authorBadgeContainerImg} />
             <div className={styles.authorBadgeContainerId}>
