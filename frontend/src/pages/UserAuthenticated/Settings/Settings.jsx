@@ -1,28 +1,62 @@
+import { useState } from "react";
+import PropTypes from "prop-types";
+import Modal from "./Components/Modal";
+import EmailForm from "./Components/EmailForm";
+import PasswordForm from "./Components/PasswordForm";
+import DeletionForm from "./Components/DeletionForm";
+import styles from "./Settings.module.css";
+
 function Settings() {
-  const handleAccountChange = () => {
-    // Implementação para alterar os dados do usuário.
-  };
+  const [modalContent, setModalContent] = useState(null);
 
-  const handlePasswordChange = () => {
-    // Implementação para alterar a senha.
-  };
+  // Funções para abrir o modal com conteúdo específico
+  const openAccountModal = () =>
+    setModalContent({
+      title: "Alterar Endereço de E-mail",
+      content: <EmailForm onClose={() => setModalContent(null)} />,
+    });
 
-  const handleAccountDeletion = () => {
-    if (window.confirm('Tem certeza que deseja excluir sua conta?')) {
-      // Chamada para deletar a conta.
-    }
-  };
+  const openPasswordModal = () =>
+    setModalContent({
+      title: "Alterar Senha",
+      content: <PasswordForm onClose={() => setModalContent(null)} />,
+    });
+
+  const openDeletionModal = () =>
+    setModalContent({
+      title: "Excluir Conta",
+      content: <DeletionForm onClose={() => setModalContent(null)} />,
+    });
 
   return (
-    <section>
-      <h2>Configurações da Conta</h2>
-      <button onClick={handleAccountChange}>Alterar Dados da Conta</button>
-      <button onClick={handlePasswordChange}>Alterar Senha</button>
-      <button onClick={handleAccountDeletion} style={{ color: 'red' }}>
-        Excluir Conta
-      </button>
+    <section className={styles.settings}>
+      <header>
+        <h2>Configurações da Conta</h2>
+        <p>Gerencie suas informações e preferências.</p>
+      </header>
+
+      <article className={styles.options}>
+        <button onClick={openAccountModal}>Alterar Endereço de E-mail</button>
+        <button onClick={openPasswordModal}>Alterar Senha</button>
+        <button onClick={openDeletionModal} className={styles.dangerButton}>
+          Excluir Conta
+        </button>
+      </article>
+
+      {/* Modal */}
+      {modalContent && (
+        <Modal title={modalContent.title} onClose={() => setModalContent(null)}>
+          {modalContent.content}
+        </Modal>
+      )}
     </section>
   );
 }
+
+Settings.propTypes = {
+  handleAccountChange: PropTypes.func,
+  handlePasswordChange: PropTypes.func,
+  handleAccountDeletion: PropTypes.func,
+};
 
 export default Settings;
