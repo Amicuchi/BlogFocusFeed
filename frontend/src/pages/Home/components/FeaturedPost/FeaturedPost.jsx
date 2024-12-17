@@ -22,13 +22,19 @@ function FeaturedPost({ post }) {
             </div>
 
             <div className={styles.postContent}>
-                <p className={styles.postDate}>{dataFormatada}</p>
+                <p className={styles.postDate}>Publicado em: {dataFormatada}</p>
                 <Link to={`/post/${post._id}`} className={styles.postTitle}>
                     <h2 className={styles.postTitle}>{post.title}</h2>
                 </Link>
                 <p className={styles.postDescription}>{post.description}</p>
                 <AuthorBadge post={post} />
-                <p className={styles.postTags}>{post.tags}</p>
+                <div className={styles.tags}>
+                    {post.tags.map((tag) => (
+                        <span key={tag} className={styles.tag}>
+                            #{tag}
+                        </span>
+                    ))}
+                </div>
             </div>
         </article>
     );

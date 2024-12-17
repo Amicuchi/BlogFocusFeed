@@ -22,7 +22,13 @@ function PostCard({ post }) {
                     <h2 className={styles.postTitle}>{post.title}</h2>
                 </Link>
                 <p className={styles.postDescription}>{post.description}</p>
-                <p className={styles.postTags}>{post.tags}</p>
+                <div className={styles.tags}>
+                    {post.tags.map((tag) => (
+                        <span key={tag} className={styles.tag}>
+                            #{tag}
+                        </span>
+                    ))}
+                </div>
             </div>
         </article>
     );
