@@ -1,14 +1,18 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../contexts/AuthContext.jsx';
+import apiServices from '../../../services/apiServices.js';
 import avatar from '../../../assets/img/avatar.png';
 import styles from './UserMenu.module.css';
 
 const UserMenu = () => {
-  const [isOpen, setIsOpen] = useState(false);  // Estado para o menu suspenso
-  const { user, logout } = useAuth();           // Recupera os dados do usuário e função de logout
+  const [isOpen, setIsOpen] = useState(false);                            // Estado para o menu suspenso
+  const [loading, setLoading] = useState(true);                           // Controle de carregamento
+  const [error, setError] = useState(null);                               // Controle de erro
+  const [userPictureProfile, setUserPictureProfile] = useState(avatar);   // Dados do perfil
   const menuRef = useRef(null);
   const navigate = useNavigate();
+  const { user, logout } = useAuth();                                     // Recupera os dados do usuário e função de logout
 
   const toggleMenu = useCallback(() => {
     setIsOpen((prev) => !prev);
@@ -32,10 +36,25 @@ const UserMenu = () => {
     };
   }, []);
 
+  // Carregar dados do perfil do usuário
+  useEffect(() => {
+    async function fetchProfile() {
+      try {
+        const response = await apiServices.getUserProfile(user.id);
+        const profilePicture = response.data?.data?.profilePicture || avatar;
+        setUserPictureProfile(profilePicture);
+      } catch (error) {
+        console.error('Erro ao carregar perfil:', error);
+        setError(error.response?.data?.message || 'Erro ao carregar perfil.');
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchProfile();
+  }, [user.id]);
+
   // Mostra carregando enquanto o estado do usuário é inicializado
-  if (user === null) {
-    return <button className={styles.loginButton}>Carregando...</button>;
-  }
+  if (user === null) return <button className={styles.loginButton}>Carregando...</button>;
 
   // Renderizar botão de login se o usuário não estiver autenticado
   if (!user) {
@@ -46,15 +65,19 @@ const UserMenu = () => {
     );
   }
 
+  // Exibe mensagens de carregamento ou erro
+  if (loading) return <div>Carregando...</div>;
+  if (error) return <div>Erro: {error}</div>;
+
   return (
     <nav ref={menuRef} className={styles.userMenu}>
       <button onClick={toggleMenu} className={styles.menuToggle}>
         <img
-          src={user.profilePicture || avatar}
+          src={userPictureProfile}
           alt={`Foto de ${user.username}`}
           className={styles.userAvatar}
-          />
-          {user.username}
+        />
+        {user.username}
       </button>
       {isOpen && (
         <ul className={styles.menuDropdown}>

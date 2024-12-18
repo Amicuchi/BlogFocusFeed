@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import apiServices from '../../../services/apiServices';
+import avatar from '../../../assets/img/avatar.png';
 import styles from './Profile.module.css';
 
 function Profile() {
@@ -70,6 +71,7 @@ function Profile() {
   // Dados formatados para exibição
   const username = profile?.username || 'N/A';
   const email = profile?.email || 'N/A';
+  const picture = profile?.profilePicture || avatar;
   const createdAt = profile?.createdAt
     ? new Date(profile.createdAt).toLocaleDateString()
     : 'N/A';
@@ -83,9 +85,16 @@ function Profile() {
       <h2 className={styles.profileTitle}>Perfil de {profile?.fullName || 'N/A'}</h2>
       <div className={styles.profileDetails}>
         {/* Dados não editáveis */}
-        <p><strong>Nome de usuário: </strong> {username}</p>
-        <p><strong>E-mail: </strong> {email}</p>
-        <p><strong>Cadastrado desde: </strong> {createdAt}</p>
+          <img
+            src={picture}
+            alt={`Foto de ${username}`}
+            className={styles.profilePicture}
+          />
+        <div>
+          <p><strong>Nome de usuário: </strong> {username}</p>
+          <p><strong>E-mail: </strong> {email}</p>
+          <p><strong>Cadastrado desde: </strong> {createdAt}</p>
+        </div>
       </div>
 
       {/* Dados editáveis */}
