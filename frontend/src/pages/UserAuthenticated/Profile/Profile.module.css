@@ -15,10 +15,23 @@
 }
 
 .profileDetails {
+    display: flex;
+    gap: 20px;
     margin-bottom: 30px;
     font-size: 1.1rem;
     line-height: 2rem;
     color: #555;
+}
+
+.profilePicture {
+    border: 2px solid var(--bg-form);
+    width: 150px;
+    height: 150px;
+    gap: 20px;
+    object-fit: cover;
+    margin-bottom: 20px;
+    border-radius: 1rem;
+    text-align: center;
 }
 
 .profileForm {

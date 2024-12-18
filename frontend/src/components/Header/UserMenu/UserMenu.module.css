@@ -6,18 +6,18 @@
 .menuToggle {
     display: flex;
     align-items: center;
-    background-color: var(--bg-terciario);
-    border: none;
-    color: var(--bg-principal);
     padding: 5px 16px;
     cursor: pointer;
     border-radius: 4px;
-}
-
-.menuToggle:hover {
     background-color: var(--bg-principal);
     color: var(--bg-secundario);
     border: 1px solid var(--bg-secundario);
+}
+
+.menuToggle:hover {
+    background-color: var(--bg-terciario);
+    border: 1px solid var(--bg-secundario);
+    color: var(--bg-principal);
 }
 
 .userAvatar {
