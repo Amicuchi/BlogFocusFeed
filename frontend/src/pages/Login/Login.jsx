@@ -33,7 +33,7 @@ function Login() {
 
       // Armazena o token JWT retornado no localStorage para autenticação futura
       const { token, user } = response.data.data; // Backend retorna esses dados
-      
+
       login(token, user);                         // Passa o token e os dados do usuário para o hook de autenticação
       navigate('/');                              // Redireciona após login bem-sucedido
 
@@ -51,7 +51,6 @@ function Login() {
       <form onSubmit={handleSubmit}>
         {error && <p className={styles.errorMessage}>{error}</p>}
 
-        <div>
           <input
             type="email"
             id="email"
@@ -61,9 +60,7 @@ function Login() {
             disabled={isLoading}
             placeholder="Digite seu email"
           />
-        </div>
 
-        <div>
           <input
             type="password"
             id="password"
@@ -73,7 +70,6 @@ function Login() {
             disabled={isLoading}
             placeholder="Digite sua senha"
           />
-        </div>
 
         <button
           type="submit"

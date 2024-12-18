@@ -18,38 +18,34 @@
     flex-direction: column;
 }
 
-.loginContainer form div {
-    margin-bottom: 15px;
-}
-
-.loginContainer label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
 .loginContainer input {
     width: 100%;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
+    margin-bottom: 15px;
 }
 
 .loginContainer button {
     padding: 10px;
-    background-color: #007bff;
+    background-color: var(--bg-terciario);
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-bottom: 0.5rem;
 }
 
 .loginContainer button:hover {
     background-color: #0056b3;
 }
 
-.loginContainer .error-message {
+.loginContainer p{
+    font-size: 0.8rem;
+}
+
+.loginContainer .errorMessage {
     color: red;
-    margin-bottom: 15px;
+    margin-bottom: 1rem;
     text-align: center;
 }
