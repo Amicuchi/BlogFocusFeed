@@ -4,16 +4,29 @@
 }
 
 .menuToggle {
-    background-color: #4caf50;
-    color: white;
+    display: flex;
+    align-items: center;
+    background-color: var(--bg-terciario);
     border: none;
-    padding: 8px 16px;
+    color: var(--bg-principal);
+    padding: 5px 16px;
     cursor: pointer;
     border-radius: 4px;
 }
 
 .menuToggle:hover {
-    background-color: #45a049;
+    background-color: var(--bg-principal);
+    color: var(--bg-secundario);
+    border: 1px solid var(--bg-secundario);
+}
+
+.userAvatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin-right: 8px;
+    object-fit: cover;
+    cursor: pointer;
 }
 
 .menuDropdown {

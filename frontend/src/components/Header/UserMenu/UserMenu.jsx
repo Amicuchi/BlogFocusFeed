@@ -1,7 +1,8 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import styles from './UserMenu.module.css';
 import { useAuth } from '../../../contexts/AuthContext.jsx';
+import avatar from '../../../assets/img/avatar.png';
+import styles from './UserMenu.module.css';
 
 const UserMenu = () => {
   const [isOpen, setIsOpen] = useState(false);  // Estado para o menu suspenso
@@ -47,7 +48,14 @@ const UserMenu = () => {
 
   return (
     <nav ref={menuRef} className={styles.userMenu}>
-      <button onClick={toggleMenu} className={styles.menuToggle}> {user.username} </button>
+      <button onClick={toggleMenu} className={styles.menuToggle}>
+        <img
+          src={user.profilePicture || avatar}
+          alt={`Foto de ${user.username}`}
+          className={styles.userAvatar}
+          />
+          {user.username}
+      </button>
       {isOpen && (
         <ul className={styles.menuDropdown}>
           <li><Link to="/dashboard/perfil" className={styles.menuItem}>Exibir Perfil</Link></li>
