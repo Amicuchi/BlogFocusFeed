@@ -31,7 +31,7 @@ function Header() {
                     </div>
                     {signed ? (
                         <UserMenu
-                            username={user?.username || 'Usuário'}
+                            username={user?.username || 'Usuário sem username'}
                             onLogout={logout}
                         />
                     ) : (
