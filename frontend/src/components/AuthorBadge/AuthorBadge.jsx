@@ -24,10 +24,10 @@ function AuthorBadge({ post }) {
             }
         }
         fetchProfile();
-    }, [post]); // O efeito é disparado quando o post muda
+    }, [post]);
 
-    if (loading) return <div>Carregando...</div>;
-    if (error) return <div>Erro: {error}</div>;
+    if (loading) return <div className={styles.loading}>Carregando perfil...</div>;
+    if (error) return <div className={styles.error}>Erro ao carregar perfil: {error}</div>;
 
     return (
         <div className={styles.authorBadgeContainer}>
