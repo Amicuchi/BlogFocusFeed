@@ -16,6 +16,7 @@ import Profile from '../pages/UserAuthenticated/Profile/Profile';
 import Settings from '../pages/UserAuthenticated/Settings/Settings';
 import MyPosts from '../pages/UserAuthenticated/MyPosts/MyPosts';
 import NewPost from '../pages/UserAuthenticated/NewPost/NewPost';
+import Register from '../pages/Register/Register.jsx';
 
 const Private = ({ Component }) => {
     const { signed } = useAuth();
@@ -30,6 +31,7 @@ function AppRoutes() {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<ContactForm />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/privacy" element={<Privacy />} />
 
