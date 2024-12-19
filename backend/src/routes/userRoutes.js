@@ -4,6 +4,7 @@ import {
   loginUser,
   getUserProfile,
   updateUserProfile,
+  getAuthorProfile
 } from '../controllers/userController.js';
 import authMiddleware from '../middlewares/authMiddleware.js';
 import validate from '../middlewares/validationMiddleware.js'
@@ -14,6 +15,7 @@ const router = express.Router();
 // Rotas públicas
 router.post('/register', validate(userValidationSchema.register), registerUser);
 router.post('/login', validate(userValidationSchema.login), loginUser);
+router.get('/author/:id', getAuthorProfile);
 
 // Rotas protegidas
 router.get('/user', authMiddleware, getUserProfile);

@@ -13,7 +13,7 @@ function AuthorBadge({ post }) {
     useEffect(() => {
         async function fetchProfile() {
             try {
-                const response = await apiServices.getUserProfile(post.author._id);
+                const response = await apiServices.getAuthorProfile(post.author._id);
                 const profilePicture = response.data.data?.profilePicture || avatar;
                 setAuthorPictureProfile(profilePicture);
             } catch (error) {

@@ -37,6 +37,19 @@ export const getUserProfile = async (req, res, next) => {
   }
 };
 
+export const getAuthorProfile = async (req, res, next) => {
+  try {
+    const userId = req.params.id;
+    const user = await UserService.getAuthorProfile(userId);
+    res.status(200).json({
+      message: 'Perfil do autor encontrado',
+      data: user,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const updateUserProfile = async (req, res, next) => {
   try {
     const updatedUser = await UserService.updateUserProfile(

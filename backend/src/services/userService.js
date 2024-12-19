@@ -67,7 +67,16 @@ class UserService {
             .populate('posts');
 
         if (!user) throw new Error('Usuário não encontrado');
-        
+
+        return user;
+    }
+
+    async getAuthorProfile(userId) {
+        const user = await User.findById(userId)
+            .select('fullName username profilePicture authorRole') // Seleciona apenas campos públicos
+            .populate('posts', 'title'); // Opcional: incluir títulos dos posts, se necessário
+
+        if (!user) throw new Error('Autor não encontrado');
         return user;
     }
 

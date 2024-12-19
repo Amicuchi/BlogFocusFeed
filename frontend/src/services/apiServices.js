@@ -6,8 +6,9 @@ const apiServices = {
     registerUser: (data) => api.post('/api/users/register', data), // Registro de usuário
     loginUser: (data) => api.post('/api/users/login', data),       // Login de usuário
     getUserProfile: () => api.get('/api/users/user'),              // Obter perfil do usuário
+    getAuthorProfile: (userId) => api.get(`/api/users/author/${userId}`),      // Obter perfil de autor
     updateUserProfile: (data) => api.put('/api/users/user', data), // Atualizar perfil do usuário
-        
+    
     // Busca Posts
     searchPosts: (query) => api.get(`/api/posts/search?query=${query}`),    // Buscar posts por termo de busca
 
