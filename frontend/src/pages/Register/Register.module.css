@@ -1,18 +1,32 @@
 .registerContainer {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    background-color: #f4f4f4;
+    background-color: var(--bg-principal);
+    margin: 2rem auto;
+}
+
+.registerContainer h2{
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--font-2nd);
+}
+
+.registerContainer h3{
+    font-size: 1.2rem;
+    margin-bottom: 0.4rem;
+    margin-left: 0.2rem;
+    color: var(--font-2nd);
 }
 
 .registerForm {
-    background-color: white;
+    background-color: var(--bg-form);
     padding: 2rem;
-    border-radius: 8px;
+    border-radius: 1rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 400px;
+    max-width: 700px;
 }
 
 .inputField {
@@ -20,19 +34,24 @@
     padding: 0.75rem;
     margin-bottom: 1rem;
     border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 1rem;
+    border-radius: 0.6rem;
+    font-size: 0.9rem;
 }
 
 .submitButton {
     width: 100%;
     padding: 0.75rem;
-    background-color: #4CAF50;
+    background-color: var(--bg-terciario);
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
+}
+
+.submitButton:hover {
+    background-color: var(--font-2nd);
+    cursor: pointer;
 }
 
 .submitButton:disabled {
