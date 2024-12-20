@@ -2,8 +2,8 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import Modal from "./Components/Modal";
 import EmailForm from "./Components/EmailForm";
-import PasswordForm from "./Components/PasswordForm";
 import DeletionForm from "./Components/DeletionForm";
+import ResetPassword from "../../../components/ResetPassword/ResetPassword";
 import styles from "./Settings.module.css";
 
 function Settings() {
@@ -19,7 +19,7 @@ function Settings() {
   const openPasswordModal = () =>
     setModalContent({
       title: "Alterar Senha",
-      content: <PasswordForm onClose={() => setModalContent(null)} />,
+      content: <ResetPassword onClose={() => setModalContent(null)} />,
     });
 
   const openDeletionModal = () =>
