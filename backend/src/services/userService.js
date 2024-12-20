@@ -4,17 +4,15 @@ import jwt from 'jsonwebtoken';
 
 class UserService {
     async registerUser(userData) {
-        const { username, email, password, confirmPassword, fullName } = userData;
+        const { username, email, password, fullName } = userData;
 
-        if (password !== confirmPassword) {
-            throw new Error('Senhas não coincidem');
-        }
-
+        // Verifica se o usuário já está cadastrado
         const existingUser = await User.findOne({ $or: [{ email }, { username }] });
         if (existingUser) {
             throw new Error('Usuário já cadastrado');
         }
 
+        // Rehash a senha recebida do frontend com bcrypt
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const newUser = new User({
@@ -35,14 +33,16 @@ class UserService {
     async loginUser(email, password) {
         const user = await User.findOne({ email });
         if (!user) {
-            throw new Error('Usuário não encontrado');
+            throw new Error('Credenciais inválidas');
         }
 
+        // Compara a senha hasheada recebida com a armazenada
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             throw new Error('Credenciais inválidas');
         }
 
+        // Gera o token JWT
         const token = jwt.sign(
             { id: user._id, username: user.username },
             process.env.JWT_SECRET,
