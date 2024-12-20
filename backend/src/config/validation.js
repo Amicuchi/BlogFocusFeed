@@ -49,7 +49,6 @@ export const userValidationSchema = {
     username: usernameRule,
     email: emailRule,
     password: passwordRule,
-    confirmPassword: confirmPasswordRule,
     fullName: Joi.string()
       .min(2)
       .max(50)
@@ -58,7 +57,18 @@ export const userValidationSchema = {
         'string.min': 'O nome completo deve ter pelo menos 2 caracteres.',
         'string.max': 'O nome completo deve ter no máximo 50 caracteres.',
         'any.required': 'O nome completo é obrigatório.'
-      })
+      }),
+    profilePicture: Joi.string().uri().allow('').optional(),
+    bio: Joi.string().max(500).allow('').optional(),
+    location: Joi.string().max(100).allow('').optional(),
+    socialLinks: Joi.object({
+      instagram: Joi.string().uri().allow('').optional(),
+      twitter: Joi.string().uri().allow('').optional(),
+      facebook: Joi.string().uri().allow('').optional(),
+      linkedin: Joi.string().uri().allow('').optional(),
+      github: Joi.string().uri().allow('').optional()
+    }).optional(),
+    salt: Joi.string().optional()
   }),
 
   login: Joi.object({
@@ -83,7 +93,7 @@ export const postValidationSchema = {
         'string.max': 'O título deve ter no máximo 100 caracteres.',
         'any.required': 'O título é obrigatório.'
       }),
-      description: Joi.string()
+    description: Joi.string()
       .max(200)
       .optional()
       .messages({
@@ -113,7 +123,7 @@ export const postValidationSchema = {
       .messages({
         'array.max': 'Você pode adicionar no máximo 5 tags.'
       }),
-      image: Joi.string()
+    image: Joi.string()
       .uri()
       .optional()
       .messages({

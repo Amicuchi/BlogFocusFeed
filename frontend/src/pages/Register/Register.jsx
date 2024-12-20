@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import axios from 'axios';
+import apiServices from '../../services/apiServices';
+import CryptoJS from 'crypto-js';
 import styles from './Register.module.css';
 
 const Register = () => {
@@ -24,10 +25,11 @@ const Register = () => {
     const [errors, setErrors] = useState({});
     const [isLoading, setIsLoading] = useState(false);
 
+    // Função para atualizar os campos do formulário
     const handleChange = (e) => {
         const { name, value } = e.target;
 
-        // Tratamento para campos aninhados de redes sociais
+        // Atualizar campos de redes sociais
         if (name.startsWith('socialLinks.')) {
             const socialLinkKey = name.split('.')[1];
             setFormData(prev => ({
@@ -45,10 +47,10 @@ const Register = () => {
         }
     };
 
+    // Função para validar o formulário
     const validateForm = () => {
         const newErrors = {};
 
-        // Validações
         if (!formData.username.match(/^[a-zA-Z0-9_]{3,20}$/)) {
             newErrors.username = 'Nome de usuário inválido';
         }
@@ -69,41 +71,39 @@ const Register = () => {
             newErrors.confirmPassword = 'Senhas não coincidem';
         }
 
-        // Validação opcional de redes sociais (se preenchidas)
-        const socialMediaValidations = {
-            instagram: /^https?:\/\/(www\.)?instagram\.com\/[a-zA-Z0-9_]+\/?$/,
-            twitter: /^https?:\/\/(www\.)?twitter\.com\/[a-zA-Z0-9_]+\/?$/,
-            facebook: /^https?:\/\/(www\.)?facebook\.com\/[a-zA-Z0-9_]+\/?$/,
-            linkedin: /^https?:\/\/(www\.)?linkedin\.com\/in\/[a-zA-Z0-9_-]+\/?$/,
-            github: /^https?:\/\/(www\.)?github\.com\/[a-zA-Z0-9_-]+\/?$/
-        };
-
-        Object.keys(formData.socialLinks).forEach(platform => {
-            const link = formData.socialLinks[platform];
-            if (link && !socialMediaValidations[platform].test(link)) {
-                newErrors[`socialLinks.${platform}`] = `Link do ${platform} inválido`;
-            }
-        });
-
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
 
+    // Função para hashear a senha com salt
+    const hashPassword = (password) => {
+        const salt = CryptoJS.lib.WordArray.random(16).toString(); // Salt aleatório
+        let hash = password;
+        for (let i = 0; i < 5; i++) { // Múltiplas rodadas de hash
+            hash = CryptoJS.SHA256(hash + salt).toString();
+        }
+        return { salt, hash };
+    };
+
+    // Função para lidar com o envio do formulário
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!validateForm()) return;
 
-        // Remover campo de confirmação de senha antes de enviar
-        const { confirmPassword, ...dataToSend } = formData;
-
         setIsLoading(true);
-
         try {
-            const response = await axios.post('/api/users/register', dataToSend);
+            const { salt, hash } = hashPassword(formData.password);
+            const dataToSend = {
+                ...formData,
+                password: hash,
+                salt
+            };
+            delete dataToSend.confirmPassword; // Remover campo de confirmação de senha
 
-            alert(response.data.message); // Feedback de sucesso
+            const response = await apiServices.registerUser(dataToSend);
 
+            alert(response.data.message || 'Cadastro realizado com sucesso!'); // Feedback de sucesso
             // Limpar formulário
             setFormData({
                 username: '',
@@ -123,7 +123,6 @@ const Register = () => {
                 }
             });
         } catch (error) {
-            // Tratamento de erro
             alert(error.response?.data?.message || 'Erro no cadastro');
         } finally {
             setIsLoading(false);
@@ -132,6 +131,7 @@ const Register = () => {
 
     return (
         <div className={styles.registerContainer}>
+            <h2>Cadastre-se</h2>
             <form onSubmit={handleSubmit} className={styles.registerForm}>
                 <input
                     type="text"
@@ -215,15 +215,15 @@ const Register = () => {
 
                 {/* Seção de Redes Sociais */}
                 <div className={styles.socialLinksSection}>
-                    <h3>Links de Redes Sociais (opcional)</h3>
-                    {Object.keys(formData.socialLinks).map(platform => (
+                    <h3>Redes Sociais (opcional)</h3>
+                    {Object.keys(formData.socialLinks).map((platform) => (
                         <div key={platform} className={styles.socialLinkInput}>
                             <input
                                 type="text"
                                 name={`socialLinks.${platform}`}
                                 value={formData.socialLinks[platform]}
                                 onChange={handleChange}
-                                placeholder={`Link do ${platform.charAt(0).toUpperCase() + platform.slice(1)}`}
+                                placeholder={`Link do ${platform}`}
                                 className={styles.inputField}
                             />
                             {errors[`socialLinks.${platform}`] && (
