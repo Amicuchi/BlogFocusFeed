@@ -8,7 +8,11 @@ const apiServices = {
     getUserProfile: () => api.get('/api/users/user'),              // Obter perfil do usuário
     getAuthorProfile: (userId) => api.get(`/api/users/author/${userId}`),      // Obter perfil de autor
     updateUserProfile: (data) => api.put('/api/users/user', data), // Atualizar perfil do usuário
-    
+
+    // Autenticação
+    forgotPassword: async (email) => api.post('/api/auth/forgot-password', { email }),                          // Solicitar redefinição de senha
+    resetPassword: async (token, newPassword) => api.post('/api/auth/reset-password', { token, newPassword }),  // Redefinição de senha
+
     // Busca Posts
     searchPosts: (query) => api.get(`/api/posts/search?query=${query}`),    // Buscar posts por termo de busca
 
