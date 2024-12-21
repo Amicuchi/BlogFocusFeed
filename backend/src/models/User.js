@@ -51,6 +51,8 @@ const UserSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Post',
   }],
+  passwordResetToken: String,
+  passwordResetExpires: Date,
 }, {
   timestamps: true,
 });
