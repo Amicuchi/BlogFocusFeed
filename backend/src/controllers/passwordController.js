@@ -7,7 +7,7 @@ export const forgotPassword = async (req, res, next) => {
     const { resetToken, user, resetUrl } = await generateResetToken(email);
 
     const message = `
-      Olá ${user.username},
+      Olá ${user.fullName},
       Recebemos uma solicitação para redefinir sua senha. Clique no link abaixo para continuar:
       ${resetUrl}
       Se você não solicitou isso, ignore este e-mail.
