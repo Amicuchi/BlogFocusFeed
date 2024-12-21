@@ -82,6 +82,9 @@ function Login() {
       <p>
         Não tem uma conta? <a href="/register">Registre-se</a>
       </p>
+      <p>
+        Esqueceu a senha? <a href="/forgot-password">Clique aqui!</a>
+      </p>
     </section>
   );
 }
