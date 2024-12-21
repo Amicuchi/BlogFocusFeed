@@ -1,4 +1,4 @@
-import { generateResetToken, updatePassword } from '../services/forgotPasswordService.js';
+import { generateResetToken, updatePassword } from '../services/passwordService.js';
 import sendEmail from '../utils/sendEmail.js';
 
 export const forgotPassword = async (req, res, next) => {
