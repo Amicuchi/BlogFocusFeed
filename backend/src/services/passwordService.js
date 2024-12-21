@@ -36,7 +36,7 @@ export const updatePassword = async (token, newPassword) => {
     console.error("Token inválido ou expirado.");
     throw new Error("Token inválido ou expirado");
   }
-  
+
   const salt = await bcrypt.genSalt(10);
   user.password = await bcrypt.hash(newPassword, salt);
   user.passwordResetToken = undefined;
