@@ -10,8 +10,9 @@ const apiServices = {
     updateUserProfile: (data) => api.put('/api/users/user', data), // Atualizar perfil do usuário
 
     // Autenticação
-    forgotPassword: async (email) => api.post('/api/auth/forgot-password', { email }),                          // Solicitar redefinição de senha
-    resetPassword: async (token, newPassword) => api.post('/api/auth/reset-password', { token, newPassword }),  // Redefinição de senha
+    forgotPassword: async (email) => api.post('/api/auth/forgot-password', { email }),                                                              // Solicitar redefinição de senha
+    resetPassword: async (token, currentPassword, newPassword) => api.post('/api/auth/reset-password', { token, currentPassword, newPassword }),    // Redefinição de senha
+    resetPasswordWithToken: async (token, newPassword) => api.post("/api/auth/reset-password-with-token", { token, newPassword }),                  // Redefinição de senha com token
 
     // Busca Posts
     searchPosts: (query) => api.get(`/api/posts/search?query=${query}`),    // Buscar posts por termo de busca
