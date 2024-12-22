@@ -1,0 +1,30 @@
+
+/* Input de busca */
+.searchBar {
+    display: flex;
+    /* align-items: center; */
+}
+
+.searchInput,
+.searchInputBtn{
+    padding: 0.5rem;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    height: 2.5rem;
+    line-height: 1.5rem;
+    vertical-align: middle;
+}
+
+.searchInput {
+    border-radius: 30px 0 0 30px;
+    border-right: 0;
+    margin-bottom: 0;
+}
+
+.searchInputBtn {
+    border-radius: 0 30px 30px 0;
+    border-left: 0;
+    background-color: var(--bg-terciario);
+    width: 4rem;
+}

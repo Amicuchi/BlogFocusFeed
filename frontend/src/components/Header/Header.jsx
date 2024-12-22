@@ -3,6 +3,7 @@ import { useAuth } from '../../contexts/AuthContext.jsx';
 import Categories from './Categories/Categories.jsx';
 import UserMenu from './UserMenu/UserMenu.jsx';
 import styles from './Header.module.css';
+import SearchBar from './SearchBar/SearchBar.jsx';
 
 function Header() {
     const { signed, user, logout } = useAuth(); // Usa o contexto global de autenticação
@@ -15,20 +16,7 @@ function Header() {
                     <Link to="/" className={styles.logoLink}>FocusFeed</Link>
                 </h1>
                 <div className={styles.searchLoginContainer}>
-                    <div className={styles.searchBar}>
-                        <input
-                            type="text"
-                            className={styles.searchInput}
-                            placeholder="Pesquisar"
-                            aria-label="Campo de busca"
-                        />
-                        <button
-                            className={styles.searchInputBtn}
-                            type="button"
-                        >
-                            🔍
-                        </button>
-                    </div>
+                    <SearchBar />
                     {signed ? (
                         <UserMenu
                             username={user?.username || 'Usuário sem username'}
