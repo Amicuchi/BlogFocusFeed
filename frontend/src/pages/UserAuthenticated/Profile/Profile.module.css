@@ -64,6 +64,7 @@
     border: 1px solid var(--bg-form);
     border-radius: 10px;
     transition: border-color 0.3s ease;
+    margin-bottom: 0;
 }
 
 .inputField:focus {
@@ -72,6 +73,7 @@
 
 .editableField .editButton,
 .editableField .saveButton {
+    width: 5rem;
     padding: 0.6rem 1rem;
     border: none;
     border-radius: 0.5rem;
