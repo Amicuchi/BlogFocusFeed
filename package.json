@@ -38,6 +38,7 @@
     "start:backend": "cd Backend && npm run dev",
     "dev": "concurrently \"npm run start:frontend\" \"npm run start:backend\"",
     "serve": "vite preview",
+    "build": "cd Frontend && npm install && npm run build",
     "release": "standard-version"
   },
   "license": "ISC",
