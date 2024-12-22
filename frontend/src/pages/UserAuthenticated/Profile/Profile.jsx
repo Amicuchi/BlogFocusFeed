@@ -27,8 +27,19 @@ function Profile() {
       try {
         const response = await apiServices.getUserProfile();
         const profileData = response.data.data;
-        setProfile(profileData); // Atualiza o perfil no estado
-        setFormData(profileData); // Atualiza os campos editáveis
+        
+        // Garantir que socialLinks existe
+        const normalizedData = {
+          ...profileData,
+          socialLinks: profileData.socialLinks || {
+            github: '',
+            linkedin: '',
+            twitter: ''
+          }
+        };
+
+        setProfile(normalizedData); // Atualiza o perfil no estado
+        setFormData(normalizedData); // Atualiza os campos editáveis
       } catch (error) {
         console.error('Erro ao carregar perfil:', error);
         setError(error.response?.data?.message || 'Erro ao carregar perfil.');
@@ -46,7 +57,7 @@ function Profile() {
       const key = name.split('.')[1];   // Extração da chave (ex.: github, linkedin)
       setFormData((prev) => ({
         ...prev,
-        socialLinks: { ...prev.socialLinks, [key]: value }    // Atualiza o campo específico
+        socialLinks: { ...(prev.socialLinks || {}), [key]: value }    // Atualiza o campo específico
       }));
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));     // Atualiza os campos simples
@@ -58,8 +69,19 @@ function Profile() {
     try {
       const updatedData = { ...formData };
       const response = await apiServices.updateUserProfile(updatedData);
-      setProfile(response.data.data);
-      setEditingField(null); // Sai do modo de edição
+      
+      const updatedProfile = {
+        ...response.data.data,
+        socialLinks: response.data.data.socialLinks || {
+          github: '',
+          linkedin: '',
+          twitter: ''
+        }
+      };
+      
+      setProfile(updatedProfile);
+      setFormData(updatedProfile);
+      setEditingField(null);
       alert('Campo salvo com sucesso!');
     } catch (error) {
       console.error('Erro ao atualizar o perfil:', error);
@@ -102,7 +124,7 @@ function Profile() {
         <EditableField
           label="Nome completo"
           name="fullName"
-          value={formData.fullName}
+          value={formData.fullName || ''}
           onChange={handleChange}
           onSave={handleSaveField}
           editingField={editingField}
@@ -111,7 +133,7 @@ function Profile() {
         <EditableTextField
           label="Biografia"
           name="bio"
-          value={formData.bio}
+          value={formData.bio || ''}
           onChange={handleChange}
           onSave={handleSaveField}
           editingField={editingField}
@@ -120,7 +142,7 @@ function Profile() {
         <EditableField
           label="Localização"
           name="location"
-          value={formData.location}
+          value={formData.location || ''}
           onChange={handleChange}
           onSave={handleSaveField}
           editingField={editingField}
@@ -128,7 +150,7 @@ function Profile() {
         />
 
         {/* Links sociais */}
-        {['github', 'linkedin', 'twitter'].map((key) => (
+        {Object.keys(formData.socialLinks || {}).map((key) => (
           <EditableField
             key={key}
             label={key.charAt(0).toUpperCase() + key.slice(1)}
@@ -139,8 +161,7 @@ function Profile() {
             editingField={editingField}
             setEditingField={setEditingField}
           />
-        ))
-        }
+        ))}
       </form>
     </main>
   );
