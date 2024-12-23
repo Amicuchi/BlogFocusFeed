@@ -9,8 +9,8 @@ import {
 const router = express.Router();
 
 // Rota Pública
-router.post("/forgot-password", forgotPassword);        // Solicitar redefinição de senha
-router.post("/reset-password-with-token", resetPasswordWithToken); // Reset de senha através do token enviado
+router.post("/forgot-password", forgotPassword);                    // Solicitar redefinição de senha
+router.post("/reset-password-with-token", resetPasswordWithToken);  // Reset de senha através do token enviado
 
 // Rota Protegida
 router.post("/reset-password", authMiddleware, resetPassword); // Redefinir senha
