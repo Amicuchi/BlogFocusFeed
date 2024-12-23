@@ -60,6 +60,7 @@ const UserSchema = new mongoose.Schema({
 // Índices para consultas frequentes
 UserSchema.index({ username: 1, email: 1 });
 
-const User = mongoose.model('User', UserSchema);
+// Garante que o modelo seja registrado apenas uma vez
+const User = mongoose.models.User || mongoose.model("User", UserSchema);
 
 export default User;
