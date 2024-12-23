@@ -5,13 +5,13 @@ import apiServices from '../../../services/apiServices.js';
 import avatar from '../../../assets/img/avatar.png';
 import styles from './UserMenu.module.css';
 
-const UserMenu = () => {
+function UserMenu() {
   const [isOpen, setIsOpen] = useState(false);                            // Estado para o menu suspenso
   const [loading, setLoading] = useState(true);                           // Controle de carregamento
   const [error, setError] = useState(null);                               // Controle de erro
   const [userPictureProfile, setUserPictureProfile] = useState(avatar);   // Dados do perfil
-  const menuRef = useRef(null);
-  const navigate = useNavigate();
+  const menuRef = useRef(null);                                           // Referência para o menu suspenso
+  const navigate = useNavigate();                                         // Navegação programática
   const { user, logout } = useAuth();                                     // Recupera os dados do usuário e função de logout
 
   const toggleMenu = useCallback(() => {
@@ -39,19 +39,33 @@ const UserMenu = () => {
   // Carregar dados do perfil do usuário
   useEffect(() => {
     async function fetchProfile() {
+      if (!user?.id) return;
+
       try {
+        setLoading(true);
         const response = await apiServices.getUserProfile(user.id);
         const profilePicture = response.data?.data?.profilePicture || avatar;
+
+        // Verifica a imagem de forma simples usando uma Promise
+        await new Promise((resolve, reject) => {
+          const img = new Image();
+          img.onload = resolve;     // Resolução bem-sucedida
+          img.onerror = reject;     // Rejeição em caso de erro
+          img.src = profilePicture; // Define a URL da imagem
+        });
+
         setUserPictureProfile(profilePicture);
       } catch (error) {
         console.error('Erro ao carregar perfil:', error);
         setError(error.response?.data?.message || 'Erro ao carregar perfil.');
+        setUserPictureProfile(avatar); // Fallback para o avatar
       } finally {
         setLoading(false);
       }
     }
+    
     fetchProfile();
-  }, [user.id]);
+  }, [user?.id]);
 
   // Mostra carregando enquanto o estado do usuário é inicializado
   if (user === null) return <button className={styles.loginButton}>Carregando...</button>;
