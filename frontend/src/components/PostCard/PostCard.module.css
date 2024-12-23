@@ -96,3 +96,25 @@
     font-size: 0.8rem;
     color: #222830;
 }
+
+/* *********************************** */
+/* Estilos para a a formatação do post */
+/* *********************************** */
+
+.fullContent {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.fullContent p {
+    margin-bottom: 1rem;
+}
+
+.fullContent a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.fullContent a:hover {
+    text-decoration: underline;
+}

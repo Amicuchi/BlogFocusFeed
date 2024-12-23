@@ -69,6 +69,29 @@
     font-size: 0.7rem;
 }
 
+/* *********************************** */
+/* Estilos para a a formatação do post */
+/* *********************************** */
+
+.fullContent {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.fullContent p {
+    margin-bottom: 1rem;
+}
+
+.fullContent a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.fullContent a:hover {
+    text-decoration: underline;
+}
+
+
 @media(max-width: 1023px){
     .featuredPostContainer {
         flex-direction: column;
