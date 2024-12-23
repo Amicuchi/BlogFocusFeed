@@ -13,6 +13,7 @@ import postRoutes from './src/routes/postRoutes.js';
 import categoryRoutes from './src/routes/categoryRoutes.js';
 import contactRoutes from './src/routes/contactRoutes.js';
 import passwordRoutes from './src/routes/passwordRoutes.js';
+import newsletterRoutes from './src/routes/newsletterRoutes.js';
 
 dotenv.config();
 
@@ -46,6 +47,7 @@ app.use('/api/posts', postRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/contactadmin', contactRoutes);
 app.use('/api/auth', passwordRoutes);
+app.use("/api/newsletter", newsletterRoutes);
 
 // Handlers de erro
 app.use(notFoundHandler);

@@ -30,6 +30,9 @@ const apiServices = {
     createCategory: (data) => api.post('/api/categories', data),            // Criar nova categoria
     updateCategory: (id, data) => api.put(`/api/categories/${id}`, data),   // Atualizar categoria
     deleteCategory: (id) => api.delete(`/api/categories/${id}`),            // Deletar categoria
+
+    // Newsletter
+    newsletterSubscribe: (data) => api.post('/api/newsletter/subscribe', data), // Inscrever-se na newsletter
 };
 
 export default apiServices;
