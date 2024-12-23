@@ -10,7 +10,6 @@ import styles from "./NewPost.module.css";
 import apiServices from "../../../services/apiServices";
 
 function NewPost() {
-  // Configuração do react-hook-form
   const {
     control,
     register,
@@ -63,7 +62,7 @@ function NewPost() {
         tags: data.tags ? data.tags.split(',').map(tag => tag.trim()) : [],
         image: data.image,
       };
-      
+
       await apiServices.createPost(postData);
       toast.success('Post publicado com sucesso!');
       navigate('/');
@@ -116,6 +115,7 @@ function NewPost() {
               <RichTextEditor
                 {...field}
                 onContentChange={(value) => setValue("content", value, { shouldValidate: true })}
+                allowedTags={['p', 'a', 'b', 'i', 'ul', 'ol', 'li', 'strong', 'em', 'h1', 'h2', 'h3', 'blockquote', 'code', 'hr', 'br', 'div', 'span', 'img']}
               />
             )}
           />

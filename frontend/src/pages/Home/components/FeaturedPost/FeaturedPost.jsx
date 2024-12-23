@@ -3,13 +3,20 @@ import { useFormatarData } from '../../../../hooks/useFormatarData';
 import PropTypes from 'prop-types';
 import AuthorBadge from '../../../../components/AuthorBadge/AuthorBadge';
 import styles from './FeaturedPost.module.css';
+import parse from 'html-react-parser';
+import DOMPurify from 'dompurify';
 
 function FeaturedPost({ post }) {
+    const dataFormatada = useFormatarData(post?.updatedAt);
+
     if (!post) {
         return <div className={styles.error}>Nenhum post em destaque disponível.</div>;
     }
 
-    const dataFormatada = useFormatarData(post?.updatedAt);
+    const renderDescription = (description) => {
+        const sanitizedDescription = DOMPurify.sanitize(description);
+        return parse(sanitizedDescription);
+    };
 
     return (
         <article className={styles.featuredPostContainer}>
@@ -26,7 +33,7 @@ function FeaturedPost({ post }) {
                 <Link to={`/post/${post._id}`} className={styles.postTitle}>
                     <h2 className={styles.postTitle}>{post.title}</h2>
                 </Link>
-                <p className={styles.postDescription}>{post.description}</p>
+                <p className={styles.postDescription}>{renderDescription(post.description)}</p>
                 <AuthorBadge post={post} />
                 <div className={styles.tags}>
                     {post.tags.map((tag) => (

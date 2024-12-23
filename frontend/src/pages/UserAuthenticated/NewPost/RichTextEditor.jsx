@@ -1,11 +1,11 @@
 import { forwardRef, useState } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import Paragraph from "@tiptap/extension-paragraph";
-import Text from "@tiptap/extension-text";
 import Bold from "@tiptap/extension-bold";
 import Italic from "@tiptap/extension-italic";
 import Heading from "@tiptap/extension-heading";
+import Paragraph from "@tiptap/extension-paragraph";
+import Text from "@tiptap/extension-text";
 import BulletList from "@tiptap/extension-bullet-list";
 import OrderedList from "@tiptap/extension-ordered-list";
 import ListItem from "@tiptap/extension-list-item";
@@ -13,6 +13,7 @@ import Underline from "@tiptap/extension-underline";
 import Link from "@tiptap/extension-link";
 import PropTypes from "prop-types";
 import styles from "./RichTextEditor.module.css";
+import DOMPurify from 'dompurify';
 
 // Função de validação de URL
 const isValidUrl = (url) => {
@@ -24,9 +25,14 @@ const isValidUrl = (url) => {
   }
 };
 
-const RichTextEditor = forwardRef(({ onContentChange, initialValue = "" }, ref) => {
+const RichTextEditor = forwardRef(({ onContentChange, initialValue = "", allowedTags = [] }, ref) => {
   const [isLinkModalOpen, setIsLinkModalOpen] = useState(false);
   const [linkUrl, setLinkUrl] = useState('');
+
+  const sanitizeContent = (content) => {
+    // Configura DOMPurify com tags permitidas
+    return DOMPurify.sanitize(content, { ALLOWED_TAGS: allowedTags });
+  };
 
   const editor = useEditor({
     extensions: [
@@ -44,6 +50,7 @@ const RichTextEditor = forwardRef(({ onContentChange, initialValue = "" }, ref) 
       Text,
       Bold,
       Italic,
+      Underline,
       Heading.configure({
         levels: [1, 2, 3],
         HTMLAttributes: {
@@ -53,13 +60,17 @@ const RichTextEditor = forwardRef(({ onContentChange, initialValue = "" }, ref) 
       BulletList,
       OrderedList,
       ListItem,
-      Underline,
       Link.configure({
         openOnClick: false,
       }),
     ],
     content: initialValue,
-    onUpdate: ({ editor }) => onContentChange(editor.getHTML()),
+    onUpdate: ({ editor }) => {
+      const rawHTML = editor.getHTML();
+      const sanitizedHTML = sanitizeContent(rawHTML);
+      onContentChange(sanitizedHTML);
+    },
+      // onContentChange(editor.getHTML()),
     editorProps: {
       attributes: {
         class: styles.editorClickAnywhere,
@@ -89,7 +100,6 @@ const RichTextEditor = forwardRef(({ onContentChange, initialValue = "" }, ref) 
         .focus()
         .setLink({ href: linkUrl })
         .run();
-
       setIsLinkModalOpen(false);
       setLinkUrl('');
     } else {
@@ -207,6 +217,7 @@ RichTextEditor.displayName = "RichTextEditor";
 RichTextEditor.propTypes = {
   onContentChange: PropTypes.func.isRequired,
   initialValue: PropTypes.string,
+  allowedTags: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default RichTextEditor;

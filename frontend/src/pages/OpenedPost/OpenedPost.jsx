@@ -4,6 +4,8 @@ import { useFormatarData } from '../../hooks/useFormatarData.js';
 import apiServices from '../../services/apiServices.js';
 import AuthorBadge from '../../components/AuthorBadge/AuthorBadge';
 import styles from './OpenedPost.module.css';
+import parse from 'html-react-parser';
+import DOMPurify from 'dompurify';
 
 function OpenedPost() {
     const { id } = useParams();
@@ -31,6 +33,11 @@ function OpenedPost() {
         fetchPost();
     }, [id]);
 
+    const renderContent = (content) => {
+        const sanitizedContent = DOMPurify.sanitize(content);
+        return parse(sanitizedContent);
+    };
+
     if (loading) return <div>Carregando...</div>;
     if (error) return <div>Erro ao carregar o post: {error.message || 'Erro desconhecido'}</div>;
     if (!post) return <div>Post não encontrado</div>;
@@ -55,7 +62,7 @@ function OpenedPost() {
                 {/* Corpo completo do post, se existir */}
                 {post.content && (
                     <div className={styles.fullContent}>
-                        {post.content}
+                        {renderContent(post.content)}
                     </div>
                 )}
             </section>

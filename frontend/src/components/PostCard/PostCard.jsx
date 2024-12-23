@@ -2,9 +2,16 @@ import { Link } from 'react-router-dom'
 import { useFormatarData } from '../../hooks/useFormatarData';
 import PropTypes from 'prop-types';
 import styles from './PostCard.module.css';
+import parse from 'html-react-parser';
+import DOMPurify from 'dompurify';
 
 function PostCard({ post }) {
     const dataFormatada = useFormatarData(post?.postDate);
+
+   const renderDescription = (description) => {
+       const sanitizedDescription = DOMPurify.sanitize(description);
+       return parse(sanitizedDescription);
+   };
 
     return (
         <article className={styles.PostContainer}>
@@ -21,7 +28,7 @@ function PostCard({ post }) {
                 <Link to={`/post/${post._id}`} className={styles.postTitle}>
                     <h2 className={styles.postTitle}>{post.title}</h2>
                 </Link>
-                <p className={styles.postDescription}>{post.description}</p>
+                <p className={styles.postDescription}>{renderDescription(post.description)}</p>
                 <div className={styles.tags}>
                     {post.tags.map((tag) => (
                         <span key={tag} className={styles.tag}>
