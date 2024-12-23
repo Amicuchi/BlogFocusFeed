@@ -74,6 +74,7 @@
 .editableField .editButton,
 .editableField .saveButton {
     width: 5rem;
+    height: 2.5rem;
     padding: 0.6rem 1rem;
     border: none;
     border-radius: 0.5rem;
@@ -81,16 +82,6 @@
     font-size: 0.9rem;
     transition: background-color 0.3s ease;
     background-color: var(--bg-terciario);
-}
-
-.editButton {
-    background-color: #ff9800;
-    color: white;
-}
-
-.saveButton {
-    background-color: #4caf50;
-    color: white;
 }
 
 .editButton:hover {
