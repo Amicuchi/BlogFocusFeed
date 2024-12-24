@@ -1,6 +1,9 @@
 import nodemailer from "nodemailer";
+import { htmlToText } from "html-to-text";
 
-const sendEmail = async ({ to, subject, text, html }) => {
+const sendEmail = async ({ to, subject, html }) => {
+  // Gera a versão em texto simples automaticamente
+  const text = htmlToText(html);
 
   try {
     const transporter = nodemailer.createTransport({
