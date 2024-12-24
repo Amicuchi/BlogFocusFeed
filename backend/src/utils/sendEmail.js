@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer";
 
-// Função para enviar e-mails
-const sendEmail = async (to, subject, text) => {
+const sendEmail = async ({ to, subject, text, html }) => {
+
   try {
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
@@ -18,12 +18,13 @@ const sendEmail = async (to, subject, text) => {
       to,
       subject,
       text,
+      html,
     };
 
     await transporter.sendMail(mailOptions);
-    console.log("E-mail enviado com sucesso para:", to);
   } catch (error) {
-    console.error("Erro ao enviar e-mail:", error);
+    console.error("Erro ao enviar e-mail:", error.message);
+    console.error("Detalhes do erro:", error);
     throw new Error("Erro ao enviar e-mail");
   }
 };
