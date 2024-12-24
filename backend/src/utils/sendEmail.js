@@ -3,7 +3,9 @@ import { htmlToText } from "html-to-text";
 
 const sendEmail = async ({ to, subject, html }) => {
   // Gera a versão em texto simples automaticamente
-  const text = htmlToText(html);
+  const text = htmlToText(html, {
+    wordwrap: 130, // Ajusta o texto para até 130 caracteres por linha
+  });
 
   try {
     const transporter = nodemailer.createTransport({
