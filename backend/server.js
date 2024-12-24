@@ -15,6 +15,9 @@ import contactRoutes from './src/routes/contactRoutes.js';
 import passwordRoutes from './src/routes/passwordRoutes.js';
 import newsletterRoutes from './src/routes/newsletterRoutes.js';
 
+// Newsletter
+import initializeNewsletterAutomation from './src/services/newsletterAutomation.js';
+
 dotenv.config();
 
 const app = express();
@@ -48,6 +51,9 @@ app.use('/api/categories', categoryRoutes);
 app.use('/api/contactadmin', contactRoutes);
 app.use('/api/auth', passwordRoutes);
 app.use("/api/newsletter", newsletterRoutes);
+
+// Newsletter
+initializeNewsletterAutomation();
 
 // Handlers de erro
 app.use(notFoundHandler);
