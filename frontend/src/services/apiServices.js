@@ -14,13 +14,11 @@ const apiServices = {
     resetPassword: async (token, currentPassword, newPassword) => api.post('/api/auth/reset-password', { token, currentPassword, newPassword }),    // Redefinição de senha
     resetPasswordWithToken: async (token, newPassword) => api.post("/api/auth/reset-password-with-token", { token, newPassword }),                  // Redefinição de senha com token
 
-    // Busca Posts
-    searchPosts: (query) => api.get(`/api/posts/search?query=${query}`),    // Buscar posts por termo de busca
-
     // Posts
     getAllPosts: () => api.get('/api/posts'),                     // Obter todos os posts
     getPostById: (id) => api.get(`/api/posts/${id}`),             // Obter detalhes de um post
     getPostsByAuthor: (userId) => api.get(`/api/posts?userId=${userId}`),   // Obter posts de um autor
+    searchPosts: (query) => api.get(`/api/posts/search?query=${query}`),    // Buscar posts por termo de busca
     createPost: (data) => api.post('/api/posts', data),           // Criar novo post
     updatePost: (id, data) => api.put(`/api/posts/${id}`, data),  // Atualizar um post
     deletePost: (id) => api.delete(`/api/posts/posts/${id}`),     // Deletar um post
