@@ -10,6 +10,19 @@ const emailNewsletterSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  lastEmailSent: {
+    type: Date,
+    default: null,
+  },
+  unsubscribeToken: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  active: {
+    type: Boolean,
+    default: true,
+  }
 });
 
 const EmailNewsletter = mongoose.model("EmailNewsletter", emailNewsletterSchema);
