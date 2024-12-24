@@ -19,6 +19,7 @@ import NewPost from '../pages/UserAuthenticated/NewPost/NewPost';
 import Register from '../pages/Register/Register.jsx';
 import ForgotPassword from '../pages/ForgotPassword/ForgotPassword.jsx';
 import ResetPasswordWithToken from '../pages/ForgotPassword/ResetPasswordWithToken/ResetPasswordWithToken.jsx';
+import Unsubscribe from '../pages/Unsubscribe/Unsubscribe.jsx';
 
 const Private = ({ Component }) => {
     const { signed } = useAuth();
@@ -38,11 +39,12 @@ function AppRoutes() {
             <Route path="/reset-password-with-token/:token" element={<ResetPasswordWithToken />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/privacy" element={<Privacy />} />
+            <Route path="/unsubscribe/:token" element={<Unsubscribe />} />
 
             {/* Dynamic Category and Post Routes */}
             <Route path="/post/:id" element={<OpenedPost />} />
             <Route path="/category/:categoryId" element={<FilteredPosts />} />
-
+            
             {/* Protected Routes */}
             <Route path="/dashboard/perfil" element={<Private Component={Profile} />} />
             <Route path="/dashboard/configuracoes" element={<Private Component={Settings} />} />

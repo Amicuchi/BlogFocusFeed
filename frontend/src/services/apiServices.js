@@ -32,7 +32,8 @@ const apiServices = {
     deleteCategory: (id) => api.delete(`/api/categories/${id}`),            // Deletar categoria
 
     // Newsletter
-    newsletterSubscribe: (data) => api.post('/api/newsletter/subscribe', data), // Inscrever-se na newsletter
+    newsletterSubscribe: (data) => api.post('/api/newsletter/subscribe', data),         // Inscrever-se na newsletter
+    unsubscribeNewsletter: (token) => api.get(`/api/newsletter/unsubscribe/${token}`),  // Cancelar inscrição na newsletter
 };
 
 export default apiServices;
