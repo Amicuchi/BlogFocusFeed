@@ -48,7 +48,7 @@ mongoose.connect(process.env.MONGODB_URI)
 app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/categories', categoryRoutes);
-app.use('/api/contactadmin', contactRoutes);
+app.use('/api/contact', contactRoutes);
 app.use('/api/auth', passwordRoutes);
 app.use("/api/newsletter", newsletterRoutes);
 
