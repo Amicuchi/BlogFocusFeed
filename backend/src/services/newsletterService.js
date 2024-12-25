@@ -23,7 +23,7 @@ const subscribeToNewsletter = async (email) => {
         // Se o e-mail existe, mas está inativo, reativa a inscrição e envia email de reativação
         if (existingSubscriber && !existingSubscriber.active) {
             const unsubscribeToken = crypto.randomBytes(32).toString("hex");
-            
+
             existingSubscriber.active = true;
             existingSubscriber.unsubscribeToken = unsubscribeToken;
 
@@ -89,23 +89,25 @@ const unsubscribe = async (token) => {
 };
 
 const sendNewsletter = async (subject, content) => {
+    // Busca assinantes ativos
     const activeSubscribers = await EmailNewsletter.find({ active: true });
 
     for (const subscriber of activeSubscribers) {
         try {
-            await sendEmail(
-                subscriber.email,
+            await sendEmail({
+                to: subscriber.email,
                 subject,
-                `
-        <p>Vocês está recebendo este e-mail porque se inscreveu na newsletter do FocusFeed.</p>
-        <br><br>
-        ${content}
-        <br><br>
-        <p>Para cancelar sua inscrição, 
-        <a href="${process.env.FRONTEND_URL}/unsubscribe/${subscriber.unsubscribeToken}">clique aqui</a></p>
-        `
-            );
+                html: `
+                    <p>Vocês está recebendo este e-mail porque se inscreveu na newsletter do FocusFeed.</p>
+                    <br><br>
+                    ${content}
+                    <br><br>
+                    <p>Para cancelar sua inscrição, 
+                    <a href="${process.env.FRONTEND_URL}/unsubscribe/${subscriber.unsubscribeToken}">clique aqui</a></p>
+                    `
+            });
 
+            // Atualiza a data do último e-mail enviado
             subscriber.lastEmailSent = new Date();
             await subscriber.save();
         } catch (error) {
