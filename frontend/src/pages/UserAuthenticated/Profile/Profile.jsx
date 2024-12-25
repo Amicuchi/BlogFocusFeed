@@ -88,15 +88,7 @@ function Profile() {
       alert('Erro ao salvar o campo. Por favor, tente novamente.');
     }
   };
-
-  // Dados formatados para exibição
-  // const username = profile?.username || 'N/A';
-  // const email = profile?.email || 'N/A';
-  // const picture = profile?.profilePicture || avatar;
-  // const createdAt = profile?.createdAt
-  //   ? new Date(profile.createdAt).toLocaleDateString()
-  //   : 'N/A';
-
+  
   if (loading) return <div>Carregando...</div>;
   if (error) return <div className={styles.error}>{error}</div>;
   if (!profile) return null;

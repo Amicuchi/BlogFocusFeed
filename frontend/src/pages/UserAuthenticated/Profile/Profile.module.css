@@ -23,15 +23,40 @@
     color: #555;
 }
 
+.imageContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 200px;
+}
+
+.imageUrlInput{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.imageUrlInput .label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
 .profilePicture {
     border: 2px solid var(--bg-form);
     width: 150px;
     height: 150px;
     gap: 20px;
     object-fit: cover;
-    margin-bottom: 20px;
     border-radius: 1rem;
     text-align: center;
+}
+
+.imageContainer .editButton,
+.imageContainer .saveButton {
+    width: 150px !important;
 }
 
 .profileForm {
@@ -43,17 +68,17 @@
 
 .editableField {
     align-items: center;
-    gap: 10px;
+    gap: 5px;
     width: 100%;
 }
 
-.editableField strong{
+.editableField strong {
     font-size: 0.8rem;
     font-weight: 200;
     color: var(--font-1st);
 }
 
-.label{
+.label {
     display: flex;
     gap: 1rem;
 }
@@ -71,6 +96,8 @@
     border-color: #007bff;
 }
 
+.imageContainer .editButton,
+.imageContainer .saveButton,
 .editableField .editButton,
 .editableField .saveButton {
     width: 5rem;
@@ -82,6 +109,7 @@
     font-size: 0.9rem;
     transition: background-color 0.3s ease;
     background-color: var(--bg-terciario);
+    color: var(--bg-principal);
 }
 
 .editButton:hover {
