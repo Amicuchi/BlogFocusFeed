@@ -9,6 +9,9 @@ const apiServices = {
     getAuthorProfile: (userId) => api.get(`/api/users/author/${userId}`),      // Obter perfil de autor
     updateUserProfile: (data) => api.put('/api/users/user', data), // Atualizar perfil do usuário
 
+    // Contato
+    sendContactMessage: (formData) => api.post('/api/contact/contact', formData),  // Enviar mensagem
+
     // Autenticação
     forgotPassword: async (email) => api.post('/api/auth/forgot-password', { email }),                                                              // Solicitar redefinição de senha
     resetPassword: async (token, currentPassword, newPassword) => api.post('/api/auth/reset-password', { token, currentPassword, newPassword }),    // Redefinição de senha
