@@ -1,37 +1,37 @@
-.settings {
+.settingsContainer {
     padding: 1.5rem;
-    background-color: #f9f9f9;
     border: 1px solid #ddd;
-    border-radius: 8px;
+    border-radius: 0.5rem;
+    width: 100%;
     max-width: 600px;
-    margin: 2rem auto;
+    margin: 4rem auto;
+    background-color: var(--bg-form);
 }
 
-.settings header {
-    margin-bottom: 1.5rem;
+.settingsContainer header {
     text-align: center;
 }
 
-.settings header h2 {
-    font-size: 1.5rem;
+.settingsContainer header h2 {
     margin: 0 0 0.5rem;
 }
 
-.settings header p {
+.settingsContainer header p {
     font-size: 0.875rem;
     color: #666;
     margin-bottom: 1.5rem;
 }
 
-.options {
+.settingsContainer .options {
     display: flex;
     flex-direction: column;
     gap: 1rem;
 }
 
-button {
-    background-color: #007bff;
-    color: white;
+.submitBtn,
+.dangerButton{
+    width: 100%;
+    text-align: center;
     border: none;
     padding: 0.75rem 1.5rem;
     border-radius: 4px;
@@ -40,15 +40,14 @@ button {
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-button:hover {
-    background-color: #0056b3;
-    transform: translateY(-1px);
+.submitBtn {
+    background-color: var(--bg-terciario);
+    color: white;
 }
 
-.description {
-    font-size: 0.875rem;
-    color: var(--font-2nd);
-    margin-top: 0.25rem;
+.submitBtn:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
 }
 
 .dangerButton {
@@ -58,4 +57,5 @@ button:hover {
 
 .dangerButton:hover {
     background-color: #a71d2a;
+    transform: translateY(-1px);
 }

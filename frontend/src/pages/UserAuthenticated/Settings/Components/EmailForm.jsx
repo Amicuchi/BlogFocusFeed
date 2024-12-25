@@ -11,12 +11,14 @@ function EmailForm({ onClose }) {
 
     return (
         <form className={styles.form} onSubmit={handleSubmit}>
-            <label>
-                Novo E-mail:
-                <input type="email" placeholder="Digite seu novo e-mail" required />
-            </label>
+            <input type="email" placeholder="Digite seu novo e-mail" required />
             <div className={styles.formActions}>
-                <button type="submit">Salvar</button>
+                <button
+                    className={styles.submitBtn}
+                    type="submit"
+                >
+                    Salvar
+                </button>
                 <button
                     className={styles.dangerButton}
                     type="button"

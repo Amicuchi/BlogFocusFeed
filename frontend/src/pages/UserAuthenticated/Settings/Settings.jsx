@@ -29,20 +29,20 @@ function Settings() {
     });
 
   return (
-    <section className={styles.settings}>
+    <section className={styles.settingsContainer}>
       <header>
         <h2>Configurações da Conta</h2>
         <p>Gerencie suas informações e preferências.</p>
       </header>
 
       <article className={styles.options}>
-        <button onClick={openAccountModal}>Alterar Endereço de E-mail</button>
-        <button onClick={openPasswordModal}>Alterar Senha</button>
+        <button onClick={openAccountModal} className={styles.submitBtn}>Alterar Endereço de E-mail</button>
+        <button onClick={openPasswordModal} className={styles.submitBtn}>Alterar Senha</button>
         <button onClick={openDeletionModal} className={styles.dangerButton}>
           Excluir Conta
         </button>
       </article>
-
+      
       {/* Modal */}
       {modalContent && (
         <Modal title={modalContent.title} onClose={() => setModalContent(null)}>

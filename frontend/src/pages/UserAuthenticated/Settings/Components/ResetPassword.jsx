@@ -68,58 +68,55 @@ function ResetPassword({ onClose }) {
     };
 
     return (
-        <div className={styles.container}>
-            <form onSubmit={handleSubmit} className={styles.form}>
+        <form onSubmit={handleSubmit} className={styles.form}>
 
-                <input
-                    type="password"
-                    value={currentPassword}
-                    onChange={(e) => setCurrentPassword(e.target.value)}
-                    placeholder="Senha atual"
-                    required
-                    className={styles.input}
-                />
+            <input
+                type="password"
+                value={currentPassword}
+                onChange={(e) => setCurrentPassword(e.target.value)}
+                placeholder="Senha atual"
+                required
+                className={styles.input}
+            />
 
-                <input
-                    type="password"
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
-                    placeholder="Nova senha"
-                    required
-                    className={styles.input}
-                />
+            <input
+                type="password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                placeholder="Nova senha"
+                required
+                className={styles.input}
+            />
 
-                <input
-                    type="password"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    placeholder="Confirme sua nova senha"
-                    required
-                    className={styles.input}
-                />
+            <input
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="Confirme sua nova senha"
+                required
+                className={styles.input}
+            />
 
-                <div>
+            <div className={styles.formActions}>
+                <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className={styles.submitBtn}
+                >
+                    {isSubmitting ? "Redefinindo..." : "Redefinir"}
+                </button>
+                <button
+                    className={styles.dangerButton}
+                    type="button"
+                    onClick={onClose}
+                >
+                    Cancelar
+                </button>
+            </div>
 
-                    <button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className={styles.button}
-                    >
-                        {isSubmitting ? "Redefinindo..." : "Redefinir"}
-                    </button>
-                    <button
-                        className={styles.dangerButton}
-                        type="button"
-                        onClick={onClose}
-                    >
-                        Cancelar
-                    </button>
-                </div>
-
-                {successMessage && <p className={styles.success}>{successMessage}</p>}
-                {errorMessage && <p className={styles.error}>{errorMessage}</p>}
-            </form>
-        </div>
+            {successMessage && <p className={styles.success}>{successMessage}</p>}
+            {errorMessage && <p className={styles.error}>{errorMessage}</p>}
+        </form>
     );
 };
 
