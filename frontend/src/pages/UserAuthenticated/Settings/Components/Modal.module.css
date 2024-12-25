@@ -12,11 +12,11 @@
 }
 
 .modal {
-  background-color: var(--bg-principal);
+  background: linear-gradient(135deg, #ffffff, #eeeeee);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 0.5rem;
   width: 400px;
   max-width: 90%;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
   animation: fadeIn 0.3s ease-out;
 }
 
@@ -30,12 +30,12 @@
   margin-bottom: 0;
 }
 
-.modalHeader .modalTitle{
+.modalHeader .modalTitle {
   width: 100%;
   text-align: center;
 }
 
-.closeButton {  
+.closeButton {
   border: none;
   font-size: 1.2rem;
   cursor: pointer;
