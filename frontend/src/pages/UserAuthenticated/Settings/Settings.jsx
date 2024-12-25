@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Modal from "./Components/Modal";
 import EmailForm from "./Components/EmailForm";
 import DeletionForm from "./Components/DeletionForm";
-import ResetPassword from "../../../components/ResetPassword/ResetPassword";
+import ResetPassword from "./Components/ResetPassword";
 import styles from "./Settings.module.css";
 
 function Settings() {
