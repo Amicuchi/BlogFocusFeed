@@ -3,7 +3,7 @@ import Post from '../models/Post.js';
 import newsletterService from './newsletterService.js';
 
 // Horário de envio da newsletter
-const NEWSLETTER_TIME = 2237; // 20:00
+const NEWSLETTER_TIME = 1000; // 10:00
 
 const timeToSchedule = (time) => {
     // Converte formato numérico (ex: 1000, 1930) para formato cron
