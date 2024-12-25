@@ -25,7 +25,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.forgotPasswordContainer}>
       <form onSubmit={handleSubmit} className={styles.form}>
         <h2>Recuperar Senha</h2>
         <input
@@ -36,7 +36,7 @@ const ForgotPassword = () => {
           required
           className={styles.input}
         />
-        <button type="submit" disabled={isSubmitting} className={styles.button}>
+        <button type="submit" disabled={isSubmitting} className={styles.submitBtn}>
           {isSubmitting ? 'Enviando...' : 'Enviar'}
         </button>
         {successMessage && <p className={styles.success}>{successMessage}</p>}

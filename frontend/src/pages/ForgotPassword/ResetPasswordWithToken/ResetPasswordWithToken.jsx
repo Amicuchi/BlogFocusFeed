@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import styles from "../../UserAuthenticated/Settings/Settings.module.css";
 import apiServices from "../../../services/apiServices";
+import styles from "../ForgotPassword.module.css";
 
 function ResetPasswordWithToken() {
   const [newPassword, setNewPassword] = useState("");
@@ -51,7 +51,7 @@ function ResetPasswordWithToken() {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.forgotPasswordContainer}>
       <form onSubmit={handleSubmit} className={styles.form}>
         <input
           type="password"
@@ -72,7 +72,7 @@ function ResetPasswordWithToken() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className={styles.button}
+          className={styles.submitBtn}
         >
           {isSubmitting ? "Redefinindo..." : "Redefinir"}
         </button>
