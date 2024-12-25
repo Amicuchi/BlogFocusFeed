@@ -11,7 +11,7 @@ function Footer() {
       <div className={styles.footerTop}>
         <div className={styles.footerLeft}>
           <Link to="/" className={styles.footerLogo}>FocusFeed</Link>
-          <p className={styles.footerP}>contato@focusfeed.com</p>
+          <p className={styles.footerP}>DevsFactoryBrazil@gmail.com</p>
         </div>
         <div className={styles.footerCenter}>
           <Menu />

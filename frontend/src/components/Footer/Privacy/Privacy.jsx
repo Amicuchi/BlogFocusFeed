@@ -35,7 +35,7 @@ function Privacy() {
             <p className={styles.termsP}>Reservamo-nos o direito de atualizar esta Política de Privacidade periodicamente. As alterações entrarão em vigor após a publicação da versão atualizada no site.</p>
 
             <h3 className={styles.termsH3}>Contato</h3>
-            <p className={styles.termsP}>Se tiver dúvidas sobre esta Política de Privacidade ou sobre o tratamento de suas informações pessoais, entre em contato conosco em contato@FocusFeed.com</p>
+            <p className={styles.termsP}>Se tiver dúvidas sobre esta Política de Privacidade ou sobre o tratamento de suas informações pessoais, entre em contato conosco em DevsFactoryBrazil@gmail.com</p>
             <p className={styles.termsP}>Ao utilizar nosso site, você concorda com o processamento de suas informações pessoais conforme descrito nesta Política de Privacidade.</p>
             <br />
             <br />

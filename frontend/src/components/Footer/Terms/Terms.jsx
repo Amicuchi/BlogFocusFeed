@@ -30,7 +30,7 @@ function Terms() {
             <p className={styles.termsP}><strong><a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/L13709compilado.htm" className={styles.termsP}>LGPD (Lei Geral de Proteção de Dados Pessoais do Brasil)</a></strong>: Esta lei brasileira estabelece princípios, direitos e obrigações relacionadas ao tratamento de dados pessoais.</p>
             <br />
             <br />
-            <p className={styles.termsP}>Se você tiver alguma dúvida sobre estes Termos & Condições, entre em contato conosco em contato@FocusFeed.com</p>
+            <p className={styles.termsP}>Se você tiver alguma dúvida sobre estes Termos & Condições, entre em contato conosco em DevsFactoryBrazil@gmail.com</p>
             <p className={styles.termsP}>Última atualização: 06/12/2024</p>
         </section>
     )
