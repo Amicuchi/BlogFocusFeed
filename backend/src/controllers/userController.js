@@ -56,9 +56,21 @@ export const updateUserProfile = async (req, res, next) => {
       req.user.id,
       req.body
     );
+    res
+      .status(200).json({
+        message: 'Perfil de usuário atualizado',
+        data: updatedUser,
+      });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const deleteUserProfile = async (req, res, next) => {
+  try {
+    await UserService.deleteUser(req.user.id);
     res.status(200).json({
-      message: 'Perfil de usuário atualizado',
-      data: updatedUser,
+      message: "Conta excluída com sucesso"
     });
   } catch (error) {
     next(error);

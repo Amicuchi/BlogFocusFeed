@@ -82,15 +82,32 @@ class UserService {
 
     async updateUserProfile(userId, updates) {
         delete updates.password;
-        delete updates.email;
+        // delete updates.email;
+
+        // Lógica para evitar duplicidade de emails
+        // Verifica se o email foi alterado e se já existe outro usuário com o novo email
+        if (updates.email) {
+            const emailExists = await User.findOne({ email: updates.email });
+            if (emailExists) {
+                throw new Error('Este e-mail já está em uso.');
+            }
+        }
 
         const updatedUser = await User.findByIdAndUpdate(
             userId,
             { $set: updates },
             { new: true, runValidators: true }
-        ).select('-password');
+        ).select('-password'); // Removemos o campo senha da resposta
 
         return updatedUser;
+    }
+
+    async deleteUser(userId) {
+        const user = await User.findByIdAndDelete(userId);
+        if (!user) {
+            throw new Error("Usuário não encontrado.");
+        }
+        return user;
     }
 }
 

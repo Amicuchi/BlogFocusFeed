@@ -8,7 +8,8 @@ const apiServices = {
     getUserProfile: () => api.get('/api/users/user'),              // Obter perfil do usuário
     getAuthorProfile: (userId) => api.get(`/api/users/author/${userId}`),      // Obter perfil de autor
     updateUserProfile: (data) => api.put('/api/users/user', data), // Atualizar perfil do usuário
-
+    deleteUser: () => api.delete('/api/users/user'),
+    
     // Contato
     sendContactMessage: (formData) => api.post('/api/contact/contact', formData),  // Enviar mensagem
 
