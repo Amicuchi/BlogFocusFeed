@@ -23,16 +23,22 @@
     background-color: #fff;
 }
 
-/* Cabeçalho da tabela */
 .table th {
-    background-color: #007bff;
+    background-color: var(--bg-terciario);
     color: #fff;
-    padding: 10px;
+    padding: 0.4rem;
     text-align: left;
-    border: 1px solid #ddd;
+    border: none;
+    text-align: center;
 }
 
-/* Linhas da tabela */
+.table th:nth-child(1) {
+    border-radius: 0.5rem 0 0 0;
+}
+.table th:nth-child(5) {
+    border-radius: 0 0.5rem 0 0;
+}
+
 .table td {
     padding: 10px;
     border: 1px solid #ddd;
@@ -48,7 +54,7 @@
 .noPosts {
     text-align: center;
     font-size: 16px;
-    color: #888;
+    color: var(--font-2nd);
     padding: 20px;
 }
 
@@ -57,21 +63,22 @@
     padding: 8px 12px;
     margin: 0 5px;
     border: none;
-    border-radius: 4px;
+    border-radius: 0.3rem;
     cursor: pointer;
 }
 
 .buttonEdit {
-    background-color: #28a745;
+    background-color: var(--bg-terciario);
     color: white;
+}
+.buttonEdit:hover {
+    background-color: #4d8cf6;
 }
 
 .buttonDelete {
-    background-color: #dc3545;
+    background-color: #a52734;
     color: white;
 }
-
-/* Efeito hover nos botões */
-.button:hover {
-    opacity: 0.9;
+.buttonDelete:hover {
+    background-color: #f44336;
 }

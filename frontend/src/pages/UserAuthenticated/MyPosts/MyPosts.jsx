@@ -16,7 +16,8 @@ function MyPosts() {
   const authorId = user.id;
 
   // Função para buscar os posts do usuário
-  const fetchUserPosts = async () => {
+  useEffect(() => {
+    const fetchUserPosts = async () => {
     try {
       setLoading(true);
       const response = await apiServices.getPostsByAuthor(authorId);
@@ -29,6 +30,9 @@ function MyPosts() {
       setLoading(false);
     }
   };
+  
+    fetchUserPosts();
+  }, [authorId]);
 
   // Função para excluir um post
   const deletePost = async (postId) => {
@@ -61,9 +65,6 @@ function MyPosts() {
     navigate(`/posts/edit/${postId}`);
   };
 
-  useEffect(() => {
-    fetchUserPosts();
-  }, [authorId]);
 
   if (loading) return <p>Carregando...</p>;
   if (error) return <p>{error}</p>;

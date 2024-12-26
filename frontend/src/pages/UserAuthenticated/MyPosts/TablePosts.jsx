@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import styles from './MyPosts.module.css';
 
 const TablePosts = ({ posts, onEdit, onDelete }) => (
@@ -20,29 +21,44 @@ const TablePosts = ({ posts, onEdit, onDelete }) => (
                         <td>{post.likes || 0}</td>
                         <td>{post.dislikes || 0}</td>
                         <td>
-                        <button
-                className={`${styles.button} ${styles.buttonEdit}`}
-                onClick={() => onEdit(post._id)}
-              >
-                Editar
-              </button>
-              <button
-                className={`${styles.button} ${styles.buttonDelete}`}
-                onClick={() => onDelete(post._id)}
-              >
-                Excluir
-              </button>
+                            <button
+                                className={`${styles.button} ${styles.buttonEdit}`}
+                                onClick={() => onEdit(post._id)}
+                            >
+                                Editar
+                            </button>
+                            <button
+                                className={`${styles.button} ${styles.buttonDelete}`}
+                                onClick={() => onDelete(post._id)}
+                            >
+                                Excluir
+                            </button>
                         </td>
                     </tr>
                 ))
             ) : (
                 <tr>
                     <td colSpan="5" className={styles.noPosts}>
-            Nenhum post encontrado.
-          </td>
+                        Nenhum post encontrado.
+                    </td>
                 </tr>
             )}
         </tbody>
     </table>
 );
+
+TablePosts.propTypes = {
+    posts: PropTypes.arrayOf(
+        PropTypes.shape({
+            _id: PropTypes.string.isRequired, // O ID do post deve ser uma string e é obrigatório
+            title: PropTypes.string.isRequired, // O título do post deve ser uma string e é obrigatório
+            views: PropTypes.number, // O número de visualizações é opcional
+            likes: PropTypes.number, // O número de likes é opcional
+            dislikes: PropTypes.number, // O número de dislikes é opcional
+        })
+    ).isRequired, // `posts` deve ser um array de objetos e é obrigatório
+    onEdit: PropTypes.func.isRequired, // `onEdit` deve ser uma função e é obrigatório
+    onDelete: PropTypes.func.isRequired, // `onDelete` deve ser uma função e é obrigatório
+};
+
 export default TablePosts;  
