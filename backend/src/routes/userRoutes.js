@@ -4,6 +4,7 @@ import {
   loginUser,
   getUserProfile,
   updateUserProfile,
+  updateUserEmail,
   getAuthorProfile,
   deleteUserProfile
 } from '../controllers/userController.js';
@@ -21,6 +22,7 @@ router.get('/author/:id', getAuthorProfile);
 // Rotas protegidas
 router.get('/user', authMiddleware, getUserProfile);
 router.put('/user', authMiddleware, updateUserProfile);
+router.put('/user/email', authMiddleware, updateUserEmail);
 router.delete('/user', authMiddleware, deleteUserProfile);
 
 export default router;

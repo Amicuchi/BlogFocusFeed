@@ -66,6 +66,21 @@ export const updateUserProfile = async (req, res, next) => {
   }
 };
 
+export const updateUserEmail = async (req, res, next) => {
+  try {
+    const updatedUser = await UserService.updateUserEmail(
+      req.user.id,
+      req.body.email
+    );
+    res.status(200).json({
+      message: 'E-mail atualizado com sucesso',
+      data: updatedUser,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const deleteUserProfile = async (req, res, next) => {
   try {
     await UserService.deleteUser(req.user.id);
