@@ -21,8 +21,9 @@ const apiServices = {
     // Posts
     getAllPosts: () => api.get('/api/posts'),                     // Obter todos os posts
     getPostById: (id) => api.get(`/api/posts/${id}`),             // Obter detalhes de um post
-    getPostsByAuthor: (userId) => api.get(`/api/posts?userId=${userId}`),   // Obter posts de um autor
-    searchPosts: (query) => api.get(`/api/posts/search?query=${query}`),    // Buscar posts por termo de busca
+    getPostsByAuthor: (userId) => api.get(`/api/posts?userId=${userId}`),               // Obter posts de um autor
+    getPostsByCategory: (categoryId) => api.get(`/api/posts/category/${categoryId}`),   // Obter posts por categoria
+    searchPosts: (query) => api.get(`/api/posts/search?query=${query}`),                // Buscar posts por termo de busca
     createPost: (data) => api.post('/api/posts', data),           // Criar novo post
     updatePost: (id, data) => api.put(`/api/posts/${id}`, data),  // Atualizar um post
     deletePost: (id) => api.delete(`/api/posts/posts/${id}`),     // Deletar um post
