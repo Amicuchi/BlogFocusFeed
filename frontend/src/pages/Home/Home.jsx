@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import apiServices from '../../services/apiServices';
 import FeaturedPost from './components/FeaturedPost/FeaturedPost';
 import PostList from '../../components/PostList/PostList';
-// import NewsLetter from './components/Newsletter/Newsletter';
 import LoadingError from '../../components/LoadingError/LoadingError';
 import styles from './Home.module.css';
 
@@ -41,8 +40,6 @@ function Home() {
                     {posts.length > 0 && <FeaturedPost post={posts[0]} />}
 
                     <PostList posts={posts} limit={8} />
-
-                    {/* <NewsLetter /> */}
                 </>
             )}
         </main>
