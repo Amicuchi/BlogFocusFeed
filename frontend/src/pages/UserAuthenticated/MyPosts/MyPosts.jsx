@@ -22,6 +22,7 @@ function MyPosts() {
       setLoading(true);
       const response = await apiServices.getPostsByAuthor(authorId);
       setPosts(response.data.data);
+      console.log("Posts do usuário:", response.data.data);
       setError(null);
     } catch (error) {
       console.error("Erro ao buscar posts", error);
@@ -62,7 +63,7 @@ function MyPosts() {
 
   // Redireciona para a página de edição de post
   const editPost = (postId) => {
-    navigate(`/posts/edit/${postId}`);
+    navigate(`/dashboard/posts/edit/${postId}`);
   };
 
   if (loading) return <p>Carregando...</p>;
