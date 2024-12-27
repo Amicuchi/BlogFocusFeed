@@ -19,7 +19,8 @@ const apiServices = {
     resetPasswordWithToken: async (token, newPassword) => api.post("/api/auth/reset-password-with-token", { token, newPassword }),                  // Redefinição de senha com token
 
     // Posts
-    getAllPosts: () => api.get('/api/posts'),                     // Obter todos os posts
+    // getAllPosts: () => api.get('/api/posts'),                     // Obter todos os posts
+    getAllPosts: (params) => api.get('/api/posts', { params }),     // Obter todos os posts
     getPostById: (id) => api.get(`/api/posts/${id}`),             // Obter detalhes de um post
     getPostsByAuthor: (userId) => api.get(`/api/posts?userId=${userId}`),               // Obter posts de um autor
     getPostsByCategory: (categoryId) => api.get(`/api/posts/category/${categoryId}`),   // Obter posts por categoria
