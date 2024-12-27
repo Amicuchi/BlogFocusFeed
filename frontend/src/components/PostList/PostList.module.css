@@ -21,3 +21,11 @@
     background-color: #fff;
     color: var(--bg-secundario);
 }
+
+.noMorePosts{
+    margin-top: 2rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    color: var(--bg-secundario);
+}
