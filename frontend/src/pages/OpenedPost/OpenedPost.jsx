@@ -73,7 +73,7 @@ function OpenedPost() {
                 <div className={styles.tags}>
                     {post.tags.map((tag) => (
                         <span key={tag} className={styles.tag}>
-                            #{tag}
+                            {tag}
                         </span>
                     ))}
                 </div>

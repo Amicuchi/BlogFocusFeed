@@ -15,15 +15,15 @@ function FeaturedPost({ post }) {
 
     const renderDescription = (description) => {
         const sanitizedDescription = DOMPurify.sanitize(description);
-        return parse(sanitizedDescription);
+        return parse(sanitizedDescription); // Gera HTML seguro
     };
 
     return (
         <article className={styles.featuredPostContainer}>
             <div className={styles.imageContainer}>
                 <img
-                    src={post.image || '/default-image.jpg'}
-                    alt={post.title || 'Post sem título'}
+                    src={post.image || "/default-image.jpg"}
+                    alt={post.title || "Post sem título"}
                     className={styles.featuredImage}
                 />
             </div>
@@ -33,12 +33,14 @@ function FeaturedPost({ post }) {
                 <Link to={`/post/${post._id}`} className={styles.postTitle}>
                     <h2 className={styles.postTitle}>{post.title}</h2>
                 </Link>
-                <p className={styles.postDescription}>{renderDescription(post.description)}</p>
+                <div className={styles.postDescription}>
+                    {renderDescription(post.description)}
+                </div>
                 <AuthorBadge post={post} />
                 <div className={styles.tags}>
                     {post.tags.map((tag) => (
                         <span key={tag} className={styles.tag}>
-                            #{tag}
+                            {tag}
                         </span>
                     ))}
                 </div>
