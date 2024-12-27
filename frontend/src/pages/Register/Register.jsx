@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import apiServices from '../../services/apiServices';
-import CryptoJS from 'crypto-js';
+// import CryptoJS from 'crypto-js';
 import styles from './Register.module.css';
 
 const Register = () => {
@@ -76,14 +76,14 @@ const Register = () => {
     };
 
     // Função para hashear a senha com salt
-    const hashPassword = (password) => {
-        const salt = CryptoJS.lib.WordArray.random(16).toString(); // Salt aleatório
-        let hash = password;
-        for (let i = 0; i < 5; i++) { // Múltiplas rodadas de hash
-            hash = CryptoJS.SHA256(hash + salt).toString();
-        }
-        return { salt, hash };
-    };
+    // const hashPassword = (password) => {
+    //     const salt = CryptoJS.lib.WordArray.random(16).toString(); // Salt aleatório
+    //     let hash = password;
+    //     for (let i = 0; i < 5; i++) { // Múltiplas rodadas de hash
+    //         hash = CryptoJS.SHA256(hash + salt).toString();
+    //     }
+    //     return { salt, hash };
+    // };
 
     // Função para lidar com o envio do formulário
     const handleSubmit = async (e) => {
@@ -93,12 +93,13 @@ const Register = () => {
 
         setIsLoading(true);
         try {
-            const { salt, hash } = hashPassword(formData.password);
-            const dataToSend = {
-                ...formData,
-                password: hash,
-                salt
-            };
+            // const { salt, hash } = hashPassword(formData.password);
+            // const dataToSend = {
+            //     ...formData,
+            //     password: hash,
+            //     salt
+            // };
+            const dataToSend = { ...formData };
             delete dataToSend.confirmPassword; // Remover campo de confirmação de senha
 
             const response = await apiServices.registerUser(dataToSend);
