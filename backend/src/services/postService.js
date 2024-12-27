@@ -29,10 +29,11 @@ class PostService {
         if (filters.tag) query.tags = filters.tag;
         if (filters.userId) query.author = filters.userId;
 
-        const posts = await Post.find(query)
+        const posts = await Post
+            .find(query)
+            .skip((page - 1) * limit)
             .populate('author', 'username fullName')
             .limit(limit)
-            .skip((page - 1) * limit)
             .sort({ createdAt: -1 }); // Ordena por mais recentes
 
         const total = await Post.countDocuments(query);
