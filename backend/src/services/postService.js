@@ -22,28 +22,32 @@ class PostService {
     }
 
     async getAllPosts(page = 1, limit = 10, filters = {}) {
+        try {
+            const query = filters;
 
-        const query = filters;
+            if (filters.category) query.categories = filters.category;
+            if (filters.tag) query.tags = filters.tag;
+            if (filters.userId) query.author = filters.userId;
 
-        if (filters.category) query.categories = filters.category;
-        if (filters.tag) query.tags = filters.tag;
-        if (filters.userId) query.author = filters.userId;
+            // Executa as queries em paralelo para melhor performance
+            const [posts, total] = await Promise.all([
+                Post.find(query)
+                    .skip((page - 1) * limit)
+                    .populate('author', 'username fullName')
+                    .limit(limit)
+                    .sort({ createdAt: -1 }),
+                Post.countDocuments(query)
+            ]);
 
-        const posts = await Post
-            .find(query)
-            .skip((page - 1) * limit)
-            .populate('author', 'username fullName')
-            .limit(limit)
-            .sort({ createdAt: -1 }); // Ordena por mais recentes
-
-        const total = await Post.countDocuments(query);
-
-        return {
-            posts,
-            total,
-            currentPage: page,
-            totalPages: Math.ceil(total / limit),
-        };
+            return {
+                posts,
+                total,
+                currentPage: page,
+                totalPages: Math.ceil(total / limit),
+            };
+        } catch (error) {
+            throw new Error(`Erro ao buscar posts: ${error.message}`);
+        }
     }
 
     async getPostById(postId) {
