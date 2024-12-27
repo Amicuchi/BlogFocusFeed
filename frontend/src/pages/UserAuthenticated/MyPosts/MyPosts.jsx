@@ -22,7 +22,6 @@ function MyPosts() {
       setLoading(true);
       const response = await apiServices.getPostsByAuthor(authorId);
       setPosts(response.data.data);
-      console.log("Posts do usuário:", response.data.data);
       setError(null);
     } catch (error) {
       console.error("Erro ao buscar posts", error);
