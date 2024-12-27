@@ -15,7 +15,7 @@ import OpenedPost from '../pages/OpenedPost/OpenedPost';
 import Profile from '../pages/UserAuthenticated/Profile/Profile';
 import Settings from '../pages/UserAuthenticated/Settings/Settings';
 import MyPosts from '../pages/UserAuthenticated/MyPosts/MyPosts';
-import NewPost from '../pages/UserAuthenticated/NewPost/NewPost';
+import PostForm from '../pages/UserAuthenticated/PostForm/PostForm';
 import Register from '../pages/Register/Register.jsx';
 import ForgotPassword from '../pages/ForgotPassword/ForgotPassword.jsx';
 import ResetPasswordWithToken from '../pages/ForgotPassword/ResetPasswordWithToken/ResetPasswordWithToken.jsx';
@@ -49,7 +49,8 @@ function AppRoutes() {
             <Route path="/dashboard/perfil" element={<Private Component={Profile} />} />
             <Route path="/dashboard/configuracoes" element={<Private Component={Settings} />} />
             <Route path="/dashboard/meus-posts" element={<Private Component={MyPosts} />} />
-            <Route path="/dashboard/novo-post" element={<Private Component={NewPost} />} />
+            <Route path="/dashboard/novo-post" element={<Private Component={PostForm} />} />
+            <Route path="/dashboard/posts/edit/:postId" element={<Private Component={PostForm} />} />
 
             {/* 404 Route */}
             <Route path="*" element={<div>Nenhuma página encontrada.</div>} />
