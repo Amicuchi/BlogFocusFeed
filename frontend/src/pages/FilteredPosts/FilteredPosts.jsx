@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import PostList from "../../components/PostList/PostList";
 import styles from "./FilteredPosts.module.css";
-import axios from "axios";
+import apiServices from "../../services/apiServices";
 
 function FilteredPosts() {
     const { categoryId } = useParams();             // Hook para obter os parâmetros da URL
@@ -16,7 +16,7 @@ function FilteredPosts() {
         async function getFilteredPosts() {
             try {
                 setLoading(true);                   // Inicia o indicador de carregamento
-                const response = await axios.get(`http://localhost:5000/api/posts/category/${categoryId}`); // Busca os posts por categoria
+                const response = await apiServices.getPostsByCategory(categoryId);
                 setPosts(response.data.data);       // Define os posts no estado
                 setError(null);                     // Limpa o estado de erro
             } catch (err) {
