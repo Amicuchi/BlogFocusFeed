@@ -31,13 +31,32 @@ export const getAllPosts = async (req, res, next) => {
     if (query) filters.title = { $regex: query, $options: 'i' };  // Busca por título
     if (userId) filters.author = userId;                          // Filtra por autor
 
-    const posts = await PostService.getAllPosts(
-      parseInt(page, 10),
-      parseInt(limit, 10),
+    // Validação dos parâmetros
+    const pageNum = Math.max(1, parseInt(page, 10)); // Garante que página seja sempre >= 1
+    const limitNum = Math.min(50, Math.max(1, parseInt(limit, 10))); // Limita entre 1 e 50 itens
+
+    const result = await PostService.getAllPosts(
+      pageNum,
+      limitNum,
       filters
     );
 
-    res.status(200).json(posts);
+    // Adiciona informações de paginação no header
+    res.set({
+      'X-Total-Count': result.total,
+      'X-Total-Pages': result.totalPages,
+      'X-Current-Page': result.currentPage
+    });
+    
+    res.status(200).json({
+      data: result.posts,
+      pagination: {
+        total: result.total,
+        totalPages: result.totalPages,
+        currentPage: result.currentPage,
+        limit: limitNum
+      }
+    });
   } catch (error) {
     next(error);
   }
