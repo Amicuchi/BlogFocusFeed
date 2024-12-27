@@ -50,15 +50,15 @@ const TablePosts = ({ posts, onEdit, onDelete }) => (
 TablePosts.propTypes = {
     posts: PropTypes.arrayOf(
         PropTypes.shape({
-            _id: PropTypes.string.isRequired, // O ID do post deve ser uma string e é obrigatório
+            _id: PropTypes.string.isRequired,   // O ID do post deve ser uma string e é obrigatório
             title: PropTypes.string.isRequired, // O título do post deve ser uma string e é obrigatório
-            views: PropTypes.number, // O número de visualizações é opcional
-            likes: PropTypes.number, // O número de likes é opcional
-            dislikes: PropTypes.number, // O número de dislikes é opcional
+            views: PropTypes.number,            // O número de visualizações é opcional
+            likes: PropTypes.number,            // O número de likes é opcional
+            dislikes: PropTypes.number,         // O número de dislikes é opcional
         })
     ).isRequired, // `posts` deve ser um array de objetos e é obrigatório
-    onEdit: PropTypes.func.isRequired, // `onEdit` deve ser uma função e é obrigatório
-    onDelete: PropTypes.func.isRequired, // `onDelete` deve ser uma função e é obrigatório
+    onEdit: PropTypes.func.isRequired,      // `onEdit` deve ser uma função e é obrigatório
+    onDelete: PropTypes.func.isRequired,    // `onDelete` deve ser uma função e é obrigatório
 };
 
 export default TablePosts;  
