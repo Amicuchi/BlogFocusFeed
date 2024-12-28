@@ -35,13 +35,16 @@ function PostForm() {
             try {
                 setLoadingCategories(true);
                 const response = await apiServices.getAllCategories();
-                setCategories(
-                    response.data.data.map((categories) => ({
-                        value: categories._id,
-                        label: categories.name,
-                    }))
-                );
-                setError(null);
+                const mappedCategories = response.data.data.map((category) => ({
+                    value: category._id,
+                    label: category.name,
+                }));
+                setCategories(mappedCategories);
+
+                // Se estiver editando, busca o post após carregar categorias
+                if (postId) {
+                    await fetchPost(mappedCategories);
+                }
             } catch (err) {
                 console.error("Erro ao carregar categorias:", err);
                 setError("Erro ao carregar categorias. Tente novamente.");
@@ -52,60 +55,38 @@ function PostForm() {
         };
 
         fetchCategories();
-    }, []);
+    }, [postId, setValue]);
 
-    // Função para buscar o post a ser editado
-    useEffect(() => {
-        if (postId) {
-            const fetchPost = async () => {
-                try {
-                    const response = await apiServices.getPostById(postId);
-                    const post = response.data;
-
-                    // Verifica se o post tem categorias válidas
-                    if (post.categories && Array.isArray(post.categories) && post.categories.length > 0) {
-                        const categoryId = post.categories[0]; // Aqui pegamos a primeira categoria (que é a única)
-                        const category = categories.find(cat => cat.value === categoryId);
-
-                        if (category) {
-                            setValue("categories", category);
-                        } else {
-                            setValue("categories", null);
-                            setError('Categoria não encontrada.');
-                            toast.error('Categoria não encontrada.');
-                        }
-                    } else {
-                        setValue("categories", null);
-                        setError('Este post não possui categorias associadas');
-                        toast.error('Este post não possui categorias associadas');
-                    }
-
-                    setPostData(post);
-
-                    // Preenche os campos do formulário com os dados do post
-                    setValue("title", post.title);
-                    setValue("description", post.description);
-                    setValue("content", post.content);
-                    
-                    // Verifica se post.tags é um array antes de manipular
-                    if (Array.isArray(post.tags) && post.tags.length > 0) {
-                        setValue("tags", post.tags.join(", "));
-                    } else {
-                        setValue("tags", ""); // Caso não haja tags, deixa o campo vazio
-                    }
-
-                    setValue("image", post.image);
-                } catch (err) {
-                    console.error("Erro ao carregar post:", err);
-                    setError("Erro ao carregar post para edição.");
-                    toast.error("Erro ao carregar post.");
+    const fetchPost = async (availableCategories) => {
+        try {
+            const response = await apiServices.getPostById(postId);
+            const post = response.data.data;
+            console.log("Post carregado para edição:", post);
+            
+            if (post.categories?.[0]) {
+                const category = availableCategories.find(cat => cat.value === post.categories[0]);
+                if (category) {
+                    setValue("categories", category);
                 }
-            };
-            fetchPost();
+            }
+
+            setPostData(post);
+
+            // Preenche os campos do formulário com os dados do post
+            setValue("title", post.title);
+            setValue("description", post.description);
+            setValue("content", post.content);
+            setValue("tags", Array.isArray(post.tags) ? post.tags.join(", ") : "");
+            setValue("image", post.image);
+        } catch (err) {
+            console.error("Erro ao carregar post:", err);
+            setError("Erro ao carregar post para edição.");
+            toast.error("Erro ao carregar post.");
         }
-    }, [postId, categories, setValue]);
+    };
 
     const onSubmit = async (data) => {
+        console.log("Dados do formulário:", data);
         setLoading(true);
         try {
             const postData = {
@@ -116,6 +97,7 @@ function PostForm() {
                 tags: data.tags ? data.tags.split(',').map(tag => tag.trim()) : [],
                 image: data.image,
             };
+            console.log("Dados preparados para envio:", postData);
 
             if (postId) {
                 // Se postId existir, estamos editando, então chamamos a API para atualizar o post
@@ -137,6 +119,7 @@ function PostForm() {
             toast.error(errorMessage);
         } finally {
             setLoading(false);
+            console.log("Finalizando o processo de envio...");
         }
     };
 
@@ -178,9 +161,11 @@ function PostForm() {
                         control={control}
                         render={({ field }) => (
                             <RichTextEditor
-                                {...field}
+                                // {...field}
+                                // value={field.value}
+                                initialValue={field.value}
                                 onContentChange={(value) => setValue("content", value, { shouldValidate: true })}
-                                allowedTags={['p', 'a', 'b', 'i', 'ul', 'ol', 'li', 'strong', 'em', 'h1', 'h2', 'h3', 'blockquote', 'code', 'hr', 'br', 'div', 'span', 'img']}
+                                allowedTags={['p', 'a', 'b', 'i', 'ul', 'ol', 'li', 'strong', 'em', 'h1', 'h2', 'h3', 'blockquote', 'hr', 'br', 'div', 'span', 'img']}
                             />
                         )}
                     />
