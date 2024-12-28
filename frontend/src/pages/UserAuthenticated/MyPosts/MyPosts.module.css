@@ -50,6 +50,15 @@
     background-color: #f2f2f2;
 }
 
+.clickableTitle {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.clickableTitle:hover {
+    color: var(--font-2nd);
+}
+
 /* Mensagem para quando não há posts */
 .noPosts {
     text-align: center;
