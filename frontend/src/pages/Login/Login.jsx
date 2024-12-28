@@ -79,10 +79,10 @@ function Login() {
         </button>
       </form>
 
-      <p>
+      <p className={styles.pBtn}>
         Não tem uma conta? <a href="/register">Registre-se</a>
       </p>
-      <p>
+      <p className={styles.pBtn}>
         Esqueceu a senha? <a href="/forgot-password">Clique aqui!</a>
       </p>
     </section>

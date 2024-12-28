@@ -40,8 +40,15 @@
     background-color: #0056b3;
 }
 
-.loginContainer p{
+.loginContainer .pBtn{
     font-size: 0.8rem;
+    text-align: left;
+    margin-top: 0.6rem;
+}
+
+.loginContainer .pBtn a {
+    color: var(--bg-terciario);
+    text-decoration: none;
 }
 
 .loginContainer .errorMessage {
