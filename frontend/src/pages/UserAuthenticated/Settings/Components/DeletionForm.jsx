@@ -33,7 +33,7 @@ function DeletionForm({ onClose }) {
                     Confirmar Exclusão
                 </button>
                 <button
-                    className={styles.cancelButton}
+                    className={styles.submitBtn}
                     type="button"
                     onClick={onClose}
                 >
