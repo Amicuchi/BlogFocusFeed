@@ -71,6 +71,7 @@ header {
 
 .gradientBorder {
     position: relative; /* Necessário para posicionar o pseudo-elemento */
+    background-color: #fafafa;
 }
 
 .gradientBorder::after {

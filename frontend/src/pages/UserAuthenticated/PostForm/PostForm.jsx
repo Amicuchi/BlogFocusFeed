@@ -127,7 +127,7 @@ function PostForm() {
     if (!postId && postData) return null; // Se estivermos no modo de edição, esperamos o postData ser carregado
 
     return (
-        <div className={styles.container}>
+        <div className={styles.PostFormContainer}>
             <h1>{postId ? 'Editar Post' : 'Criar Post'}</h1>
             {error && <p className={styles.errorBanner}>{error}</p>}
             <form

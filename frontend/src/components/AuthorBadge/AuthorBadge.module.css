@@ -4,9 +4,11 @@
     margin-top: 1rem;
     width: fit-content;
     padding: 0.4rem;
-    border: 1px solid var(--bg-form);
+    /* border: 1px solid var(--bg-form); */
     border-radius: 0.5rem;
-    background-color: #f1f1f1;
+    background-color: #fbfcfd;
+    border: 1px solid #ddd;
+
 }
 
 .authorBadgeContainerImg{
