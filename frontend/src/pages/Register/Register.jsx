@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import apiServices from '../../services/apiServices';
-// import CryptoJS from 'crypto-js';
 import styles from './Register.module.css';
 
 const Register = () => {
@@ -10,16 +9,16 @@ const Register = () => {
         email: '',
         password: '',
         confirmPassword: '',
-        profilePicture: '',
-        bio: '',
-        location: '',
-        socialLinks: {
-            instagram: '',
-            twitter: '',
-            facebook: '',
-            linkedin: '',
-            github: ''
-        }
+        // profilePicture: '',
+        // bio: '',
+        // location: '',
+        // socialLinks: {
+        //     instagram: '',
+        //     twitter: '',
+        //     facebook: '',
+        //     linkedin: '',
+        //     github: ''
+        // }
     });
 
     const [errors, setErrors] = useState({});
@@ -29,22 +28,22 @@ const Register = () => {
     const handleChange = (e) => {
         const { name, value } = e.target;
 
-        // Atualizar campos de redes sociais
-        if (name.startsWith('socialLinks.')) {
-            const socialLinkKey = name.split('.')[1];
-            setFormData(prev => ({
-                ...prev,
-                socialLinks: {
-                    ...prev.socialLinks,
-                    [socialLinkKey]: value
-                }
-            }));
-        } else {
+        // // Atualizar campos de redes sociais
+        // if (name.startsWith('socialLinks.')) {
+        //     const socialLinkKey = name.split('.')[1];
+        //     setFormData(prev => ({
+        //         ...prev,
+        //         socialLinks: {
+        //             ...prev.socialLinks,
+        //             [socialLinkKey]: value
+        //         }
+        //     }));
+        // } else {
             setFormData(prev => ({
                 ...prev,
                 [name]: value
             }));
-        }
+        // }
     };
 
     // Função para validar o formulário
@@ -112,16 +111,16 @@ const Register = () => {
                 email: '',
                 password: '',
                 confirmPassword: '',
-                profilePicture: '',
-                bio: '',
-                location: '',
-                socialLinks: {
-                    instagram: '',
-                    twitter: '',
-                    facebook: '',
-                    linkedin: '',
-                    github: ''
-                }
+                // profilePicture: '',
+                // bio: '',
+                // location: '',
+                // socialLinks: {
+                //     instagram: '',
+                //     twitter: '',
+                //     facebook: '',
+                //     linkedin: '',
+                //     github: ''
+                // }
             });
         } catch (error) {
             alert(error.response?.data?.message || 'Erro no cadastro');
@@ -184,7 +183,7 @@ const Register = () => {
                 />
                 {errors.confirmPassword && <p className={styles.errorText}>{errors.confirmPassword}</p>}
 
-                <input
+                {/* <input
                     type="text"
                     name="profilePicture"
                     value={formData.profilePicture}
@@ -212,10 +211,10 @@ const Register = () => {
                     placeholder="Localização (Cidade/Estado/País)"
                     className={styles.inputField}
                 />
-                {errors.location && <p className={styles.errorText}>{errors.location}</p>}
+                {errors.location && <p className={styles.errorText}>{errors.location}</p>} */}
 
                 {/* Seção de Redes Sociais */}
-                <div className={styles.socialLinksSection}>
+                {/* <div className={styles.socialLinksSection}>
                     <h3>Redes Sociais (opcional)</h3>
                     {Object.keys(formData.socialLinks).map((platform) => (
                         <div key={platform} className={styles.socialLinkInput}>
@@ -234,7 +233,7 @@ const Register = () => {
                             )}
                         </div>
                     ))}
-                </div>
+                </div> */}
 
                 <button
                     type="submit"
