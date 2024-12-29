@@ -1,30 +1,88 @@
-
-/* Input de busca */
 .searchBar {
-    display: flex;
-    /* align-items: center; */
+  display: flex;
+  max-width: 300px;
+  border-radius: 30px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.searchInput,
-.searchInputBtn{
-    padding: 0.5rem;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    font-size: 1rem;
-    height: 2.5rem;
-    line-height: 1.5rem;
-    vertical-align: middle;
+.searchBar:hover {
+  box-shadow: 0 0.3rem 1rem rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
 }
 
 .searchInput {
+    flex: 1;
+    font-size: 1rem;
+    padding: 0.8rem 1rem;
+    border: 1px solid #eaeaea;
+    border-right: none;
     border-radius: 30px 0 0 30px;
-    border-right: 0;
+    outline: none;
+    transition: all 0.2s ease;
+    background-color: white;
+    width: 100%;
     margin-bottom: 0;
 }
 
+.searchInput:focus {
+    border-color: var(--bg-terciario);
+}
+
+.searchInput::placeholder {
+    color: #95a5a6;
+    opacity: 0.8;
+}
+
 .searchInputBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    color: white;
+    font-size: 1rem;
+    border-left: none;
     border-radius: 0 30px 30px 0;
-    border-left: 0;
+    border: 2px solid var(--bg-terciario);
     background-color: var(--bg-terciario);
-    width: 4rem;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.searchInputBtn:hover {
+    background-color: #2980b9;
+    border-color: #2980b9;
+}
+
+/* Estilo para o ícone de lupa */
+.searchInputBtn {
+    width: 3.5rem;
+    padding: 0;
+}
+
+/* Media Queries para responsividade */
+@media (max-width: 768px) {
+    .searchBar {
+        max-width: 100%;
+        margin: 0 1rem;
+    }
+
+    .searchInput {
+        padding: 0.7rem 1rem;
+        font-size: 0.95rem;
+    }
+
+    .searchInputBtn {
+        width: 3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .searchInput {
+        padding: 0.6rem 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .searchInputBtn {
+        width: 2.8rem;
+    }
 }
