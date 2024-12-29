@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import apiServices from "../../services/apiServices";
 import styles from "./TableFilteredPosts.module.css";
 
@@ -54,7 +54,7 @@ function TableFilteredPosts() {
                   />
                   <div className={styles.postInfo}>
                     <h3>
-                      <a href={`/posts/${post._id}`}>{post.title}</a>
+                      <Link to={`/post/${post._id}`} className={styles.postTitle}>{post.title}</Link>
                     </h3>
                     <p>
                       <span>{post.views} views</span> |
