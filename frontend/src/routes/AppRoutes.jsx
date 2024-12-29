@@ -10,6 +10,7 @@ import Privacy from '../components/Footer/Privacy/Privacy';
 import ContactForm from '../pages/ContactForm/ContactForm';
 
 import FilteredPosts from '../pages/FilteredPosts/FilteredPosts';
+import TableFilteredPosts from '../pages/TableFilteredPosts/TableFilteredPosts.jsx';
 import OpenedPost from '../pages/OpenedPost/OpenedPost';
 
 import Profile from '../pages/UserAuthenticated/Profile/Profile';
@@ -43,6 +44,7 @@ function AppRoutes() {
 
             {/* Dynamic Category and Post Routes */}
             <Route path="/post/:id" element={<OpenedPost />} />
+            <Route path="/posts" element={<TableFilteredPosts />} />
             <Route path="/category/:categoryId" element={<FilteredPosts />} />
             
             {/* Protected Routes */}

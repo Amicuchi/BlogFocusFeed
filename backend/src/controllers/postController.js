@@ -13,7 +13,6 @@ export const createPost = async (req, res, next) => {
 };
 
 export const getAllPosts = async (req, res, next) => {
-
   try {
     const {
       page = 1,

@@ -17,6 +17,7 @@ function Header() {
                 </h1>
                 <div className={styles.searchLoginContainer}>
                     <SearchBar />
+                    
                     {signed ? (
                         <UserMenu
                             username={user?.username || 'Usuário sem username'}
