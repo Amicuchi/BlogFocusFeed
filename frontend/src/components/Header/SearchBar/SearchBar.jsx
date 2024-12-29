@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Proptypes from "prop-types";
 import styles from "./SearchBar.module.css";
 
 function SearchBar() {
@@ -34,9 +33,5 @@ function SearchBar() {
     </div>
   );
 }
-
-SearchBar.propTypes = {
-  onSearchResults: Proptypes.func.isRequired,
-};
 
 export default SearchBar;
