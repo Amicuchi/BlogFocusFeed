@@ -14,8 +14,8 @@ class PostService {
     const savedPost = await newPost.save();
 
     await User.findByIdAndUpdate(
-        userId, 
-        { $push: { posts: savedPost._id } }
+      userId,
+      { $push: { posts: savedPost._id } }
     );
 
     return savedPost;
@@ -50,12 +50,17 @@ class PostService {
   }
 
   async getPostById(postId) {
-    const post = await Post.findById(postId).populate(
-      "author",
-      "username fullName"
-    );
+    const post = await Post
+      .findByIdAndUpdate(postId)
+      .populate(
+        "author",
+        "username fullName"
+      );
 
     if (!post) throw new Error("Post não encontrado");
+
+    post.views += 1;
+    await post.save();
 
     return post;
   }
