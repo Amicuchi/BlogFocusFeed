@@ -97,7 +97,6 @@ function PostForm() {
                 tags: data.tags ? data.tags.split(',').map(tag => tag.trim()) : [],
                 image: data.image,
             };
-            console.log("Dados preparados para envio:", postData);
 
             if (postId) {
                 // Se postId existir, estamos editando, então chamamos a API para atualizar o post
@@ -119,7 +118,6 @@ function PostForm() {
             toast.error(errorMessage);
         } finally {
             setLoading(false);
-            console.log("Finalizando o processo de envio...");
         }
     };
 
