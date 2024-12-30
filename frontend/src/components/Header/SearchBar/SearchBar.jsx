@@ -17,7 +17,7 @@ function SearchBar() {
       <input
         type="text"
         className={styles.searchInput}
-        placeholder="Pesquisar"
+        placeholder="Buscar por título ou tags"
         aria-label="Campo de busca"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
