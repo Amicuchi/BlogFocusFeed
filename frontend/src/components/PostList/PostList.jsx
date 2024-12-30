@@ -41,9 +41,9 @@ PostList.propTypes = {
             content: PropTypes.string,
         })
     ).isRequired,
-    onLoadMore: PropTypes.func.isRequired,
-    hasMore: PropTypes.bool.isRequired,
-    isLoading: PropTypes.bool.isRequired,
+    onLoadMore: PropTypes.func,
+    hasMore: PropTypes.bool,
+    isLoading: PropTypes.bool,
     error: PropTypes.string,
 };
 
