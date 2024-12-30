@@ -161,3 +161,26 @@
     margin-bottom: 15px;
     text-align: center;
 }
+
+
+@media (max-width: 1024px) {
+    .PostFormContainer {
+        width: 90%;
+    }
+}
+
+@media (max-width: 768px) {
+    .PostFormContainer {
+        width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    .PostFormContainer {
+        width: 90%;
+    }
+
+    .submitButton {
+        width: 100%;
+    }
+}

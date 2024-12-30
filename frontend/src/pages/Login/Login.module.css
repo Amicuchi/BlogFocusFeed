@@ -40,7 +40,7 @@
     background-color: #0056b3;
 }
 
-.loginContainer .pBtn{
+.loginContainer .pBtn {
     font-size: 0.8rem;
     text-align: left;
     margin-top: 0.6rem;
@@ -55,4 +55,23 @@
     color: red;
     margin-bottom: 1rem;
     text-align: center;
+}
+
+
+@media (max-width: 1024px) {
+    .loginContainer {
+        max-width: 80%;
+    }
+}
+
+@media (max-width: 768px) {
+    .loginContainer {
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    .loginContainer {
+        padding: 1rem;
+    }
 }

@@ -52,3 +52,22 @@
 .formButton:hover {
     background-color: #0056b3;
 }
+
+
+@media (max-width: 1024px) {
+    .contactFormContainer {
+        max-width: 70%;
+    }
+}
+
+@media (max-width: 768px) {
+    .contactFormContainer {
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    .contactFormContainer {
+        padding: 1rem;
+    }
+}

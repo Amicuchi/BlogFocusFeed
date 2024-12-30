@@ -1,13 +1,13 @@
 .searchBar {
-  display: flex;
-  max-width: 300px;
-  border-radius: 30px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    max-width: 300px;
+    border-radius: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .searchBar:hover {
-  box-shadow: 0 0.3rem 1rem rgba(0, 0, 0, 0.15);
-  transform: translateY(-1px);
+    box-shadow: 0 0.3rem 1rem rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
 }
 
 .searchInput {
@@ -60,6 +60,14 @@
 }
 
 /* Media Queries para responsividade */
+
+@media (max-width: 1024px) {
+    .searchBar {
+        max-width: 90%;
+        margin: 0 auto;
+    }
+}
+
 @media (max-width: 768px) {
     .searchBar {
         max-width: 100%;
@@ -77,6 +85,9 @@
 }
 
 @media (max-width: 480px) {
+    .searchBar {
+        margin: 0.3rem;
+    }
     .searchInput {
         padding: 0.6rem 0.8rem;
         font-size: 0.9rem;

@@ -35,6 +35,7 @@
 .table th:nth-child(1) {
     border-radius: 0.5rem 0 0 0;
 }
+
 .table th:nth-child(5) {
     border-radius: 0 0.5rem 0 0;
 }
@@ -80,6 +81,7 @@
     background-color: var(--bg-terciario);
     color: white;
 }
+
 .buttonEdit:hover {
     background-color: #4d8cf6;
 }
@@ -88,6 +90,37 @@
     background-color: #a52734;
     color: white;
 }
+
 .buttonDelete:hover {
     background-color: #f44336;
+}
+
+@media (max-width: 1024px) {
+    .loginContainer {
+        max-width: 80%;
+    }
+}
+
+@media (max-width: 768px) {
+    .loginContainer {
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    .table {
+        font-size: 0.8rem;
+    }
+
+    .table thead th {
+        font-weight: 400;
+    }
+
+    button {
+        width: 90%;
+    }
+
+    .buttonEdit {
+        margin-bottom: 0.5rem;
+    }
 }

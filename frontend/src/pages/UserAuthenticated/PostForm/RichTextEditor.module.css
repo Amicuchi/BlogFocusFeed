@@ -49,7 +49,6 @@ button:hover {
     cursor: text;
 }
 
-
 .modal {
     position: fixed;
     top: 0;
@@ -83,4 +82,27 @@ button:hover {
 
 .modalActions button {
     padding: 0.5rem 1rem;
+}
+
+@media (max-width: 1024px) {
+    .PostFormContainer {
+        width: 90%;
+    }
+}
+
+@media (max-width: 768px) {
+    .PostFormContainer {
+        width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    .toolbar {
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .toolbar button{
+        width: 30%;
+    }
 }

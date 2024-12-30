@@ -118,3 +118,44 @@
 .fullContent a:hover {
     text-decoration: underline;
 }
+
+
+@media (max-width: 1024px) {
+    .PostContainer {
+        width: 60%;
+    }
+}
+
+@media (max-width: 768px) {
+    .PostContainer {
+        width: 90%;
+        /* max-width: 340px; */
+    }
+    .postContent {
+        max-width: 95%;
+        text-align: justify;
+    }
+}
+
+@media (max-width: 480px) {
+    .PostContainer {
+        width: 95%;
+    }
+
+    .postContent {
+        max-width: 95%;
+        text-align: justify;
+    }
+
+    .postImage {
+        height: 15vh;
+    }
+
+    .postTitle {
+        font-size: 1.2rem;
+    }
+
+    .postDescription {
+        font-size: 0.8rem;
+    }
+}

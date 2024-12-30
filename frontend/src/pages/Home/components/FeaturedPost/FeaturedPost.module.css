@@ -18,7 +18,8 @@
     width: 500px;
     height: 360px;
     border-radius: 8px;
-    object-fit: cover; /* Para garantir que a imagem se ajuste bem ao espaço */
+    object-fit: cover;
+    /* Para garantir que a imagem se ajuste bem ao espaço */
 }
 
 .postContent {
@@ -45,7 +46,7 @@
     line-height: 1.6;
 }
 
-.postTags{
+.postTags {
     background-color: var(--bg-terciario);
     color: #fff;
     width: fit-content;
@@ -92,7 +93,7 @@
 }
 
 
-@media(max-width: 1023px){
+@media(max-width: 1023px) {
     .featuredPostContainer {
         flex-direction: column;
     }
@@ -105,10 +106,28 @@
         width: 100%;
         height: 300px;
         border-radius: 10px;
-        object-fit: cover; /* Para garantir que a imagem se ajuste bem ao espaço */
+        object-fit: cover;
+        /* Para garantir que a imagem se ajuste bem ao espaço */
     }
 
     .postContent {
         width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .featuredPostContainer {
+        flex-direction: column;
+    }
+
+    .featuredImage {
+        width: 100%;
+        height: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .featuredImage {
+        height: 200px;
     }
 }

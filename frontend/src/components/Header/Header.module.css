@@ -41,9 +41,9 @@ header {
 }
 
 .loginButton a,
-.logoutButton a{
+.logoutButton a {
     text-decoration: none;
-} 
+}
 
 .loginButton {
     background-color: var(--bg-principal);
@@ -65,22 +65,77 @@ header {
     background-color: #a71d2a;
 }
 
-.loginButton:hover a{
+.loginButton:hover a {
     color: white;
 }
 
 .gradientBorder {
-    position: relative; /* Necessário para posicionar o pseudo-elemento */
+    position: relative;
+    /* Necessário para posicionar o pseudo-elemento */
     background-color: #fafafa;
 }
 
 .gradientBorder::after {
-    content: "";        /* Cria o pseudo-elemento */
-    position: absolute; /* Para posicionar a borda abaixo */
-    bottom: 0;          /* Fixa na parte inferior do header */
+    content: "";
+    /* Cria o pseudo-elemento */
+    position: absolute;
+    /* Para posicionar a borda abaixo */
+    bottom: 0;
+    /* Fixa na parte inferior do header */
     left: 0;
-    width: 100%;        /* Largura total da borda */
-    height: 0.5rem;     /* Altura da borda inferior */
-    background: linear-gradient(to bottom, #eee, var(--bg-principal)); /* Gradiente */
+    width: 100%;
+    /* Largura total da borda */
+    height: 0.5rem;
+    /* Altura da borda inferior */
+    background: linear-gradient(to bottom, #eee, var(--bg-principal));
+    /* Gradiente */
     z-index: 3;
+}
+
+@media (max-width: 1024px) {
+    .topBar {
+        padding: 0 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .topBar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .searchLoginContainer {
+        flex-wrap: wrap;
+        justify-content: space-between;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    header{
+        padding: 0;
+    }
+
+    .topBar {
+        padding: 0.5rem;
+        align-items: center;
+    }
+
+    .logoLink {
+        font-size: 2rem;
+    }
+
+    .searchLoginContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .loginButton,
+    .logoutButton {
+        font-size: 0.9rem;
+        padding: 0.4rem 0.8rem;
+    }
 }

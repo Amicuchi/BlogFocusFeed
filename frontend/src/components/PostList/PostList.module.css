@@ -7,7 +7,7 @@
     width: 100%;
 }
 
-.loadMoreButton{
+.loadMoreButton {
     margin-top: 2rem;
     width: 100%;
     display: flex;
@@ -17,15 +17,40 @@
     border: 1px solid var(--bg-secundario);
 }
 
-.loadMoreButton:hover{
+.loadMoreButton:hover {
     background-color: #fff;
     color: var(--bg-secundario);
 }
 
-.noMorePosts{
+.noMorePosts {
     margin-top: 2rem;
     width: 100%;
     display: flex;
     justify-content: center;
     color: var(--bg-secundario);
+}
+
+
+@media (max-width: 1024px) {
+    .PostListContainer {
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .PostListContainer {
+        justify-content: center;
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .PostListContainer {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .loadMoreButton {
+        width: 90%;
+    }
 }
