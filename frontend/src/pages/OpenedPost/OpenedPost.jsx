@@ -6,6 +6,7 @@ import AuthorBadge from '../../components/AuthorBadge/AuthorBadge';
 import styles from './OpenedPost.module.css';
 import parse from 'html-react-parser';
 import DOMPurify from 'dompurify';
+import { useAuth } from '../../contexts/AuthContext.jsx';
 
 function OpenedPost() {
     const { id } = useParams();
@@ -13,7 +14,35 @@ function OpenedPost() {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
 
+    const { signed: isAuthenticated } = useAuth();
+
     const dataFormatada = useFormatarData(post?.createdAt);
+
+    const handleLike = async () => {
+        if (!isAuthenticated) {
+            alert('Faça login para interagir com o post');
+            return;
+        }
+        try {
+            const response = await apiServices.likePost(id);
+            setPost(response.data.data);
+        } catch (error) {
+            console.error('Erro ao dar like:', error);
+        }
+    };
+
+    const handleDislike = async () => {
+        if (!isAuthenticated) {
+            alert('Faça login para interagir com o post');
+            return;
+        }
+        try {
+            const response = await apiServices.dislikePost(id);
+            setPost(response.data.data);
+        } catch (error) {
+            console.error('Erro ao dar dislike:', error);
+        }
+    };
 
     useEffect(() => {
         const fetchPost = async () => {
@@ -69,7 +98,23 @@ function OpenedPost() {
 
             <footer className={styles.postFooter}>
                 <p><strong>Visualizações:</strong> {post.views}</p>
-                <p><strong>Likes:</strong> {post.likes} | <strong>Dislikes:</strong> {post.dislikes}</p>
+                {/* <p><strong>Likes:</strong> {post.likes} | <strong>Dislikes:</strong> {post.dislikes}</p> */}
+                <div className={styles.interactionButtons}>
+                    <button 
+                        onClick={handleLike}
+                        disabled={!isAuthenticated}
+                        className={styles.likeButton}
+                    >
+                        👍 {post.likes}
+                    </button>
+                    <button 
+                        onClick={handleDislike}
+                        disabled={!isAuthenticated}
+                        className={styles.dislikeButton}
+                    >
+                        👎 {post.dislikes}
+                    </button>
+                </div>
                 <div className={styles.tags}>
                     {post.tags.map((tag) => (
                         <span key={tag} className={styles.tag}>

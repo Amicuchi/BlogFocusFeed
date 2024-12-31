@@ -61,6 +61,7 @@ class PostService {
 
     post.views += 1;
     await post.save();
+    // await Post.findByIdAndUpdate(postId, { $inc: { views: 1 } });
 
     return post;
   }
@@ -108,6 +109,46 @@ class PostService {
 
     return { message: "Post excluído com sucesso" };
   }
+
+  async handleInteraction(postId, userId, interactionType) {
+    const post = await Post.findById(postId);
+    if (!post) throw new Error("Post não encontrado");
+
+    const existingInteraction = post.interactions.find(
+      i => i.userId.toString() === userId && i.type === interactionType
+    );
+
+    if (existingInteraction) {
+      // Remove interação existente
+      post.interactions = post.interactions.filter(
+        i => !(i.userId.toString() === userId && i.type === interactionType)
+      );
+      if (interactionType === 'like') post.likes--;
+      if (interactionType === 'dislike') post.dislikes--;
+    } else {
+      // Remove interação oposta se existir
+      const oppositeType = interactionType === 'like' ? 'dislike' : 'like';
+      const hasOpposite = post.interactions.find(
+        i => i.userId.toString() === userId && i.type === oppositeType
+      );
+
+      if (hasOpposite) {
+        post.interactions = post.interactions.filter(
+          i => !(i.userId.toString() === userId && i.type === oppositeType)
+        );
+        if (oppositeType === 'like') post.likes--;
+        if (oppositeType === 'dislike') post.dislikes--;
+      }
+
+      // Adiciona nova interação
+      post.interactions.push({ userId, type: interactionType });
+      if (interactionType === 'like') post.likes++;
+      if (interactionType === 'dislike') post.dislikes++;
+    }
+
+    return post.save();
+  }
+
 }
 
 export default new PostService();

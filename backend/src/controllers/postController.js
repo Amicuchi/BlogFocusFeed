@@ -122,3 +122,34 @@ export const deletePost = async (req, res, next) => {
     }
 };
 
+export const likePost = async (req, res, next) => {
+    try {
+        const result = await PostService.handleInteraction(
+            req.params.id,
+            req.user.id,
+            'like'
+        );
+        res.status(200).json({
+            message: 'Like registrado com sucesso',
+            data: result
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const dislikePost = async (req, res, next) => {
+    try {
+        const result = await PostService.handleInteraction(
+            req.params.id,
+            req.user.id,
+            'dislike'
+        );
+        res.status(200).json({
+            message: 'Dislike registrado com sucesso',
+            data: result
+        });
+    } catch (error) {
+        next(error);
+    }
+};

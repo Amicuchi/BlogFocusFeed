@@ -19,8 +19,7 @@ const apiServices = {
     resetPasswordWithToken: async (token, newPassword) => api.post("/api/auth/reset-password-with-token", { token, newPassword }),                  // Redefinição de senha com token
 
     // Posts
-    // getAllPosts: () => api.get('/api/posts'),                     // Obter todos os posts
-    getAllPosts: (params) => api.get('/api/posts', { params }),     // Obter todos os posts
+    getAllPosts: (params) => api.get('/api/posts', { params }),   // Obter todos os posts
     getPostById: (id) => api.get(`/api/posts/${id}`),             // Obter detalhes de um post
     getPostsByAuthor: (userId) => api.get(`/api/posts?userId=${userId}`),               // Obter posts de um autor
     getPostsByCategory: (categoryId) => api.get(`/api/posts/category/${categoryId}`),   // Obter posts por categoria
@@ -28,6 +27,9 @@ const apiServices = {
     createPost: (data) => api.post('/api/posts', data),           // Criar novo post
     updatePost: (id, data) => api.put(`/api/posts/${id}`, data),  // Atualizar um post
     deletePost: (id) => api.delete(`/api/posts/posts/${id}`),     // Deletar um post
+
+    likePost: (id) => api.post(`/api/posts/${id}/like`),        // Curtir um post
+    dislikePost: (id) => api.post(`/api/posts/${id}/dislike`),  // Descurtir um post
 
     // Categorias
     getAllCategories: () => api.get('/api/categories'),                     // Obter todas as categorias
