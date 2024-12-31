@@ -50,6 +50,12 @@ const PostSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  interactions: [
+    {
+      userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+      type: { type: String, enum: ['like', 'dislike'], required: true },
+    },
+  ],
 }, {
   timestamps: true,
 });
