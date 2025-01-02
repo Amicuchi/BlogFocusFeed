@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useFormatarData } from '../../hooks/useFormatarData.js';
+import { useAuth } from '../../contexts/AuthContext.jsx';
+import parse from 'html-react-parser';
 import apiServices from '../../services/apiServices.js';
+import DOMPurify from 'dompurify';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import AuthorBadge from '../../components/AuthorBadge/AuthorBadge';
 import styles from './OpenedPost.module.css';
-import parse from 'html-react-parser';
-import DOMPurify from 'dompurify';
-import { useAuth } from '../../contexts/AuthContext.jsx';
 
 function OpenedPost() {
     const { id } = useParams();
@@ -20,7 +22,14 @@ function OpenedPost() {
 
     const handleLike = async () => {
         if (!isAuthenticated) {
-            alert('Faça login para interagir com o post');
+            toast.warn('Você precisa estar logado para curtir o post.', {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: false,
+            });
             return;
         }
         try {
@@ -28,12 +37,23 @@ function OpenedPost() {
             setPost(response.data.data);
         } catch (error) {
             console.error('Erro ao dar like:', error);
+            toast.error('Erro ao curtir o post. Tente novamente.', {
+                position: "top-center",
+                autoClose: 3000,
+            });
         }
     };
 
     const handleDislike = async () => {
         if (!isAuthenticated) {
-            alert('Faça login para interagir com o post');
+            toast.warn('Você precisa estar logado para descurtir o post.', {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: false,
+            });
             return;
         }
         try {
@@ -41,6 +61,10 @@ function OpenedPost() {
             setPost(response.data.data);
         } catch (error) {
             console.error('Erro ao dar dislike:', error);
+            toast.error('Erro ao descurtir o post. Tente novamente.', {
+                position: "top-center",
+                autoClose: 3000,
+            });
         }
     };
 
@@ -52,12 +76,11 @@ function OpenedPost() {
                 setPost(response.data.data);
                 setError(null);
             } catch (error) {
-                console.error("Erro ao carregar o post:", error);
-                setError("Erro ao carregar o post. Tente novamente.", error);
+                setError("Erro ao carregar o post. Tente novamente. Erro: ", error);
             } finally {
                 setLoading(false);
             }
-        }
+        };
 
         fetchPost();
     }, [id]);
@@ -73,6 +96,7 @@ function OpenedPost() {
 
     return (
         <article className={styles.postContainer}>
+            <ToastContainer />
             <header className={styles.headerContainer}>
                 <h1 className={styles.postTitle}>{post.title || 'Título não encontrado'}</h1>
                 <p className={styles.postDate}>Publicado em: {dataFormatada || 'Data não encontrada'}</p>
@@ -98,8 +122,7 @@ function OpenedPost() {
 
             <footer className={styles.postFooter}>
                 <p><strong>Visualizações:</strong> {post.views}</p>
-                {/* <p><strong>Likes:</strong> {post.likes} | <strong>Dislikes:</strong> {post.dislikes}</p> */}
-                <div className={styles.interactionButtons}>
+                {/* <div className={styles.interactionButtons}>
                     <button 
                         onClick={handleLike}
                         disabled={!isAuthenticated}
@@ -111,6 +134,20 @@ function OpenedPost() {
                         onClick={handleDislike}
                         disabled={!isAuthenticated}
                         className={styles.dislikeButton}
+                    >
+                        👎 {post.dislikes}
+                    </button>
+                </div> */}
+                <div className={styles.interactionButtons}>
+                    <button
+                        onClick={handleLike}
+                        className={`${styles.likeButton} ${!isAuthenticated ? styles.disabled : ''}`}
+                    >
+                        👍 {post.likes}
+                    </button>
+                    <button
+                        onClick={handleDislike}
+                        className={`${styles.dislikeButton} ${!isAuthenticated ? styles.disabled : ''}`}
                     >
                         👎 {post.dislikes}
                     </button>
