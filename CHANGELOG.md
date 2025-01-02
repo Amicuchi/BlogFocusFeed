@@ -1,6 +1,5 @@
 # 1.1.0 (2025-01-02)
 
-
 ### Bug Fixes
 
 * **Aninhamento de tags p:** Resolvido o erro de aninhamento de tags p. ([5ab7647](https://github.com/Amicuchi/blogfocusfeed/commit/5ab7647166bd2bf161a7a336da59a6080dd10303))
@@ -54,7 +53,6 @@
 * **UserMenu:** Correção do não carregamento da imagem do usuário no botão de usuário logado. ([51f7408](https://github.com/Amicuchi/blogfocusfeed/commit/51f74083e3f1f8501915ca55f50b4c384001bee8))
 * **UserModel:** Exclusão do valor padrão na imagem do usuário. ([93319cb](https://github.com/Amicuchi/blogfocusfeed/commit/93319cb19b550b295b8f54cae787a1d8797bdf86))
 * **userService:** Excluída a dupla comparação de senha no backend. ([c91a505](https://github.com/Amicuchi/blogfocusfeed/commit/c91a505f0f965ebd13e461a3a8c4bcd8eeb5874c))
-
 
 ### Features
 
@@ -132,7 +130,6 @@
 * **userRoutes.js:**  Inclusão de rota especializada em retornar os posts do usuário logado. ([9d1a000](https://github.com/Amicuchi/blogfocusfeed/commit/9d1a0007c9530157fbac4ae0ad0fc174422f89f3))
 * **validation:** backend: essa funcionalidade garante que os dados sejam validados e atendam os requisitos dos models antes de serem aceitos. ([4ba9d08](https://github.com/Amicuchi/blogfocusfeed/commit/4ba9d08807bb05aafa3da8869a073096f6947d6d))
 
-
 ### Performance Improvements
 
 * **AppRoutes:** Mudança no método de contexto de usuário logado e no desenvolvimento de rotas privadas. ([3fca3ab](https://github.com/Amicuchi/blogfocusfeed/commit/3fca3abddbfa8d7876d977f329f026d5416dc4ea))
@@ -141,12 +138,9 @@
 * **Login:** Melhoria na performance do login por meio de simplificação do código. ([5991e2a](https://github.com/Amicuchi/blogfocusfeed/commit/5991e2ae1ff8bece183c3311f2124cc71de2ba7c))
 * **PrivateRoute:** Simplificação do componente. ([ca8fec8](https://github.com/Amicuchi/blogfocusfeed/commit/ca8fec87f9127b9f00d02332908cdcc27557d84e))
 * **userService:** Exclusão de um console.log que estava piorando a performance por  estar toda hora publicando todos os posts do banco. ([ea0b3d8](https://github.com/Amicuchi/blogfocusfeed/commit/ea0b3d82fac8d3c5dc88cd48706b929be33d318b))
-
-
 
 # 1.1.0 (2025-01-02)
 
-
 ### Bug Fixes
 
 * **Aninhamento de tags p:** Resolvido o erro de aninhamento de tags p. ([5ab7647](https://github.com/Amicuchi/blogfocusfeed/commit/5ab7647166bd2bf161a7a336da59a6080dd10303))
@@ -200,7 +194,6 @@
 * **UserMenu:** Correção do não carregamento da imagem do usuário no botão de usuário logado. ([51f7408](https://github.com/Amicuchi/blogfocusfeed/commit/51f74083e3f1f8501915ca55f50b4c384001bee8))
 * **UserModel:** Exclusão do valor padrão na imagem do usuário. ([93319cb](https://github.com/Amicuchi/blogfocusfeed/commit/93319cb19b550b295b8f54cae787a1d8797bdf86))
 * **userService:** Excluída a dupla comparação de senha no backend. ([c91a505](https://github.com/Amicuchi/blogfocusfeed/commit/c91a505f0f965ebd13e461a3a8c4bcd8eeb5874c))
-
 
 ### Features
 
@@ -278,7 +271,6 @@
 * **userRoutes.js:**  Inclusão de rota especializada em retornar os posts do usuário logado. ([9d1a000](https://github.com/Amicuchi/blogfocusfeed/commit/9d1a0007c9530157fbac4ae0ad0fc174422f89f3))
 * **validation:** backend: essa funcionalidade garante que os dados sejam validados e atendam os requisitos dos models antes de serem aceitos. ([4ba9d08](https://github.com/Amicuchi/blogfocusfeed/commit/4ba9d08807bb05aafa3da8869a073096f6947d6d))
 
-
 ### Performance Improvements
 
 * **AppRoutes:** Mudança no método de contexto de usuário logado e no desenvolvimento de rotas privadas. ([3fca3ab](https://github.com/Amicuchi/blogfocusfeed/commit/3fca3abddbfa8d7876d977f329f026d5416dc4ea))
@@ -287,8 +279,6 @@
 * **Login:** Melhoria na performance do login por meio de simplificação do código. ([5991e2a](https://github.com/Amicuchi/blogfocusfeed/commit/5991e2ae1ff8bece183c3311f2124cc71de2ba7c))
 * **PrivateRoute:** Simplificação do componente. ([ca8fec8](https://github.com/Amicuchi/blogfocusfeed/commit/ca8fec87f9127b9f00d02332908cdcc27557d84e))
 * **userService:** Exclusão de um console.log que estava piorando a performance por  estar toda hora publicando todos os posts do banco. ([ea0b3d8](https://github.com/Amicuchi/blogfocusfeed/commit/ea0b3d82fac8d3c5dc88cd48706b929be33d318b))
-
-
 
 # Changelog
 
