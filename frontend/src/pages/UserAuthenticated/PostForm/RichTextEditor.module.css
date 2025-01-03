@@ -94,6 +94,14 @@ button:hover {
     .PostFormContainer {
         width: 90%;
     }
+    .toolbar {
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .toolbar button{
+        width: 20%;
+    }
 }
 
 @media (max-width: 480px) {

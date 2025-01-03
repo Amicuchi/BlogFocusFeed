@@ -23,3 +23,15 @@
 .navLink:hover {
     color: #0056b3;
 }
+
+@media (max-width: 480px) {
+    .navbar ul{
+        margin-left: 0;
+    }
+    
+    .navList {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+    }
+}

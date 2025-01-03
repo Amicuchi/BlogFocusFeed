@@ -102,17 +102,12 @@
 .likeButton,
 .dislikeButton {
     padding: 0.5rem 1rem;
+    width: 150px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     transition: all 0.3s ease;
 }
-
-/* .likeButton:disabled,
-.dislikeButton:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-} */
 
 .disabled {
     opacity: 0.6;

@@ -167,11 +167,17 @@
     .PostFormContainer {
         width: 90%;
     }
+    .submitButton {
+        width: 100%;
+    }
 }
 
 @media (max-width: 768px) {
     .PostFormContainer {
         width: 90%;
+    }
+    .submitButton {
+        width: 100%;
     }
 }
 

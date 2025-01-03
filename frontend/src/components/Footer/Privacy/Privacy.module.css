@@ -1,10 +1,20 @@
+.termsContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
 .termsSection {
     padding: 40px 20px;
     background-color: #f5f5f5;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     margin: 20px 0;
     text-align: justify;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+    max-width: 800px;
 }
 
 .termsH2 {
@@ -38,6 +48,7 @@ ul {
     list-style-type: disc;
     margin-left: 5rem;
 }
+
 ul li {
     font-size: 1rem;
     font-weight: 300;
@@ -46,4 +57,20 @@ ul li {
     max-width: 800px;
     margin: 0 auto;
     padding-left: 1rem;
+}
+
+@media (max-width: 768px) {
+    .termsSection {
+        margin: 2rem;
+        padding: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+}
+
+@media (max-width: 480px) {
+    .termsSection {
+        margin: 1.5rem;
+        padding: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
 }

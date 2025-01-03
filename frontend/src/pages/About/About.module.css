@@ -1,7 +1,16 @@
+.aboutContainer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
 .aboutSection {
   padding: 40px 20px;
+  max-width: 800px;
   background-color: #f5f5f5;
   border-radius: 10px;
+  border: 1px solid #ddd;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   margin: 20px 0;
   text-align: center;
@@ -20,4 +29,20 @@
   color: #555;
   max-width: 800px;
   margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .aboutSection{
+    margin: 2rem;
+    padding: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  }
+}
+
+@media (max-width: 480px) {
+  .aboutSection{
+    margin: 1rem;
+    padding: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  }
 }

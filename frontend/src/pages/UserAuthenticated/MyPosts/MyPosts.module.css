@@ -105,6 +105,13 @@
     .loginContainer {
         max-width: 90%;
     }
+    button {
+        width: 90%;
+    }
+
+    .buttonEdit {
+        margin-bottom: 0.5rem;
+    }
 }
 
 @media (max-width: 480px) {

@@ -27,6 +27,13 @@
     align-items: center;
 }
 
+.newsletter form label{
+    width: 100%;
+    max-width: 350px;
+    text-align: left;
+    font-size: 0.8rem;
+}
+
 .newsletter input[type="email"] {
     width: 100%;
     max-width: 350px;
