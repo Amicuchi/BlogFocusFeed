@@ -43,6 +43,10 @@
     width: 200px;
 }
 
+.menuDropdown li{
+    padding-left: 0;
+}
+
 .menuItem {
     display: block;
     padding: 10px 16px;
@@ -56,7 +60,9 @@
 }
 
 .logoutButton {
+    display: block;
     width: 100%;
+    font-size: 1rem;
     text-align: left;
     padding: 10px 16px;
     background-color: white;
@@ -64,6 +70,7 @@
     color: #e53935;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
+    margin-bottom: 10px;
 }
 
 .logoutButton:hover {
