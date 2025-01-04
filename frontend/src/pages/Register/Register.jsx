@@ -92,12 +92,6 @@ const Register = () => {
 
         setIsLoading(true);
         try {
-            // const { salt, hash } = hashPassword(formData.password);
-            // const dataToSend = {
-            //     ...formData,
-            //     password: hash,
-            //     salt
-            // };
             const dataToSend = { ...formData };
             delete dataToSend.confirmPassword; // Remover campo de confirmação de senha
 
@@ -111,16 +105,6 @@ const Register = () => {
                 email: '',
                 password: '',
                 confirmPassword: '',
-                // profilePicture: '',
-                // bio: '',
-                // location: '',
-                // socialLinks: {
-                //     instagram: '',
-                //     twitter: '',
-                //     facebook: '',
-                //     linkedin: '',
-                //     github: ''
-                // }
             });
         } catch (error) {
             alert(error.response?.data?.message || 'Erro no cadastro');
