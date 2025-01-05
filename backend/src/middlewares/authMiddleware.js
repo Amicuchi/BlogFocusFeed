@@ -1,29 +1,29 @@
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 
 const validateToken = (token) => {
-    if (!token) {
-        throw new Error('Token não fornecido');
-    }
+  if (!token) {
+    throw new AuthError("Token não fornecido");
+  }
 
-    try {
-        return jwt.verify(token, process.env.JWT_SECRET);
-    } catch (error) {
-        if (error.name === 'TokenExpiredError') {
-            throw new Error('Token expirado');
-        }
-        throw new Error('Token inválido');
+  try {
+    return jwt.verify(token, process.env.JWT_SECRET);
+  } catch (error) {
+    if (error.name === "TokenExpiredError") {
+        throw new AuthError("Token expirado", 401);
     }
+    throw new AuthError("Token inválido", 401);
+  }
 };
 
 const authMiddleware = (req, res, next) => {
-    const token = req.header('Authorization')?.replace('Bearer ', '');
+  const token = req.header("Authorization")?.replace("Bearer ", "");
 
-    try {
-        req.user = validateToken(token);
-        next();
-    } catch (error) {
-        res.status(401).json({ message: error.message });
-    }
+  try {
+    req.user = validateToken(token);
+    next();
+  } catch (error) {
+    res.status(error.statusCode || 401).json({ message: error.message });
+  }
 };
 
 export default authMiddleware;
