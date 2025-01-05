@@ -61,7 +61,6 @@ function PostForm() {
         try {
             const response = await apiServices.getPostById(postId);
             const post = response.data.data;
-            console.log("Post carregado para edição:", post);
             
             if (post.categories?.[0]) {
                 const category = availableCategories.find(cat => cat.value === post.categories[0]);
