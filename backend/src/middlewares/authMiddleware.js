@@ -20,6 +20,7 @@ const authMiddleware = (req, res, next) => {
 
   try {
     req.user = validateToken(token);
+    console.log("authMiddleware - Usuário autenticado:", req.user);
     next();
   } catch (error) {
     res.status(error.statusCode || 401).json({ message: error.message });
