@@ -21,6 +21,7 @@ import Register from '../pages/Register/Register.jsx';
 import ForgotPassword from '../pages/ForgotPassword/ForgotPassword.jsx';
 import ResetPasswordWithToken from '../pages/ForgotPassword/ResetPasswordWithToken/ResetPasswordWithToken.jsx';
 import Unsubscribe from '../pages/Unsubscribe/Unsubscribe.jsx';
+import Dashboard from '../pages/UserAuthenticated/Dashboard/Dashboard.jsx';
 
 const Private = ({ Component }) => {
     const { signed } = useAuth();
@@ -48,6 +49,7 @@ function AppRoutes() {
             <Route path="/category/:categoryId" element={<FilteredPosts />} />
             
             {/* Protected Routes */}
+            <Route path="/dashboard" element={<Private Component={Dashboard} />} />
             <Route path="/dashboard/perfil" element={<Private Component={Profile} />} />
             <Route path="/dashboard/configuracoes" element={<Private Component={Settings} />} />
             <Route path="/dashboard/meus-posts" element={<Private Component={MyPosts} />} />
