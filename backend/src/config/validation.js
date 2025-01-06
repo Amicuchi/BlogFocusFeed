@@ -68,7 +68,11 @@ export const userValidationSchema = {
       linkedin: Joi.string().uri().allow('').optional(),
       github: Joi.string().uri().allow('').optional()
     }).optional(),
-    salt: Joi.string().optional()
+    salt: Joi.string().optional(),
+    role: Joi.string()
+      .valid('READER', 'AUTHOR', 'MODERATOR', 'OWNER')
+      .default('READER')
+      .optional(),
   }),
 
   login: Joi.object({
