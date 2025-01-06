@@ -17,12 +17,13 @@ const validateToken = (token) => {
 
 const authMiddleware = (req, res, next) => {
   const token = req.header("Authorization")?.replace("Bearer ", "");
-
+ 
   try {
-    req.user = validateToken(token);
-    console.log("authMiddleware - Usuário autenticado:", req.user);
+    const decoded = validateToken(token);
+    req.user = decoded;
     next();
   } catch (error) {
+    console.error("Erro na autenticação:", error.message);
     res.status(error.statusCode || 401).json({ message: error.message });
   }
 };
