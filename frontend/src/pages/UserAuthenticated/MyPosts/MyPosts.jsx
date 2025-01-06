@@ -37,7 +37,6 @@ function MyPosts() {
   // Função para excluir um post
   const deletePost = async (postId) => {
     try {
-      console.log(`Tentando deletar post: ${postId}`);
       const confirmDelete = window.confirm(
         "Tem certeza que deseja excluir este post?"
       );
