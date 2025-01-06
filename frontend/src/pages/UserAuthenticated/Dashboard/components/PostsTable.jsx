@@ -3,7 +3,7 @@ import styles from "./PostsTable.module.css";
 import apiServices from "../../../../services/apiServices";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { formatDate } from "../../../../hooks/formatDate";
+import formatDate from "../../../../hooks/formatDate";
 import { Link } from "react-router-dom";
 
 const PostTable = () => {
@@ -21,9 +21,10 @@ const PostTable = () => {
     const fetchPosts = async (page) => {
         try {
             setLoading(true);
-            const response = await apiServices.listPosts(page, POSTS_PER_PAGE); // Adaptado para enviar a página e o limite
+            const response = await apiServices.listPosts(page, POSTS_PER_PAGE);
+            console.log("Posts:", response);
             setPosts(response.data.posts);
-            setTotalPages(response.data.totalPages); // Assumindo que o backend retorna `totalPages`
+            setTotalPages(response.data.pages);
         } catch (error) {
             console.error("Erro ao buscar posts:", error);
             toast.error("Erro ao buscar os posts. Tente novamente.", error,

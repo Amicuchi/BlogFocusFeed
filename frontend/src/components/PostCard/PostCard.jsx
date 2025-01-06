@@ -1,13 +1,12 @@
 import { Link } from 'react-router-dom'
-import { useFormatarData } from '../../hooks/useFormatarData';
+import formatDate from '../../hooks/formatDate.js';
 import PropTypes from 'prop-types';
 import styles from './PostCard.module.css';
 import parse from 'html-react-parser';
 import DOMPurify from 'dompurify';
 
 function PostCard({ post }) {
-    const dataFormatada = useFormatarData(post?.postDate);
-
+    const dataFormatada = formatDate(post?.postDate);
     const renderDescription = (description) => {
         const sanitizedDescription = DOMPurify.sanitize(description);
         return parse(sanitizedDescription);

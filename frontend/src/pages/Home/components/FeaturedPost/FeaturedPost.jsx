@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useFormatarData } from '../../../../hooks/useFormatarData';
+import formatDate from '../../../../hooks/formatDate';
 import PropTypes from 'prop-types';
 import AuthorBadge from '../../../../components/AuthorBadge/AuthorBadge';
 import styles from './FeaturedPost.module.css';
@@ -7,7 +7,7 @@ import parse from 'html-react-parser';
 import DOMPurify from 'dompurify';
 
 function FeaturedPost({ post }) {
-    const dataFormatada = useFormatarData(post?.updatedAt);
+    const dataFormatada = formatDate(post?.updatedAt);
 
     if (!post) {
         return <div className={styles.error}>Nenhum post em destaque disponível.</div>;

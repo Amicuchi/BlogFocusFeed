@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useFormatarData } from '../../hooks/useFormatarData.js';
 import { useAuth } from '../../contexts/AuthContext.jsx';
 import parse from 'html-react-parser';
 import apiServices from '../../services/apiServices.js';
@@ -9,16 +8,15 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AuthorBadge from '../../components/AuthorBadge/AuthorBadge';
 import styles from './OpenedPost.module.css';
+import formatDate from '../../hooks/formatDate.js';
 
 function OpenedPost() {
     const { id } = useParams();
     const [post, setPost] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
-
     const { signed: isAuthenticated } = useAuth();
-
-    const dataFormatada = useFormatarData(post?.createdAt);
+    const dataFormatada = formatDate(post?.createdAt);
 
     const handleLike = async () => {
         if (!isAuthenticated) {
