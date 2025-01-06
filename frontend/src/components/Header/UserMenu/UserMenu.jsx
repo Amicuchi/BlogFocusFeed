@@ -46,7 +46,7 @@ function UserMenu() {
           setRole(userRole.data.role);
         } catch (error) {
           console.error("Erro ao buscar o papel do usuário:", error);
-          setError("Erro ao buscar papel do usuário."); // Adiciona mensagem de erro
+          setError("Erro ao buscar papel do usuário.");
         }
       }
     };
@@ -63,7 +63,7 @@ function UserMenu() {
         setLoading(true);
         const response = await apiServices.getUserProfile(user.id);
         const profilePicture = response.data?.data?.profilePicture || avatar;
-
+        
         // Verifica se a imagem é válida usando Promisses
         await new Promise((resolve, reject) => {
           const img = new Image();
