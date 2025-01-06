@@ -9,16 +9,6 @@ const Register = () => {
         email: '',
         password: '',
         confirmPassword: '',
-        // profilePicture: '',
-        // bio: '',
-        // location: '',
-        // socialLinks: {
-        //     instagram: '',
-        //     twitter: '',
-        //     facebook: '',
-        //     linkedin: '',
-        //     github: ''
-        // }
     });
 
     const [errors, setErrors] = useState({});
@@ -27,18 +17,6 @@ const Register = () => {
     // Função para atualizar os campos do formulário
     const handleChange = (e) => {
         const { name, value } = e.target;
-
-        // // Atualizar campos de redes sociais
-        // if (name.startsWith('socialLinks.')) {
-        //     const socialLinkKey = name.split('.')[1];
-        //     setFormData(prev => ({
-        //         ...prev,
-        //         socialLinks: {
-        //             ...prev.socialLinks,
-        //             [socialLinkKey]: value
-        //         }
-        //     }));
-        // } else {
             setFormData(prev => ({
                 ...prev,
                 [name]: value
@@ -73,16 +51,6 @@ const Register = () => {
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
-
-    // Função para hashear a senha com salt
-    // const hashPassword = (password) => {
-    //     const salt = CryptoJS.lib.WordArray.random(16).toString(); // Salt aleatório
-    //     let hash = password;
-    //     for (let i = 0; i < 5; i++) { // Múltiplas rodadas de hash
-    //         hash = CryptoJS.SHA256(hash + salt).toString();
-    //     }
-    //     return { salt, hash };
-    // };
 
     // Função para lidar com o envio do formulário
     const handleSubmit = async (e) => {
@@ -166,58 +134,6 @@ const Register = () => {
                     className={styles.inputField}
                 />
                 {errors.confirmPassword && <p className={styles.errorText}>{errors.confirmPassword}</p>}
-
-                {/* <input
-                    type="text"
-                    name="profilePicture"
-                    value={formData.profilePicture}
-                    onChange={handleChange}
-                    placeholder="URL da Foto de perfil"
-                    className={styles.inputField}
-                />
-                {errors.profilePicture && <p className={styles.errorText}>{errors.profilePicture}</p>}
-
-                <textarea
-                    name="bio"
-                    value={formData.bio}
-                    onChange={handleChange}
-                    placeholder="Biografia"
-                    className={styles.inputField}
-                    rows="4"
-                />
-                {errors.bio && <p className={styles.errorText}>{errors.bio}</p>}
-
-                <input
-                    type="text"
-                    name="location"
-                    value={formData.location}
-                    onChange={handleChange}
-                    placeholder="Localização (Cidade/Estado/País)"
-                    className={styles.inputField}
-                />
-                {errors.location && <p className={styles.errorText}>{errors.location}</p>} */}
-
-                {/* Seção de Redes Sociais */}
-                {/* <div className={styles.socialLinksSection}>
-                    <h3>Redes Sociais (opcional)</h3>
-                    {Object.keys(formData.socialLinks).map((platform) => (
-                        <div key={platform} className={styles.socialLinkInput}>
-                            <input
-                                type="text"
-                                name={`socialLinks.${platform}`}
-                                value={formData.socialLinks[platform]}
-                                onChange={handleChange}
-                                placeholder={`Link do ${platform}`}
-                                className={styles.inputField}
-                            />
-                            {errors[`socialLinks.${platform}`] && (
-                                <p className={styles.errorText}>
-                                    {errors[`socialLinks.${platform}`]}
-                                </p>
-                            )}
-                        </div>
-                    ))}
-                </div> */}
 
                 <button
                     type="submit"
