@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 
 export const UserRoles = Object.freeze({
-  READER: "reader",
-  AUTHOR: "author",
-  MODERATOR: "moderator",
-  OWNER: "owner",
+  READER: "READER",
+  AUTHOR: "AUTHOR",
+  MODERATOR: "MODERATOR",
+  OWNER: "OWNER",
 });
 
 const UserSchema = new mongoose.Schema(

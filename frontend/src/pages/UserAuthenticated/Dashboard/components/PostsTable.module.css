@@ -1,0 +1,66 @@
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+th {
+    background-color: #f9f9f9;
+}
+
+.deleteButton {
+    padding: 5px 10px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.deleteButton:hover {
+    background-color: #a71d2a;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.paginationButton {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    margin: 0 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.paginationButton:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.paginationInfo {
+    font-size: 16px;
+    margin: 0 10px;
+}
+
+.postLink {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.postLink:hover {
+    text-decoration: underline;
+}
