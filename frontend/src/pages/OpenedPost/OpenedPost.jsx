@@ -122,22 +122,6 @@ function OpenedPost() {
 
             <footer className={styles.postFooter}>
                 <p><strong>Visualizações:</strong> {post.views}</p>
-                {/* <div className={styles.interactionButtons}>
-                    <button 
-                        onClick={handleLike}
-                        disabled={!isAuthenticated}
-                        className={styles.likeButton}
-                    >
-                        👍 {post.likes}
-                    </button>
-                    <button 
-                        onClick={handleDislike}
-                        disabled={!isAuthenticated}
-                        className={styles.dislikeButton}
-                    >
-                        👎 {post.dislikes}
-                    </button>
-                </div> */}
                 <div className={styles.interactionButtons}>
                     <button
                         onClick={handleLike}
