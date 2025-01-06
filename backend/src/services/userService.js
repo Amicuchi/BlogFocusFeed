@@ -1,4 +1,4 @@
-import User from "../models/User.js";
+import User, { UserRoles } from "../models/User.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
@@ -8,9 +8,7 @@ class UserService {
 
     // Verifica se o usuário já está cadastrado
     const existingUser = await User.findOne({ $or: [{ email }, { username }] });
-    if (existingUser) {
-      throw new Error("Usuário já cadastrado");
-    }
+    if (existingUser) throw new Error("Usuário já cadastrado");
 
     // Rehash a senha recebida do frontend com bcrypt
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -33,19 +31,19 @@ class UserService {
 
   async loginUser(email, password) {
     const user = await User.findOne({ email });
-    if (!user) {
-      throw new Error("Credenciais inválidas");
-    }
+    if (!user) throw new Error("Credenciais inválidas.");
 
     // Compara a senha hasheada recebida com a armazenada
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      throw new Error("Credenciais inválidas");
-    }
+    if (!isMatch) throw new Error("Credenciais inválidas.");
 
     // Gera o token JWT
     const token = jwt.sign(
-      { id: user._id, username: user.username },
+      {
+        id: user._id,
+        username: user.username,
+        role: user.role,
+      },
       process.env.JWT_SECRET,
       { expiresIn: "1d" }
     );
@@ -57,6 +55,7 @@ class UserService {
         id: user._id,
         username: user.username,
         email: user.email,
+        role: user.role,
       },
     };
   }
@@ -65,6 +64,14 @@ class UserService {
     const user = await User.findById(userId)
       .select("-password")
       .populate("posts");
+
+    if (!user) throw new Error("Usuário não encontrado");
+
+    return user;
+  }
+
+  async getUserRole(userId) {
+    const user = await User.findById(userId).select("role");
 
     if (!user) throw new Error("Usuário não encontrado");
 
@@ -110,62 +117,12 @@ class UserService {
     return updatedUser;
   }
 
-  async getAllUsers() {
-    const users = await User.find()
-      .select("-password -passwordResetToken -passwordResetExpires")
-      .sort({ createdAt: -1 });
-    return users;
-  }
-
-  async getUserRole(userId) {
-    const user = await User.findById(userId).select("role");
-
-    if (!user) throw new Error("Usuário não encontrado");
-
-    return user;
-  }
-
-  // Função para alterar o cargo de um usuário
-  async changeUserRole(currentUserId, targetUserId, newRole) {
-    const currentUser = await User.findById(currentUserId);
-    const targetUser = await User.findById(targetUserId);
-  
-    if (!targetUser) throw new Error("Usuário não encontrado");
-    if (targetUser.role === UserRoles.OWNER) throw new Error("Não é possível modificar cargo do proprietário");
-  
-    const isOwner = currentUser.role === UserRoles.OWNER;
-    const isModerator = currentUser.role === UserRoles.MODERATOR;
-  
-    if (isModerator) {
-      if (newRole === UserRoles.MODERATOR || newRole === UserRoles.OWNER) {
-        throw new Error("Moderadores não podem promover a Moderador ou Proprietário");
-      }
-      if (targetUser.role === UserRoles.MODERATOR || targetUser.role === UserRoles.OWNER) {
-        throw new Error("Moderadores não podem alterar cargos de Moderadores ou Proprietários");
-      }
-    }
-  
-    targetUser.role = newRole;
-    await targetUser.save();
-    return targetUser;
-  }
-
-  // Exclusão pelo proprietário
-  async deleteUserById(userId) {
-    const user = await User.findById(userId);
-    if (!user) throw new Error("Usuário não encontrado");
-    if (user.role === UserRoles.OWNER) throw new Error("Não é possível excluir o proprietário");
-
-    await User.findByIdAndDelete(userId);
-    return { message: "Usuário excluído com sucesso" };
-  }
-
   // Exclusão da própria conta
   async deleteOwnAccount(userId) {
     const user = await User.findById(userId);
     if (!user) throw new Error("Usuário não encontrado");
     if (user.role === UserRoles.OWNER) throw new Error("Proprietários devem transferir propriedade antes de excluir conta");
-    
+
     await User.findByIdAndDelete(userId);
     return { message: "Conta excluída com sucesso" };
   }
