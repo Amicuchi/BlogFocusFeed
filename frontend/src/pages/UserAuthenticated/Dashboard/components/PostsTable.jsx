@@ -22,7 +22,6 @@ const PostTable = () => {
         try {
             setLoading(true);
             const response = await apiServices.listPosts(page, POSTS_PER_PAGE);
-            console.log("Posts:", response);
             setPosts(response.data.posts);
             setTotalPages(response.data.pages);
         } catch (error) {
@@ -78,8 +77,8 @@ const PostTable = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {posts.map((post) => (
-                        <tr key={post.id}>
+                    {posts.map((post, index) => (
+                        <tr key={post.id || index}>
                             <td>
                                 <Link to={`/post/${post._id}`} className={styles.postLink}>
                                     {post.title}
