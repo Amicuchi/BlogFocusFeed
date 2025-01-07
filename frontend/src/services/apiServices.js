@@ -5,14 +5,18 @@ const apiServices = {
   // Usuário
   registerUser: (data) => api.post("/api/users/register", data),        // Registro de usuário
   loginUser: (data) => api.post("/api/users/login", data),              // Login de usuário
-  getUserProfile: () => api.get("/api/users/user"),                     // Obter perfil do usuário
   getUserRole: () => api.get("/api/users/user/role"),                   // Obter cargo do usuário
-  getAllUsers: () => api.get("/api/users/allusers"),                    // Obter todos os usuários
+  getUserProfile: () => api.get("/api/users/user"),                     // Obter perfil do usuário
   getAuthorProfile: (userId) => api.get(`/api/users/author/${userId}`), // Obter perfil de autor
-  updateUserProfile: (data) => api.put("/api/users/user", data),                                        // Atualizar perfil do usuário
-  changeUserRole: (userId, newRole) => api.put("/api/users/role", { targetUserId: userId, newRole }),   // Alterar cargo do usuário
-  deleteUser: () => api.delete("/api/users/user"),                      // Usuário exclui a própria conta
+  updateUserProfile: (data) => api.put("/api/users/user", data),        // Atualizar perfil do usuário
   ownerDeleteUser: (userId) => api.delete(`/api/users/${userId}`),      // Proprietário exclui a conta do usuário
+
+  // Admin
+  listUsers: (page = 1, limit = 10) => api.get(`/api/admin/allusers?page=${page}&limit=${limit}`),          // Obter todos os usuários
+  updateUserRole: (targetUserId, newRole) => api.put("/api/admin/user/role", { targetUserId: targetUserId, newRole: newRole }),  // Alterar cargo do usuário
+  deleteUser: (userId) => api.delete(`/api/admin/user/${userId}`),                                          // Excluir usuário pelo ID
+  listPosts: (page = 1, limit = 10) => api.get(`/api/admin/allposts?page=${page}&limit=${limit}`),          // Obter todos os posts
+  adminDeletePost: (postId) => api.delete(`/api/admin/post/${postId}`),                                     // Excluir post pelo ID
 
   // Contato
   sendContactMessage: (formData) => api.post("/api/contact/contact", formData), // Enviar mensagem
