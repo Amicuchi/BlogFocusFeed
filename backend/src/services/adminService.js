@@ -29,6 +29,10 @@ class AdminService {
         const currentUser = await User.findById(currentUserId);
         const targetUser = await User.findById(targetUserId);
 
+        // Verificando se o currentUser foi encontrado
+        if (!currentUser) throw new Error("Usuário atual não encontrado");
+
+        // Verificando se o targetUser foi encontrado
         if (!targetUser) throw new Error("Usuário não encontrado");
 
         if (targetUser.role === UserRoles.OWNER) {
@@ -74,45 +78,45 @@ class AdminService {
         return { message: "Usuário excluído com sucesso", user };
     }
 
-// Lista todos os posts com paginação
-async listPosts(page = 1, limit = 10) {
-    const parsedPage = Math.max(Number(page), 1);
-    const parsedLimit = Math.max(Number(limit), 1);
+    // Lista todos os posts com paginação
+    async listPosts(page = 1, limit = 10) {
+        const parsedPage = Math.max(Number(page), 1);
+        const parsedLimit = Math.max(Number(limit), 1);
 
-    const skip = (parsedPage - 1) * parsedLimit;
-    const posts = await Post.find()
-        .populate("author", "username fullName") // Inclui informações do autor
-        .sort({ createdAt: -1 })
-        .skip(skip)
-        .limit(parsedLimit);
+        const skip = (parsedPage - 1) * parsedLimit;
+        const posts = await Post.find()
+            .populate("author", "username fullName") // Inclui informações do autor
+            .sort({ createdAt: -1 })
+            .skip(skip)
+            .limit(parsedLimit);
 
-    const total = await Post.countDocuments();
-    return {
-        posts,
-        total,
-        page: parsedPage,
-        pages: Math.ceil(total / parsedLimit),
-    };
-}
-
-// Exclui um post
-async deletePost(postId) {
-    const post = await Post.findById(postId);
-    if (!post) {
-        throw new Error("Post não encontrado");
+        const total = await Post.countDocuments();
+        return {
+            posts,
+            total,
+            page: parsedPage,
+            pages: Math.ceil(total / parsedLimit),
+        };
     }
 
-    await post.remove();
-    return { message: "Post excluído com sucesso", post };
-}
+    // Exclui um post
+    async deletePost(postId) {
+        const post = await Post.findById(postId);
+        if (!post) {
+            throw new Error("Post não encontrado");
+        }
+
+        await post.remove();
+        return { message: "Post excluído com sucesso", post };
+    }
 }
 
 // Função utilitária para validar transições de cargo
 const validateRoleTransition = (role) => {
-const validRoles = Object.values(UserRoles);
-if (!validRoles.includes(role)) {
-    throw new Error("Cargo inválido");
-}
+    const validRoles = Object.values(UserRoles);
+    if (!validRoles.includes(role)) {
+        throw new Error("Cargo inválido");
+    }
 };
 
 export default new AdminService();
