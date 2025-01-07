@@ -18,6 +18,7 @@ export const listUsers = async (req, res, next) => {
 // Atualiza o cargo de um usuário
 export const updateUserRole = async (req, res, next) => {
     const { targetUserId, newRole } = req.body;
+    const currentUserId = req.user.id;
 
     if (!targetUserId || !newRole) {
         return res.status(400).json({
@@ -26,7 +27,7 @@ export const updateUserRole = async (req, res, next) => {
     }
 
     try {
-        const updatedUser = await AdminService.updateUserRole(targetUserId, newRole); // Chamando serviço genérico
+        const updatedUser = await AdminService.updateUserRole(currentUserId, targetUserId, newRole);
         res.status(200).json({
             message: "Cargo do usuário atualizado com sucesso",
             data: updatedUser,
