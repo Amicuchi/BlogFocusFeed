@@ -1,40 +1,119 @@
 .dashboard {
   padding: 20px;
-  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .title {
-  text-align: center;
-  font-size: 2rem;
+  font-size: 24px;
   margin-bottom: 20px;
+  color: #333;
 }
 
 .tabs {
   display: flex;
-  justify-content: center;
   margin-bottom: 20px;
 }
 
 .tabButton {
   padding: 10px 20px;
-  margin: 0 10px;
+  margin-right: 10px;
   border: none;
+  border-radius: 4px;
+  background-color: #e0e0e0;
   cursor: pointer;
-  background-color: #f0f0f0;
-  border-radius: 5px;
-  font-size: 1rem;
   transition: background-color 0.3s;
 }
 
 .tabButton:hover {
-  background-color: #ddd;
+  background-color: #d4d4d4;
 }
 
 .active {
-  background-color: #007bff;
+  background-color: #4CAF50;
   color: white;
 }
 
 .content {
+  background-color: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
   margin-top: 20px;
+}
+
+.table th,
+.table td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.table th {
+  background-color: #f4f4f4;
+}
+
+.editButton,
+.deleteButton {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.editButton {
+  background-color: #2196F3;
+  color: white;
+}
+
+.editButton:hover {
+  background-color: #1976D2;
+}
+
+.deleteButton {
+  background-color: #F44336;
+  color: white;
+}
+
+.deleteButton:hover {
+  background-color: #D32F2F;
+}
+
+.postLink {
+  color: #2196F3;
+  text-decoration: none;
+}
+
+.postLink:hover {
+  text-decoration: underline;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.paginationButton {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.paginationButton:disabled {
+  background-color: #e0e0e0;
+  cursor: not-allowed;
+}
+
+.paginationInfo {
+  margin: 0 10px;
 }

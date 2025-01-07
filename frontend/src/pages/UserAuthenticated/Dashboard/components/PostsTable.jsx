@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import styles from "./PostsTable.module.css";
 import apiServices from "../../../../services/apiServices";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import formatDate from "../../../../hooks/formatDate";
 import { Link } from "react-router-dom";
+import styles from "../Dashboard.module.css";
 
 const PostTable = () => {
     const [posts, setPosts] = useState([]);

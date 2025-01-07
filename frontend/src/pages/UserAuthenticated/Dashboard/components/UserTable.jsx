@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import apiServices from "../../../../services/apiServices";
 import Modal from 'react-modal';
 import Proptype from 'prop-types';
-import styles from "./UserTable.module.css";
+import styles from "../Dashboard.module.css";
 
 const UserTable = ({ loggedInUserRole }) => {
 
