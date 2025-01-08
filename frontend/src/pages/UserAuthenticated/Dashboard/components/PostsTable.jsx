@@ -4,13 +4,14 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import formatDate from "../../../../hooks/formatDate";
 import { Link } from "react-router-dom";
-import styles from "../Dashboard.module.css";
+import styles from "./PostsTable.module.css";
 
 const PostTable = () => {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const [goToPage, setGoToPage] = useState("");
 
     const POSTS_PER_PAGE = 10;
 
@@ -41,14 +42,14 @@ const PostTable = () => {
         if (!window.confirm("Tem certeza que deseja excluir este post?")) return;
 
         try {
-            await apiServices.AdminDeletePost(postId);
+            await apiServices.adminDeletePost(postId);
             toast.success("Post excluído com sucesso!", {
                 position: "top-center",
                 autoClose: 3000,
             });
             fetchPosts(currentPage); // Atualiza a lista de posts na página atual
         } catch (error) {
-            console.error("Erro ao excluir post:", error);
+            console.error("Erro detalhado ao excluir post:", error.response?.data);
             toast.error("Erro ao excluir o post. Tente novamente.", {
                 position: "top-center",
                 autoClose: 3000,
@@ -62,42 +63,81 @@ const PostTable = () => {
         }
     };
 
+    const handleGoToPage = (e) => {
+        e.preventDefault();
+        const pageNumber = parseInt(goToPage);
+        if (pageNumber >= 1 && pageNumber <= totalPages) {
+            handlePageChange(pageNumber);
+            setGoToPage("");
+        }
+    };
+
     if (loading) return <p>Carregando...</p>;
 
     return (
-        <div>
+        <div className={styles.postContainer}>
             <ToastContainer />
-            <table className={styles.table}>
-                <thead>
-                    <tr>
-                        <th>Título</th>
-                        <th>Autor</th>
-                        <th>Data</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {posts.map((post, index) => (
-                        <tr key={post.id || index}>
-                            <td>
-                                <Link to={`/post/${post._id}`} className={styles.postLink}>
-                                    {post.title}
-                                </Link>
-                            </td>
-                            <td>{post.author.fullName}</td>
-                            <td>{formatDate(post.createdAt)}</td>
-                            <td>
-                                <button
-                                    className={styles.deleteButton}
-                                    onClick={() => handleDeletePost(post.id)}
-                                >
-                                    Excluir
-                                </button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+            <div className={styles.postsList}>
+                {posts.map((post, index) => (
+                    <div key={post.id || index} className={styles.postCard}>
+                        <div className={styles.postContent}>
+                            {/* Coluna da Imagem */}
+                            <div className={styles.imageColumn}>
+                                <img
+                                    src={post.image || '/placeholder-image.jpg'}
+                                    alt={post.title}
+                                    className={styles.thumbnail}
+                                />
+                            </div>
+
+                            {/* Coluna das Informações */}
+                            <div className={styles.infoColumn}>
+                                {/* Linha Superior */}
+                                <div className={styles.topRow}>
+                                    <Link to={`/post/${post._id}`} className={styles.postLink}>
+                                        <h3 className={styles.postTitle}>{post.title}</h3>
+                                    </Link>
+                                    <button
+                                        className={styles.deleteButton}
+                                        onClick={() => handleDeletePost(post._id)}
+                                    >
+                                        Excluir
+                                    </button>
+                                </div>
+
+                                {/* Linha Inferior */}
+                                <div className={styles.bottomRow}>
+                                    <span className={styles.authorInfo}>
+                                        <strong>Autor:</strong> {post.author ? (post.author.fullName || post.author.username) : "Usuário Removido"}
+                                    </span>
+                                    <span className={styles.engagementInfo}>
+                                        <span className={styles.likes}>
+                                            <strong>Likes:</strong> {post.likes}
+                                        </span>
+                                        <span className={styles.dislikes}>
+                                            <strong>Deslikes:</strong> {post.dislikes}
+                                        </span>
+                                    </span>
+                                    <span className={styles.dateInfo}>
+                                        <span className={styles.createdAt}>
+                                            <strong>Criado:</strong> {formatDate(post.createdAt)}
+                                        </span>
+                                        {post.updatedAt && (
+                                            <span className={styles.updatedAt}>
+                                                <strong>Atualizado:</strong> {formatDate(post.updatedAt)}
+                                            </span>
+                                        )}
+                                        <span className={styles.createdAt}>
+                                            <strong>Visualizações:</strong> {post.views}
+                                        </span>
+                                    </span>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
 
             {/* Controles de paginação */}
             <div className={styles.pagination}>
@@ -108,15 +148,38 @@ const PostTable = () => {
                 >
                     Anterior
                 </button>
-                <span className={styles.paginationInfo}>
+                {/* <span className={styles.paginationInfo}>
                     Página {currentPage} de {totalPages}
-                </span>
+                </span> */}
+
+                <form onSubmit={handleGoToPage} className={styles.pageForm}>
+                    <input
+                        type="number"
+                        min="1"
+                        max={totalPages}
+                        value={goToPage}
+                        onChange={(e) => setGoToPage(e.target.value)}
+                        className={styles.pageInput}
+                        placeholder={`${currentPage} de ${totalPages}`}
+                    />
+                    <button type="submit" className={styles.goToPageButton}>
+                        Ir
+                    </button>
+                </form>
+
                 <button
                     className={styles.paginationButton}
                     disabled={currentPage === totalPages}
                     onClick={() => handlePageChange(currentPage + 1)}
                 >
                     Próxima
+                </button>
+                <button
+                    className={styles.paginationButton}
+                    disabled={currentPage === totalPages}
+                    onClick={() => handlePageChange(totalPages)}
+                >
+                    Última
                 </button>
             </div>
         </div>

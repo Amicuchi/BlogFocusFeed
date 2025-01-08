@@ -1,0 +1,158 @@
+/* FocusFeed.module.css */
+.postContainer {
+    padding: 0;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.postsList {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.postCard {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.postContent {
+    display: flex;
+    padding: 0.5rem;
+    gap: 16px;
+}
+
+.imageColumn {
+    flex-shrink: 0;
+    max-width: 120px;
+}
+
+.thumbnail {
+    width: 120px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.infoColumn {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.topRow {
+    margin-bottom: 8px;
+    display: flex;
+}
+
+.postTitle {
+    margin: 0;
+    font-size: 1.25rem;
+    color: #333;
+}
+
+.postLink {
+    text-decoration: none;
+    color: inherit;
+}
+
+.postLink:hover {
+    text-decoration: underline;
+}
+
+.bottomRow {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 0.9rem;
+    color: #666;
+    flex-wrap: wrap;
+}
+
+.authorInfo,
+.engagementInfo,
+.dateInfo {
+    display: flex;
+    gap: 16px;
+}
+
+.deleteButton {
+    padding: 6px 12px;
+    height: 2rem;
+    background-color: #ff4444;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-left: auto;
+}
+
+.deleteButton:hover {
+    background-color: #cc0000;
+}
+
+/* Estilos da paginação existentes */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 24px;
+    gap: 16px;
+}
+
+.paginationButton {
+    padding: 8px 16px;
+    background-color: var(--font-2nd);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.paginationButton:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.paginationButton:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+
+.paginationInfo {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.pageForm {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pageInput {
+    width: 5.5rem;
+    padding: 6px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.goToPageButton {
+    padding: 6px 12px;
+    background-color: var(--font-2nd);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.goToPageButton:hover {
+    background-color: #0056b3;
+}
