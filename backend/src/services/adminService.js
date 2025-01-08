@@ -29,15 +29,9 @@ class AdminService {
         const currentUser = await User.findById(currentUserId);
         const targetUser = await User.findById(targetUserId);
 
-        // Verificando se o currentUser foi encontrado
-        if (!currentUser) throw new Error("Usuário atual não encontrado");
-
-        // Verificando se o targetUser foi encontrado
-        if (!targetUser) throw new Error("Usuário não encontrado");
-
-        if (targetUser.role === UserRoles.OWNER) {
-            throw new Error("Não é possível alterar o cargo do proprietário");
-        }
+        if (!currentUser) throw new Error("Usuário atual não encontrado");  // Verificando se o currentUser foi encontrado
+        if (!targetUser) throw new Error("Usuário não encontrado");         // Verificando se o targetUser foi encontrado
+        if (targetUser.role === UserRoles.OWNER) throw new Error("Não é possível alterar o cargo do proprietário");
 
         // Valida a transição de cargo
         validateRoleTransition(newRole);
@@ -49,14 +43,13 @@ class AdminService {
             if ([UserRoles.MODERATOR, UserRoles.OWNER].includes(newRole)) {
                 throw new Error("Moderadores não podem promover usuários para Moderador ou Proprietário");
             }
+
             if ([UserRoles.MODERATOR, UserRoles.OWNER].includes(targetUser.role)) {
                 throw new Error("Moderadores não podem alterar cargos de Moderadores ou Proprietários");
             }
         }
 
-        if (!isOwner && !isModerator) {
-            throw new Error("Você não tem permissão para alterar cargos");
-        }
+        if (!isOwner && !isModerator) throw new Error("Você não tem permissão para alterar cargos");
 
         // Permitir a mudança de cargo apenas se passar pelas validações acima
         targetUser.role = newRole;
@@ -70,9 +63,7 @@ class AdminService {
 
         if (!user) throw new Error("Usuário não encontrado");
 
-        if (user.role === UserRoles.OWNER) {
-            throw new Error("Não é possível excluir o proprietário");
-        }
+        if (user.role === UserRoles.OWNER) throw new Error("Não é possível excluir o proprietário");
 
         await User.findByIdAndDelete(userId);
         return { message: "Usuário excluído com sucesso", user };
@@ -102,11 +93,9 @@ class AdminService {
     // Exclui um post
     async deletePost(postId) {
         const post = await Post.findById(postId);
-        if (!post) {
-            throw new Error("Post não encontrado");
-        }
+        if (!post) throw new Error("Post não encontrado");
 
-        await post.remove();
+        await post.deleteOne({ _id: postId }); 
         return { message: "Post excluído com sucesso", post };
     }
 }
@@ -114,9 +103,7 @@ class AdminService {
 // Função utilitária para validar transições de cargo
 const validateRoleTransition = (role) => {
     const validRoles = Object.values(UserRoles);
-    if (!validRoles.includes(role)) {
-        throw new Error("Cargo inválido");
-    }
+    if (!validRoles.includes(role)) throw new Error("Cargo inválido");
 };
 
 export default new AdminService();
