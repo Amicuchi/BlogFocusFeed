@@ -27,7 +27,7 @@ const Dashboard = () => {
     }, [user?.id]);
 
     return (
-        <div className={styles.dashboard}>
+        <div className={styles.dashboardContainer}>
             <h1 className={styles.title}>Painel de Controle</h1>
             <div className={styles.tabs}>
                 <button

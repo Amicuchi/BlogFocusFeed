@@ -141,7 +141,7 @@ const UserTable = ({ loggedInUserRole }) => {
                                 <td>{user.fullName}</td>
                                 <td>{user.email}</td>
                                 <td>{user.role}</td>
-                                <td>
+                                <td className={styles.actions}>
                                     <button
                                         className={styles.editButton}
                                         onClick={() => handleEditRole(user)}
