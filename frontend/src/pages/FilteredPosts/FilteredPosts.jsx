@@ -19,9 +19,9 @@ function FilteredPosts() {
                 const response = await apiServices.getPostsByCategory(categoryId);
                 setPosts(response.data.data);       // Define os posts no estado
                 setError(null);                     // Limpa o estado de erro
-            } catch (err) {
-                console.error("Erro ao buscar posts por categoria:", err);
-                setError(err.response?.data?.message || "Erro ao carregar os posts.");
+            } catch (error) {
+                console.error("Erro ao buscar posts por categoria:", error);
+                setError(error.response?.data?.message || "Erro ao carregar os posts.");
             } finally {
                 setLoading(false);
             }
