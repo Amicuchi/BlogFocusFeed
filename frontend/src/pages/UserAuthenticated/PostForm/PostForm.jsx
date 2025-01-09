@@ -6,9 +6,9 @@ import { toast } from "react-toastify";
 import { NewPostSchema } from "./NewPostSchema";
 import Select from "react-select";
 import RichTextEditor from "./RichTextEditor";
-import styles from "./PostForm.module.css";
 import apiServices from "../../../services/apiServices";
 import PropTypes from "prop-types";
+import styles from "./PostForm.module.css";
 
 function PostForm() {
     const {
@@ -125,7 +125,7 @@ function PostForm() {
 
     return (
         <div className={styles.PostFormContainer}>
-            <h1>{postId ? 'Editar Post' : 'Criar Post'}</h1>
+            <h1 className={styles.title}>{postId ? 'Editar Post' : 'Criar Post'}</h1>
             {error && <p className={styles.errorBanner}>{error}</p>}
             <form
                 onSubmit={handleSubmit(onSubmit)}
@@ -158,8 +158,6 @@ function PostForm() {
                         control={control}
                         render={({ field }) => (
                             <RichTextEditor
-                                // {...field}
-                                // value={field.value}
                                 initialValue={field.value}
                                 onContentChange={(value) => setValue("content", value, { shouldValidate: true })}
                                 allowedTags={['p', 'a', 'b', 'i', 'ul', 'ol', 'li', 'strong', 'em', 'h1', 'h2', 'h3', 'blockquote', 'hr', 'br', 'div', 'span', 'img']}

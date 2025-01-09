@@ -9,7 +9,7 @@ function TablePosts({ posts, onEdit, onDelete }) {
       <thead>
         <tr>
           <th>Título</th>
-          <th>Visualizações</th>
+          <th>Views</th>
           <th>Likes</th>
           <th>Deslikes</th>
           <th>Ações</th>

@@ -13,8 +13,9 @@
     text-align: center;
 }
 
-.settingsContainer header h2 {
+.settingsContainer header h1 {
     margin: 0 0 0.5rem;
+    color: var(--font-2nd);
 }
 
 .settingsContainer header p {
@@ -59,4 +60,54 @@
 .dangerButton:hover {
     background-color: #a71d2a;
     transform: translateY(-1px);
+}
+
+
+/* Regras de mídia para responsividade */
+
+/* Tela menor que 768px */
+@media (max-width: 768px) {
+    .settingsContainer {
+        padding: 1rem;
+        margin: 2rem auto;
+    }
+
+    .settingsContainer header h1 {
+        font-size: 1.3rem;
+    }
+
+    .settingsContainer header p {
+        font-size: 0.8rem;
+        margin-bottom: 1rem;
+    }
+
+    .submitBtn,
+    .dangerButton {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Tela menor que 480px */
+@media (max-width: 480px) {
+    .settingsContainer {
+        padding: 1rem;
+        margin: 1rem auto;
+        max-width: 430px;
+
+    }
+
+    .settingsContainer header h1 {
+        font-size: 1.2rem;
+    }
+
+    .settingsContainer header p {
+        font-size: 0.75rem;
+    }
+
+    .submitBtn,
+    .dangerButton {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.8rem;
+    }
 }

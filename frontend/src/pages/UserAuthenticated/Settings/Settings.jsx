@@ -31,7 +31,7 @@ function Settings() {
   return (
     <section className={styles.settingsContainer}>
       <header>
-        <h2>Configurações da Conta</h2>
+        <h1>Configurações da Conta</h1>
         <p>Gerencie suas informações e preferências.</p>
       </header>
 
