@@ -82,13 +82,26 @@ export const getPostByCategory = async (req, res) => {
         const { categoryId } = req.params;
         const posts = await PostService.getPostsByCategory(categoryId);
 
+        // Retorna os posts encontrados
         res.status(200).json({
             message: 'Posts filtrados pela categoria',
             data: posts
         });
     } catch (error) {
+        // Identifica erros específicos de ausência de posts
+        if (error.message === "Nenhum post encontrado para esta categoria") {
+            console.error('Erro ao buscar posts por categoria:', error.message);
+            return res.status(404).json({ 
+                message: 'Não existem posts dessa categoria.' 
+            });
+        }
+
+        // Trata outros erros genéricos
         console.error('Erro ao buscar posts por categoria:', error.message);
-        res.status(500).json({ message: 'Erro ao buscar posts por categoria', error: error.message });
+        res.status(500).json({ 
+            message: 'Erro ao buscar posts por categoria', 
+            error: error.message 
+        });
     }
 };
 
