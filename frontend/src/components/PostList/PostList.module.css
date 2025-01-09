@@ -30,6 +30,16 @@
     color: var(--bg-secundario);
 }
 
+.error {
+    color: #ff4d4f;
+    background-color: #fff1f0;
+    border: 1px solid #ffa39e;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+    text-align: center;
+    font-weight: bold;
+}
 
 @media (max-width: 1024px) {
     .PostListContainer {
