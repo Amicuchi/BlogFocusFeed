@@ -1,3 +1,18 @@
+## [1.3.2](https://github.com/Amicuchi/blogfocusfeed/compare/v1.2.0...v1.3.2) (2025-01-12)
+
+
+### Bug Fixes
+
+* **UserTable:** Unificação das buscar de usuário por nome ou por email no mesmo input. ([58106be](https://github.com/Amicuchi/blogfocusfeed/commit/58106beb68e9aa87ad86ce679842cb8fd904604b))
+
+
+### Features
+
+* **Newsletter:** Inclusão da configuração do envio da newsletter não só por horário, mas também por dia. ([7095110](https://github.com/Amicuchi/blogfocusfeed/commit/709511078273a8e1a3224a1a277ba939bc1d75e9))
+* **UserTableFilter:** Criação de filtros por nome de usuário, email e cargo. ([9561930](https://github.com/Amicuchi/blogfocusfeed/commit/95619308f7f84f6e71f7f900582f2b8be7ca34a6))
+
+
+
 # Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
