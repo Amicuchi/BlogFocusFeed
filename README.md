@@ -7,45 +7,6 @@ FocusFeed é uma plataforma moderna de blog construída com a stack MERN, oferec
 [![React](https://img.shields.io/badge/React-18.3.1-blue.svg)](https://reactjs.org/)
 [![Node](https://img.shields.io/badge/Node-Latest-green.svg)](https://nodejs.org/)
 
-## Atualizações e Correções (com as quais você pode contribuir)
-
-Aqui estão algumas sugestões de melhorias nas quais você pode colaborar para melhorar o projeto:
-
-### Funcionalidades
-
-- [ ] **Sistema de Preview Antes da Publicação:** Implementar um sistema de visualização para o usuário antes de publicar um post, permitindo ajustes finais.
-
-- [ ] **Criação de Posts Patrocinados:** Adicionar a funcionalidade para criar posts patrocinados, onde o usuário poderá selecionar essa opção ao criar um post. Após a publicação, um aviso pequeno será exibido (ex.: "Post Patrocinado", similar aos marketplaces como Mercado Livre e Facebook).
-
-- [ ] **Normalização de Tags:** Ao adicionar uma nova tag, o sistema deve normalizá-la, removendo acentos, espaços e aplicando o formato PascalCase, garantindo consistência no banco de dados.
-
-### Segurança
-
-- [ ] **Proteção Contra Injeção de SQL:** Embora a aplicação utilize **MongoDB**, é fundamental proteger contra injeções de NoSQL, validando e sanitizando todas as entradas de usuário.
-
-- [ ] **Escalonamento de Ações Sensíveis:** Algumas ações mais delicadas, como a exclusão de um usuário, podem exigir uma confirmação ou justificativa que seja registrada no sistema, aumentando a segurança e controle.
-
-### Testes
-
-- [ ] **Testes Automatizados:** Desenvolver testes unitários e de integração para garantir que os **controllers** e **services** funcionem conforme esperado. Isso facilita a manutenção e ajuda a prevenir regressões no código.
-
-### Documentação
-
-- [ ] **Documentação de Código:** Utilizar comentários e documentação adequada para facilitar a compreensão do código por outros desenvolvedores ou por você mesmo no futuro. Utilizar ferramentas como **[Swagger](https://swagger.io/)** para documentar as rotas pode facilitar a manutenção e a colaboração futura.
-
-### Logging
-
-- [ ] **Logging (Logs e Auditorias):** Implementar um sistema de logging para registrar atividades importantes e erros. Ferramentas como **[Winston](https://github.com/winstonjs/winston)** ou **[Morgan](https://github.com/expressjs/morgan)** podem ser úteis. Ações críticas (ex.: mudança de cargo, exclusão de posts ou usuários) devem ser registradas para garantir rastreabilidade e transparência.
-
----
-
-### Links e Referências
-
-- **[Swagger](https://swagger.io/)** – Para documentação de APIs.
-- **[Winston](https://github.com/winstonjs/winston)** – Para logging de eventos.
-- **[Morgan](https://github.com/expressjs/morgan)** – Para logging HTTP.
-- **[MongoDB](https://www.mongodb.com/)** – Banco de dados NoSQL utilizado na aplicação.
-
 ## 🚀 Funcionalidades
 
 ### Gerenciamento de Conteúdo
@@ -354,6 +315,45 @@ POST   /api/posts/:id/dislike    // Dislike em post
 3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
 4. Push para a Branch (`git push origin feature/AmazingFeature`)
 5. Abra um Pull Request
+
+## Atualizações e Correções (com as quais você pode contribuir)
+
+Aqui estão algumas sugestões de melhorias nas quais você pode colaborar para melhorar o projeto:
+
+### Funcionalidades
+
+- [ ] **Sistema de Preview Antes da Publicação:** Implementar um sistema de visualização para o usuário antes de publicar um post, permitindo ajustes finais.
+
+- [ ] **Criação de Posts Patrocinados:** Adicionar a funcionalidade para criar posts patrocinados, onde o usuário poderá selecionar essa opção ao criar um post. Após a publicação, um aviso pequeno será exibido (ex.: "Post Patrocinado", similar aos marketplaces como Mercado Livre e Facebook).
+
+- [ ] **Normalização de Tags:** Ao adicionar uma nova tag, o sistema deve normalizá-la, removendo acentos, espaços e aplicando o formato PascalCase, garantindo consistência no banco de dados.
+
+### Segurança
+
+- [ ] **Proteção Contra Injeção de SQL:** Embora a aplicação utilize **MongoDB**, é fundamental proteger contra injeções de NoSQL, validando e sanitizando todas as entradas de usuário.
+
+- [ ] **Escalonamento de Ações Sensíveis:** Algumas ações mais delicadas, como a exclusão de um usuário, podem exigir uma confirmação ou justificativa que seja registrada no sistema, aumentando a segurança e controle.
+
+### Testes
+
+- [ ] **Testes Automatizados:** Desenvolver testes unitários e de integração para garantir que os **controllers** e **services** funcionem conforme esperado. Isso facilita a manutenção e ajuda a prevenir regressões no código.
+
+### Documentação
+
+- [ ] **Documentação de Código:** Utilizar comentários e documentação adequada para facilitar a compreensão do código por outros desenvolvedores ou por você mesmo no futuro. Utilizar ferramentas como **[Swagger](https://swagger.io/)** para documentar as rotas pode facilitar a manutenção e a colaboração futura.
+
+### Logging
+
+- [ ] **Logging (Logs e Auditorias):** Implementar um sistema de logging para registrar atividades importantes e erros. Ferramentas como **[Winston](https://github.com/winstonjs/winston)** ou **[Morgan](https://github.com/expressjs/morgan)** podem ser úteis. Ações críticas (ex.: mudança de cargo, exclusão de posts ou usuários) devem ser registradas para garantir rastreabilidade e transparência.
+
+---
+
+### Links e Referências
+
+- **[Swagger](https://swagger.io/)** – Para documentação de APIs.
+- **[Winston](https://github.com/winstonjs/winston)** – Para logging de eventos.
+- **[Morgan](https://github.com/expressjs/morgan)** – Para logging HTTP.
+- **[MongoDB](https://www.mongodb.com/)** – Banco de dados NoSQL utilizado na aplicação.
 
 ## 📝 Licença
 
