@@ -70,25 +70,18 @@ header {
 }
 
 .gradientBorder {
-    position: relative;
-    /* Necessário para posicionar o pseudo-elemento */
+    position: relative; /* Necessário para posicionar o pseudo-elemento */
     background-color: #fafafa;
 }
 
 .gradientBorder::after {
-    content: "";
-    /* Cria o pseudo-elemento */
-    position: absolute;
-    /* Para posicionar a borda abaixo */
-    bottom: 0;
-    /* Fixa na parte inferior do header */
+    content: ""; /* Cria o pseudo-elemento */
+    position: absolute; /* Para posicionar a borda abaixo */
+    bottom: 0; /* Fixa na parte inferior do header */
     left: 0;
-    width: 100%;
-    /* Largura total da borda */
-    height: 0.5rem;
-    /* Altura da borda inferior */
-    background: linear-gradient(to bottom, #eee, var(--bg-principal));
-    /* Gradiente */
+    width: 100%; /* Largura total da borda */
+    height: 0.5rem; /* Altura da borda inferior */
+    background: linear-gradient(to bottom, #eee, var(--bg-principal)); /* Gradiente */
     z-index: 3;
 }
 
