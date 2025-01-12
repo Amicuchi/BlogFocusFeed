@@ -1,6 +1,6 @@
 {
   "name": "blogfocusfeed",
-  "version": "1.3.2",
+  "version": "1.4.0",
   "description": "Bem-vindo ao FocusFeed! Uma aplicação web para compartilhamento de conteúdo e produtividade.",
   "main": "index.js",
   "homepage": "https://github.com/Amicuchi/blogfocusfeed",
