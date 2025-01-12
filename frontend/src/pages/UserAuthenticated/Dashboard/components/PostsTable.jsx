@@ -148,9 +148,6 @@ const PostTable = () => {
                 >
                     Anterior
                 </button>
-                {/* <span className={styles.paginationInfo}>
-                    Página {currentPage} de {totalPages}
-                </span> */}
 
                 <form onSubmit={handleGoToPage} className={styles.pageForm}>
                     <input
