@@ -13,7 +13,7 @@ Aqui estão algumas sugestões de melhorias nas quais você pode colaborar para 
 
 ### Funcionalidades
 
-- [x] **Sistema de Preview Antes da Publicação:** Implementar um sistema de visualização para o usuário antes de publicar um post, permitindo ajustes finais.
+- [ ] **Sistema de Preview Antes da Publicação:** Implementar um sistema de visualização para o usuário antes de publicar um post, permitindo ajustes finais.
 
 - [ ] **Criação de Posts Patrocinados:** Adicionar a funcionalidade para criar posts patrocinados, onde o usuário poderá selecionar essa opção ao criar um post. Após a publicação, um aviso pequeno será exibido (ex.: "Post Patrocinado", similar aos marketplaces como Mercado Livre e Facebook).
 
