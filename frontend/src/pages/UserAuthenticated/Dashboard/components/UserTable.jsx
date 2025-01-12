@@ -1,202 +1,257 @@
 import { useEffect, useState } from "react";
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import apiServices from "../../../../services/apiServices";
-import Modal from 'react-modal';
-import Proptype from 'prop-types';
+import Modal from "react-modal";
+import Proptype from "prop-types";
 import styles from "../Dashboard.module.css";
+import EditRoleModal from "./EditRoleModal";
 
 const UserTable = ({ loggedInUserRole }) => {
+  const [users, setUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]); // Usuários filtrados
+  const [loading, setLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [newRole, setNewRole] = useState("");
+  const [searchQuery, setSearchQuery] = useState(""); // Termo de busca por nome
+  const [searchEmail, setSearchEmail] = useState(""); // Termo de busca por nome
+  const [filterRole, setFilterRole] = useState(""); // Filtro por cargo
 
-    const [users, setUsers] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [isModalOpen, setIsModalOpen] = useState(false);  // Estado para controlar o modal
-    const [selectedUser, setSelectedUser] = useState(null); // Estado para armazenar o usuário que está sendo editado
-    const [newRole, setNewRole] = useState('');             // Estado para armazenar o novo cargo
+  Modal.setAppElement("#root");
 
-    Modal.setAppElement('#root');
+  // Trecho responsável pela exibição de usuários cadastrados //
+  useEffect(() => {
+    fetchUsers();
+  }, []);
 
-    // ******************************************************** //
-    // Trecho responsável pela exibição de usuários cadastrados //
-    // ******************************************************** //
-    useEffect(() => {
-        fetchUsers();
-    }, []);
-    // Retorna a lista de usuários
-    const fetchUsers = async () => {
-        try {
-            setLoading(true);
-            const response = await apiServices.listUsers();
-            setUsers(response.data.data.users || []);
-        } catch (error) {
-            console.error("Erro ao buscar usuários:", error);
-            setUsers([]); // Caso ocorra um erro, definimos users como um array vazio
-        } finally {
-            setLoading(false);
-        }
+  // Atualizar os usuários exibidos ao modificar a busca ou o filtro
+  useEffect(() => {
+    // Aplicar os filtros de busca e cargo
+    const applyFilters = () => {
+      let filtered = users;
+
+      // Filtro por cargo
+      if (filterRole) {
+        filtered = filtered.filter((user) => user.role === filterRole);
+      }
+
+      // Busca por nome
+      if (searchQuery) {
+        filtered = filtered.filter((user) =>
+          user.fullName.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+      }
+
+      // Busca por email
+      if (searchEmail) {
+        filtered = filtered.filter((user) =>
+          user.email.toLowerCase().includes(searchEmail.toLowerCase())
+        );
+      }
+
+      setFilteredUsers(filtered);
     };
 
-    // ****************************************
-    // Trecho responsável pela edição de cargos
-    // ****************************************
+    applyFilters();
+  }, [searchQuery, searchEmail, filterRole, users]);
 
-    // Define o usuário a ser editado (selectedUser) e o cargo atual (newRole).
-    const handleEditRole = (user) => {
-        setSelectedUser(user);  // Armazenar o usuário a ser editado
-        setNewRole(user.role);  // Definir o cargo atual como o novo cargo
-        setIsModalOpen(true);   // Abrir o modal
-    };
+  // Retorna a lista de usuários
+  const fetchUsers = async () => {
+    try {
+      setLoading(true);
+      const response = await apiServices.listUsers();
+      setUsers(response.data.data.users || []);
+    } catch (error) {
+      console.error("Erro ao buscar usuários:", error);
+      setUsers([]); // Caso ocorra um erro, definimos users como um array vazio
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    // Define os cargos que podem ser atribuídos com base no cargo do usuário logado
-    //  - Proprietário (OWNER): Pode definir qualquer cargo.
-    //  - Moderador (MODERATOR): Pode alterar apenas leitores ou autores.
-    //  - Autor (AUTHOR) ou Leitor (READER): Não pode alterar cargos.
-    const getRoleOptions = (loggedInUserRole, targetUserRole) => {
-        if (loggedInUserRole === 'OWNER') {
-            return ['READER', 'AUTHOR', 'MODERATOR'];
-        } else if (loggedInUserRole === 'MODERATOR') {
-            return targetUserRole === 'READER' || targetUserRole === 'AUTHOR'
-                ? ['READER', 'AUTHOR']
-                : [];
-        }
-        return [];
-    };
+  // Define o usuário a ser editado (selectedUser) e o cargo atual (newRole).
+  const handleEditRole = (user) => {
+    setSelectedUser(user); // Armazenar o usuário a ser editado
+    setNewRole(user.role); // Definir o cargo atual como o novo cargo
+    setIsModalOpen(true); // Abrir o modal
+  };
 
-    // Salva o novo cargo do usuário
-    const handleSaveRole = async () => {
-        if (!newRole || !selectedUser) {
-            toast.error("Por favor, selecione um cargo válido.");
-            return;
-        }
+  // Define os cargos que podem ser atribuídos com base no cargo do usuário logado
+  //  - Proprietário (OWNER): Pode definir qualquer cargo.
+  //  - Moderador (MODERATOR): Pode alterar apenas leitores ou autores.
+  //  - Autor (AUTHOR) ou Leitor (READER): Não pode alterar cargos.
+  const getRoleOptions = (loggedInUserRole, targetUserRole) => {
+    if (loggedInUserRole === "OWNER") {
+      return ["READER", "AUTHOR", "MODERATOR", "OWNER"];
+    } else if (loggedInUserRole === "MODERATOR") {
+      return targetUserRole === "READER" || targetUserRole === "AUTHOR"
+        ? ["READER", "AUTHOR"]
+        : [];
+    }
+    return [];
+  };
 
-        console.log("Dados enviados:", {
-            targetUserId: selectedUser._id,
-            newRole
-        });
+  // Salva o novo cargo do usuário
+  const handleSaveRole = async () => {
+    if (!newRole || !selectedUser) {
+      toast.error("Por favor, selecione um cargo válido.");
+      return;
+    }
 
-        try {
-            // Atualiza o cargo do usuário
-            await apiServices.updateUserRole(selectedUser._id, newRole);
+    // Verificar se a nova função será "OWNER"
+    if (newRole === "OWNER") {
+      const confirmed = window.confirm(
+        "Tem certeza que deseja promover este usuário a Proprietário (Owner)? Essa ação não pode ser desfeita, e você não poderá rebaixar este usuário no futuro."
+      );
+      if (!confirmed) {
+        return; // Cancela a ação se o usuário não confirmar
+      }
+    }
 
-            toast.success("Cargo atualizado com sucesso!", {
-                position: "top-center",
-                autoClose: 3000,
-            });
+    try {
+      // Atualiza o cargo do usuário
+      await apiServices.updateUserRole(selectedUser._id, newRole);
 
-            fetchUsers();           // Atualiza a lista de usuários
-            setIsModalOpen(false);  // Fecha o modal
-        } catch (error) {
-            console.error("Erro ao atualizar cargo:", error);
-            toast.error('Erro ao atualizar o cargo:', error,
-                {
-                    position: "top-center",
-                    autoClose: 3000,
-                }
-            );
-        }
-    };
+      toast.success("Cargo atualizado com sucesso!", {
+        position: "top-center",
+        autoClose: 3000,
+      });
 
-    // ******************************************
-    // Trecho responsável pela exclusão de cargos
-    // ******************************************
-    const handleDeleteUser = async (userId) => {
-        if (!window.confirm("Tem certeza que deseja excluir este usuário?")) return;
+      fetchUsers(); // Atualiza a lista de usuários
+      setIsModalOpen(false); // Fecha o modal
+    } catch (error) {
+      console.error("Erro ao atualizar cargo:", error);
+      toast.error("Erro ao atualizar o cargo.", {
+        position: "top-center",
+        autoClose: 3000,
+      });
+    }
+  };
 
-        try {
-            await apiServices.deleteUser(userId);
-            toast.success('Usuário excluído com sucesso!', {
-                position: "top-center",
-                autoClose: 3000,
-            });
-            fetchUsers(); // Atualiza a lista de usuários
-        } catch (error) {
-            console.error("Erro ao excluir usuário:", error);
-            toast.error('Erro ao excluir usuário:', error,
-                {
-                    position: "top-center",
-                    autoClose: 3000,
-                }
-            );
-        }
-    };
+  // Trecho responsável pela exclusão de cargos
+  const handleDeleteUser = async (userId) => {
+    if (!window.confirm("Tem certeza que deseja excluir este usuário?")) return;
 
-    if (loading) return <p>Carregando...</p>;
+    try {
+      await apiServices.deleteUser(userId);
+      toast.success("Usuário excluído com sucesso!", {
+        position: "top-center",
+        autoClose: 3000,
+      });
 
-    return (
-        <div>
-            <ToastContainer />
-            <table className={styles.table}>
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Email</th>
-                        <th>Cargo</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {users && users.length > 0 ? (
-                        users.map((user, index) => (
-                            <tr key={user._id || index}>
-                                <td>{user.fullName}</td>
-                                <td>{user.email}</td>
-                                <td>{user.role}</td>
-                                <td className={styles.actions}>
-                                    <button
-                                        className={styles.editButton}
-                                        onClick={() => handleEditRole(user)}
-                                    >
-                                        Editar Cargo
-                                    </button>
-                                    {loggedInUserRole === 'OWNER' && (
-                                        <button
-                                            className={styles.deleteButton}
-                                            onClick={() => handleDeleteUser(user._id)}
-                                        >
-                                            Excluir
-                                        </button>
-                                    )}
-                                </td>
-                            </tr>
-                        ))
-                    ) : (
-                        <tr>
-                            <td colSpan="4">Nenhum usuário encontrado</td>
-                        </tr>
-                    )}
-                </tbody>
-            </table>
+      fetchUsers(); // Atualiza a lista de usuários
+    } catch (error) {
+      console.error("Erro ao excluir usuário:", error);
 
-            {/* Modal para edição de cargo */}
-            <Modal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)} contentLabel="Editar Cargo">
-                <h2>Editar Cargo</h2>
-                <div>
-                    <label>Selecione o novo cargo:</label>
-                    <select
-                        value={newRole}
-                        onChange={(e) => setNewRole(e.target.value)}
+      toast.error("Erro ao excluir usuário.", {
+        position: "top-center",
+        autoClose: 3000,
+      });
+    }
+  };
+
+  const roleTranslations = {
+    READER: "Leitor",
+    AUTHOR: "Autor",
+    MODERATOR: "Moderador",
+    OWNER: "Proprietário",
+  };
+
+  if (loading) return <p>Carregando...</p>;
+
+  return (
+    <div>
+      <ToastContainer />
+
+      {/* Filtros e Busca */}
+      <div className={styles.filterContainer}>
+        <input
+          type="text"
+          placeholder="Buscar por nome"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className={styles.searchInput}
+        />
+        <input
+          type="text"
+          placeholder="Buscar por email"
+          value={searchEmail}
+          onChange={(e) => setSearchEmail(e.target.value)}
+          className={styles.searchInput}
+        />
+        <select
+          value={filterRole}
+          onChange={(e) => setFilterRole(e.target.value)}
+          className={styles.roleFilter}
+        >
+          <option value="">Todos os cargos</option>
+          <option value="READER">Leitor</option>
+          <option value="AUTHOR">Autor</option>
+          <option value="MODERATOR">Moderador</option>
+          <option value="OWNER">Proprietário</option>
+        </select>
+      </div>
+
+      {/* Tabela de Usuários */}
+      <table className={styles.table}>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Cargo</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredUsers && filteredUsers.length > 0 ? (
+            filteredUsers.map((user, index) => (
+              <tr key={user._id || index}>
+                <td>{user.fullName}</td>
+                <td>{user.email}</td>
+                <td>{roleTranslations[user.role]}</td>
+                <td className={styles.actions}>
+                  <button
+                    className={styles.editButton}
+                    onClick={() => handleEditRole(user)}
+                  >
+                    Editar Cargo
+                  </button>
+                  {loggedInUserRole === "OWNER" && (
+                    <button
+                      className={styles.deleteButton}
+                      onClick={() => handleDeleteUser(user._id)}
                     >
-                        {getRoleOptions(loggedInUserRole, selectedUser?.role).map((role) => (
-                            <option key={role} value={role}>
-                                {role === 'READER'
-                                    ? 'Leitor (Reader)' : role === 'AUTHOR'
-                                    ? 'Autor (Author)' : 'Moderador (Moderator)'
-                                }
-                            </option>
-                        ))}
-                    </select>
-                </div>
-                <div>
-                    <button onClick={handleSaveRole}>Salvar</button>
-                    <button onClick={() => setIsModalOpen(false)}>Cancelar</button>
-                </div>
-            </Modal>
-        </div>
-    );
+                      Excluir
+                    </button>
+                  )}
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="4">Nenhum usuário encontrado</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+
+      <EditRoleModal
+        isOpen={isModalOpen}
+        onRequestClose={() => setIsModalOpen(false)}
+        selectedUser={selectedUser}
+        newRole={newRole}
+        setNewRole={setNewRole}
+        getRoleOptions={getRoleOptions}
+        loggedInUserRole={loggedInUserRole}
+        handleSaveRole={handleSaveRole}
+      />
+    </div>
+  );
 };
 
 UserTable.propTypes = {
-    loggedInUserRole: Proptype.string.isRequired,
+  loggedInUserRole: Proptype.string.isRequired,
 };
 
 export default UserTable;

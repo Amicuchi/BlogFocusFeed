@@ -59,6 +59,27 @@
   -webkit-overflow-scrolling: touch; /* Rolagem suave para dispositivos móveis */
 }
 
+.filterContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem
+}
+
+.searchInput {
+  margin-bottom: 0;
+}
+
+.roleFilter{
+  font-size: 0.9rem;
+  width: 13rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
 .table {
   width: 100%;
   border-collapse: collapse;
