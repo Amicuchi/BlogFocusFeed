@@ -1,23 +1,8 @@
-## [1.3.2](https://github.com/Amicuchi/blogfocusfeed/compare/v1.2.0...v1.3.2) (2025-01-12)
-
-
-### Bug Fixes
-
-* **UserTable:** Unificação das buscar de usuário por nome ou por email no mesmo input. ([58106be](https://github.com/Amicuchi/blogfocusfeed/commit/58106beb68e9aa87ad86ce679842cb8fd904604b))
-
-
-### Features
-
-* **Newsletter:** Inclusão da configuração do envio da newsletter não só por horário, mas também por dia. ([7095110](https://github.com/Amicuchi/blogfocusfeed/commit/709511078273a8e1a3224a1a277ba939bc1d75e9))
-* **UserTableFilter:** Criação de filtros por nome de usuário, email e cargo. ([9561930](https://github.com/Amicuchi/blogfocusfeed/commit/95619308f7f84f6e71f7f900582f2b8be7ca34a6))
-
-
-
 # Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-## 1.3.2 (2025-01-12)
+## 1.4.3 (2025-01-12)
 
 ### Features
 
@@ -113,10 +98,12 @@ All notable changes to this project will be documented in this file. See [standa
 * **userValidation:** Criação da validação de usuários por cargo. ([6db1e5b](https://github.com/Amicuchi/blogfocusfeed/commit/6db1e5bb1387ba4d5dbdcad23423626a1fa5bd5d))
 * **validation:** backend: essa funcionalidade garante que os dados sejam validados e atendam os requisitos dos models antes de serem aceitos. ([4ba9d08](https://github.com/Amicuchi/blogfocusfeed/commit/4ba9d08807bb05aafa3da8869a073096f6947d6d))
 * **validation:** Inclusão da validação do cargo (role). ([54b3b91](https://github.com/Amicuchi/blogfocusfeed/commit/54b3b91071ed90b5d19c611a4c700a0e82f72588))
-
+* **Newsletter:** Inclusão da configuração do envio da newsletter não só por horário, mas também por dia. ([7095110](https://github.com/Amicuchi/blogfocusfeed/commit/709511078273a8e1a3224a1a277ba939bc1d75e9))
+* **UserTableFilter:** Criação de filtros por nome de usuário, email e cargo. ([9561930](https://github.com/Amicuchi/blogfocusfeed/commit/95619308f7f84f6e71f7f900582f2b8be7ca34a6))
 
 ### Bug Fixes
 
+* **UserTable:** Unificação das buscar de usuário por nome ou por email no mesmo input. ([58106be](https://github.com/Amicuchi/blogfocusfeed/commit/58106beb68e9aa87ad86ce679842cb8fd904604b))
 * **AdminController:** Inclusão do currentUserId na chamada da função updateUserRole. ([b1a065d](https://github.com/Amicuchi/blogfocusfeed/commit/b1a065d5392d257720299cfaad1f92adb3c29eee))
 * **Aninhamento de tags p:** Resolvido o erro de aninhamento de tags p. ([5ab7647](https://github.com/Amicuchi/blogfocusfeed/commit/5ab7647166bd2bf161a7a336da59a6080dd10303))
 * **apiService:** Criação de uma rota de busca de posts por usuário ([cb901d9](https://github.com/Amicuchi/blogfocusfeed/commit/cb901d9cb4f35e7a3393e3466e1fbe95003f7298))
