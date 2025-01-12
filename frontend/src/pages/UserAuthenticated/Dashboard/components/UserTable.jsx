@@ -15,7 +15,6 @@ const UserTable = ({ loggedInUserRole }) => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [newRole, setNewRole] = useState("");
   const [searchQuery, setSearchQuery] = useState(""); // Termo de busca por nome
-  const [searchEmail, setSearchEmail] = useState(""); // Termo de busca por nome
   const [filterRole, setFilterRole] = useState(""); // Filtro por cargo
 
   Modal.setAppElement("#root");
@@ -36,17 +35,13 @@ const UserTable = ({ loggedInUserRole }) => {
         filtered = filtered.filter((user) => user.role === filterRole);
       }
 
-      // Busca por nome
+      // Busca unificada por nome ou email
       if (searchQuery) {
-        filtered = filtered.filter((user) =>
-          user.fullName.toLowerCase().includes(searchQuery.toLowerCase())
-        );
-      }
-
-      // Busca por email
-      if (searchEmail) {
-        filtered = filtered.filter((user) =>
-          user.email.toLowerCase().includes(searchEmail.toLowerCase())
+        const lowerCaseQuery = searchQuery.toLowerCase();
+        filtered = filtered.filter(
+          (user) =>
+            user.fullName.toLowerCase().includes(lowerCaseQuery) ||
+            user.email.toLowerCase().includes(lowerCaseQuery)
         );
       }
 
@@ -54,7 +49,7 @@ const UserTable = ({ loggedInUserRole }) => {
     };
 
     applyFilters();
-  }, [searchQuery, searchEmail, filterRole, users]);
+  }, [searchQuery, filterRole, users]);
 
   // Retorna a lista de usuários
   const fetchUsers = async () => {
@@ -168,16 +163,9 @@ const UserTable = ({ loggedInUserRole }) => {
       <div className={styles.filterContainer}>
         <input
           type="text"
-          placeholder="Buscar por nome"
+          placeholder="Buscar por nome ou e-mail"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className={styles.searchInput}
-        />
-        <input
-          type="text"
-          placeholder="Buscar por email"
-          value={searchEmail}
-          onChange={(e) => setSearchEmail(e.target.value)}
           className={styles.searchInput}
         />
         <select
