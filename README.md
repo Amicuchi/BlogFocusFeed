@@ -328,6 +328,12 @@ Aqui estão algumas sugestões de melhorias nas quais você pode colaborar para 
 
 - [ ] **Normalização de Tags:** Ao adicionar uma nova tag, o sistema deve normalizá-la, removendo acentos, espaços e aplicando o formato PascalCase, garantindo consistência no banco de dados.
 
+- [ ] **Comentários nos Posts**
+
+- [ ] **Perfis de Autores:** Criar páginas de perfil para cada autor, onde eles podem exibir suas biografias, links para redes sociais e uma lista de seus posts.
+
+- [ ] **SEO:** Otimizar o blog para SEO (Search Engine Optimization) para melhorar a visibilidade nos motores de busca.
+
 ### Segurança
 
 - [ ] **Proteção Contra Injeção de SQL:** Embora a aplicação utilize **MongoDB**, é fundamental proteger contra injeções de NoSQL, validando e sanitizando todas as entradas de usuário.
