@@ -48,6 +48,7 @@ app.use(
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutos
   max: parseInt(process.env.RATE_LIMIT_MAX, 10) || 100,
+  message: 'Você ultrapassou o limite de requisições. Tente novamente mais tarde.',
 });
 app.use(limiter);
 
