@@ -1,7 +1,6 @@
-// Admin Controller
 import AdminService from "../services/adminService.js";
 
-// Lista todos os usuários com paginação
+//#region Lista todos os usuários com paginação
 export const listUsers = async (req, res, next) => {
     const { page = 1, limit = 10 } = req.query; // Valores padrão para paginação
     try {
@@ -15,7 +14,7 @@ export const listUsers = async (req, res, next) => {
     }
 };
 
-// Atualiza o cargo de um usuário
+//#region Atualiza o cargo de um usuário
 export const updateUserRole = async (req, res, next) => {
     const { targetUserId, newRole } = req.body;
     const currentUserId = req.user.id;
@@ -37,7 +36,7 @@ export const updateUserRole = async (req, res, next) => {
     }
 };
 
-// Exclui um usuário
+//#region Exclui um usuário
 export const deleteUser = async (req, res, next) => {
     const { userId } = req.params;
 
@@ -55,7 +54,7 @@ export const deleteUser = async (req, res, next) => {
     }
 };
 
-// Lista todos os posts com paginação
+//#region Lista todos os posts com paginação
 export const listPosts = async (req, res) => {
     try {
         const { page = 1, limit = 10 } = req.query;
@@ -68,7 +67,7 @@ export const listPosts = async (req, res) => {
     }
 };
 
-// Exclui um post
+//#region Exclui um post
 export const deletePost = async (req, res) => {
     try {
         const { postId } = req.params;
