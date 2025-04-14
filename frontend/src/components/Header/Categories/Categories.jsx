@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import styles from './Categories.module.css';
+import apiServices from '../../../services/apiServices';
 
 function Categories() {
     const [categories, setCategories] = useState([]);   // Estado para armazenar categorias
@@ -12,7 +12,7 @@ function Categories() {
     const getCategories = async () => {
         try {
             setIsLoading(true); // Inicia o indicador de carregamento
-            const response = await axios.get('http://localhost:5000/api/categories');   // Busca as categorias
+            const response = await apiServices.get('/api/categories');   // Busca as categorias
             setCategories(response.data.data); // Atualiza o estado com as categorias
         } catch (err) {
             console.error('Erro ao buscar categorias:', err);
