@@ -20,7 +20,6 @@ export const generateResetToken = async (email) => {
   user.passwordResetExpires = Date.now() + 3600000; // 1 hora
   await user.save();
 
-  // const resetUrl = `${process.env.FRONTEND_URL}/reset-password-with-token?token=${resetToken}`;
   const resetUrl = `${process.env.FRONTEND_URL}/reset-password-with-token/${resetToken}`;
 
   return { resetToken, user, resetUrl };
