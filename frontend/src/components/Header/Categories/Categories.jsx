@@ -12,7 +12,7 @@ function Categories() {
     const getCategories = async () => {
         try {
             setIsLoading(true); // Inicia o indicador de carregamento
-            const response = await apiServices.get('/api/categories');   // Busca as categorias
+            const response = await apiServices.getAllCategories();   // Busca as categorias
             setCategories(response.data.data); // Atualiza o estado com as categorias
         } catch (err) {
             console.error('Erro ao buscar categorias:', err);
