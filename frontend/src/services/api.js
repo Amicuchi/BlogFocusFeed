@@ -2,6 +2,8 @@ import axios from 'axios';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
 
+console.log('API Base URL:', API_BASE_URL);
+
 const api = axios.create({
   baseURL: API_BASE_URL,
   timeout: 10000,
@@ -26,7 +28,9 @@ const processQueue = (error, token = null) => {
 // Interceptor para adicionar o token às requisições e renovar se necessário
 api.interceptors.request.use(
   async (config) => {
-
+    console.log('Fazendo requisição para:', config.url);
+    console.log('Método:', config.method);
+    console.log('Dados:', config.data);
     function decodeJWT(token) {
       try {
         const payload = token.split('.')[1];
