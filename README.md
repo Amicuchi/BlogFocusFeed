@@ -2,10 +2,12 @@
 
 FocusFeed é uma plataforma moderna de blog construída com a stack MERN, oferecendo uma experiência intuitiva para criação e compartilhamento de conteúdo. Com um editor rico em recursos e um sistema robusto de gerenciamento de conteúdo, o FocusFeed proporciona todas as ferramentas necessárias para autores expressarem suas ideias.
 
-[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/Amicuchi/)
-[![React](https://img.shields.io/badge/React-18.3.1-blue.svg)](https://reactjs.org/)
-[![Node](https://img.shields.io/badge/Node-Latest-green.svg)](https://nodejs.org/)
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev/)
+[![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
+[![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+[![SCSS](https://img.shields.io/badge/SCSS-CC6699?style=for-the-badge&logo=sass&logoColor=white)](https://sass-lang.com/)
+[![ISC License](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
 
 ## 🚀 Funcionalidades
 
@@ -31,32 +33,43 @@ FocusFeed é uma plataforma moderna de blog construída com a stack MERN, oferec
 - Dashboard para gestão de posts
 - Métricas de engajamento por post
 
-## 🛠️ Tecnologias
+## Tecnologias Utilizadas
 
 ### Frontend
 
-```json
-{
-  "react": "18.3.1",
-  "react-router-dom": "7.1.1",
-  "react-hook-form": "7.53.2",
-  "@tiptap/react": "2.10.3",
-  "axios": "1.7.8",
-  "vite": "6.0.1"
-}
-```
+- [React](https://react.dev/) - Biblioteca JavaScript para construção de interfaces de usuário.
+- [Vite](https://vitejs.dev/) - Ferramenta de build para um desenvolvimento frontend rápido.
+- [React Router](https://reactrouter.com/) - Para roteamento e navegação na aplicação.
+- [React Hook Form](https://react-hook-form.com/) - Para gerenciamento de formulários.
+- [React Select](https://react-select.com/) - Para campos de seleção customizados.
+- [React Toastify](https://react-toastify.js.org/) - Para notificações e alertas.
+- [@tiptap/react](https://tiptap.dev/) - Um editor de texto rico para a criação de posts.
+- [Yup](https://yup.schemas.com/) - Para validação de formulários.
+- [Axios](https://axios-http.com/ptbr/docs/intro) - Cliente HTTP para fazer requisições ao backend.
+- [SCSS Modules](https://create-react-app.dev/docs/using-css-modules/) - Para estilização com escopo local.
 
 ### Backend
 
-```json
-{
-  "express": "4.21.1",
-  "mongoose": "8.8.3",
-  "jsonwebtoken": "9.0.2",
-  "nodemailer": "6.9.16",
-  "bcrypt": "5.1.1"
-}
-```
+- [Node.js](https://nodejs.org/) - Ambiente de execução JavaScript.
+- [Express.js](https://expressjs.com/) - Framework web para Node.js.
+- [express-rate-limit](https://www.npmjs.com/package/express-rate-limit) - Para limitar requisições repetidas.
+- [express-validator](https://express-validator.github.io/) - Para validação dos dados da requisição.
+- [MongoDB](https://www.mongodb.com/) - Banco de dados NoSQL para armazenamento dos dados da aplicação.
+- [Mongoose](https://mongoosejs.com/) - ODM (Object Data Modeling) para interagir com o MongoDB.
+- [bcryptjs](https://www.npmjs.com/package/bcryptjs) - Para criptografia de senhas.
+- [jsonwebtoken](https://jwt.io/) - Para autenticação e autorização baseada em tokens.
+- [dotenv](https://www.npmjs.com/package/dotenv) - Para gerenciamento de variáveis de ambiente.
+- [nodemailer](https://nodemailer.com/about/) - Para envio de e-mails (newsletter, recuperação de senha).
+- [winston](https://github.com/winstonjs/winston) - Para logging da aplicação.
+- [cors](https://expressjs.com/en/resources/middleware/cors.html) - Middleware para habilitar o CORS.
+- [helmet](https://helmetjs.github.io/) - Para segurança através de vários headers HTTP.
+- [node-cron](https://www.npmjs.com/package/node-cron) - Para agendamento de tarefas (envio automático de newsletter).
+- [html-to-text](https://www.npmjs.com/package/html-to-text) - Para converter HTML em texto simples para e-mails.
+
+### Outras Ferramentas
+
+- [concurrently](https://www.npmjs.com/package/concurrently) - Para executar frontend e backend simultaneamente durante o desenvolvimento.
+- [standard-version](https://github.com/conventional-changelog/standard-version) - Para versionamento semântico e geração de CHANGELOG.
 
 ## 📦 Instalação
 
@@ -65,6 +78,7 @@ FocusFeed é uma plataforma moderna de blog construída com a stack MERN, oferec
 ```bash
 
 git clone https://github.com/Amicuchi/BlogFocusFeed.git
+
 cd BlogFocusFeed
 
 ```
@@ -104,7 +118,7 @@ RATE_LIMIT_MAX=100
 
 # Configurações de Email
 EMAIL_USER=seu_email@gmail.com
-EMAIL_PASS=sua_senha_app 
+EMAIL_PASS=sua_senha_app
 FRONTEND_URL=http://localhost:5173
 
 # Segurança
@@ -128,142 +142,6 @@ VITE_API_BASE_URL=http://localhost:5000
 # Na pasta raiz da aplicação
 npm run dev
 
-```
-
-## 🔍 Uso da API
-
-### Autenticação
-
-```javascript
-// Registro de usuário
-
-// Controller
-export const registerUser = async (req, res, next) => {
-  try {
-    const result = await UserService.registerUser(req.body);
-    res.status(201).json({
-      message: 'Usuário registrado com sucesso',
-      data: result,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
-// Service
-async registerUser(userData) {
-    const { username, email, password, fullName } = userData;
-
-    // Verifica se o usuário já está cadastrado
-    const existingUser = await User.findOne({ $or: [{ email }, { username }] });
-    if (existingUser) {
-        throw new Error('Usuário já cadastrado');
-    }
-
-    // Rehash a senha recebida do frontend com bcrypt
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const newUser = new User({
-        username,
-        email,
-        fullName,
-        password: hashedPassword
-    });
-
-    await newUser.save();
-
-    return {
-        message: 'Usuário cadastrado com sucesso',
-        userId: newUser._id
-    };
-}
-
-
-// Login
-// Controller
-export const loginUser = async (req, res, next) => {
-  try {
-    const { email, password } = req.body;
-    const result = await UserService.loginUser(email, password);
-    res.status(200).json({
-      message: 'Login realizado com sucesso',
-      data: result,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
-// Service
-async loginUser(email, password) {
-    const user = await User.findOne({ email });
-    if (!user) {
-        throw new Error('Credenciais inválidas');
-    }
-
-    // Compara a senha hasheada recebida com a armazenada
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-        throw new Error('Credenciais inválidas');
-    }
-
-    // Gera o token JWT
-    const token = jwt.sign(
-        { id: user._id, username: user.username },
-        process.env.JWT_SECRET,
-        { expiresIn: '1d' }
-    );
-
-    return {
-        message: 'Login realizado com sucesso',
-        token,
-        user: {
-            id: user._id,
-            username: user.username,
-            email: user.email
-        }
-    };
-}
-
-```
-
-### Gestão de Posts
-
-```javascript
-// Controller
-export const createPost = async (req, res, next) => {
-  try {
-    const savedPost = await PostService.createPost(req.body, req.user.id);
-    res.status(201).json({
-      message: "Post criado com sucesso",
-      data: savedPost,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-```
-
-```javascript
-// Service
-async createPost(postData, userId) {
-    const description = postData.content.substring(0, 200);
-
-    const newPost = new Post({
-        ...postData,
-        description,
-        author: userId,
-    });
-
-    const savedPost = await newPost.save();
-
-    await User.findByIdAndUpdate(
-        userId,
-        { $push: { posts: savedPost._id } }
-    );
-
-    return savedPost;
-}
 ```
 
 ## 🔐 Endpoints da API
@@ -363,10 +241,23 @@ Aqui estão algumas sugestões de melhorias nas quais você pode colaborar para 
 
 ## 📝 Licença
 
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+Este projeto está sob a licença [ISC](https://opensource.org/licenses/ISC).
 
-## 📫 Contato
+## Autor
 
-Anderson Amicuchi Machado - [@Amicuchi](https://linkedin.com/in/Amicuchi)
-
-Link do Projeto: [https://github.com/Amicuchi/BlogFocusFeed](https://github.com/Amicuchi/BlogFocusFeed)
+<div align="center">
+    <img src="./screenshots/perfil.jpeg" alt="Foto de Anderson Amicuchi Machado" width="150" style="border-radius: 50%;">
+  <br>
+  <br>
+  <p><strong>Anderson Amicuchi Machado</strong></p>
+  <p>
+    <a href="https://github.com/Amicuchi" target="_blank">
+      <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" alt="GitHub">
+    </a>
+    <a href="https://linkedin.com/in/Amicuchi" target="_blank">
+      <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn">
+    </a>
+  </p>
+  <p><a href="mailto:AndersonAmicuchi@gmail.com">AndersonAmicuchi@gmail.com</a></p>
+  <p>Telefone: +55 (16) 98809-5749</p>
+</div>
